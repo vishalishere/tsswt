@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<holidays>
+  <holiday date="20120101" description="Año Nuevo" />
+  <holiday date="20120220" description="Carnaval" />
+  <holiday date="20120221" description="Carnaval" />
+  <holiday date="20120227" description="Día del Bicentenario de la Creación y Primera Jura de la Bandera Argentina" />
+  <holiday date="20120324" description="Día Nacional de la Memoria por la Verdad y la Justicia" />
+  <holiday date="20120402" description="Día del Veterano y de los Caídos en la Guerra de Malvinas" />
+  <holiday date="20120405" description="Jueves Santo" />
+  <holiday date="20120406" description="Viernes Santo" />
+  <holiday date="20120430" description="Feriado Puente Turístico Día del Trabajador" />
+  <holiday date="20120501" description="Día del Trabajador" />
+  <holiday date="20120525" description="Día de la Revolución de Mayo" />
+  <holiday date="20120620" description="Paso a la Inmortalidad del General Manuel Belgrano" />
+  <holiday date="20120709" description="Día de la Independencia" />
+  <holiday date="20120820" description="Paso a la Inmortalidad del General José de San Martín" />
+  <holiday date="20121008" description="Día del Respeto a la Diversidad Cultural" />
+  <holiday date="20121126" description="Día de la Soberanía Nacional" />
+  <holiday date="20121208" description="Inmaculada Concepción de María" />
+  <holiday date="20121224" description="Feriado Puente Turístico" />
+  <holiday date="20121225" description="Navidad" />
+</holidays>

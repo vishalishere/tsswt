@@ -1,0 +1,111 @@
+<tickets>
+  <ticket id='ITTEN00192543' cluster='MANT' resource='SIDERCA\T31210' startDate='201203030900' deliveryDate='20120304' consumedHours='2'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='1' donePercentage='100' />
+      <task description='Poner una j' estimatedHours='1' donePercentage='100' />
+      <task description='Poner una k' estimatedHours='1' donePercentage='33' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00175555' cluster='HR' resource='SIDERCA\T30245' deliveryDate='20120416' consumedHours='45' working='true'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='13' donePercentage='0' />
+      <task description='Poner una j' estimatedHours='13' donePercentage='0' />
+      <task description='Poner una k' estimatedHours='13' donePercentage='0' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204200900' deliveryDate='20120420' consumedHours='0'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='25' donePercentage='0' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204200900' deliveryDate='20120420' consumedHours='0' working='true'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='30' donePercentage='0' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204200900' deliveryDate='20120420' consumedHours='0'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='35' donePercentage='0' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204200900' deliveryDate='20120420' consumedHours='0'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='41' donePercentage='10' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204201000' deliveryDate='20120423' consumedHours='0'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='41' donePercentage='20' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204201000' deliveryDate='20120423' consumedHours='0'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='41' donePercentage='25' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204201100' deliveryDate='20120424' consumedHours='0'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='41' donePercentage='30' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204201100' deliveryDate='20120424' consumedHours='0'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='41' donePercentage='35' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204201200' deliveryDate='20120425' consumedHours='0'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='41' donePercentage='40' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204201200' deliveryDate='20120425' consumedHours='0'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='41' donePercentage='45' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204201400' deliveryDate='20120426' consumedHours='0'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='41' donePercentage='50' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204201400' deliveryDate='20120426' consumedHours='0'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='41' donePercentage='55' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204201500' deliveryDate='20120427' consumedHours='0'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='41' donePercentage='60' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204201500' deliveryDate='20120427' consumedHours='0'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='41' donePercentage='65' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204201600' deliveryDate='20120502' consumedHours='0'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='41' donePercentage='70' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204201600' deliveryDate='20120502' consumedHours='0'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='41' donePercentage='75' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204201700' deliveryDate='20120503' consumedHours='0'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='41' donePercentage='80' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204201700' deliveryDate='20120503' consumedHours='0'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='41' donePercentage='85' />
+    </tasks>
+  </ticket>
+  <ticket id='ITTEN00200233' cluster='QST' resource='SIDERCA\T31210' startDate='201204230900' deliveryDate='20120504' consumedHours='0'>
+    <tasks>
+      <task description='Poner una m' estimatedHours='41' donePercentage='90' />
+    </tasks>
+  </ticket>
+</tickets>
