@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<periods>
+  <period year="2012" month="01" startDate="20111229" endDate="20120127" />
+  <period year="2012" month="02" startDate="20120128" endDate="20120228" />
+  <period year="2012" month="03" startDate="20120229" endDate="20120327" />
+  <period year="2012" month="04" startDate="20120328" endDate="20120425" />
+  <period year="2012" month="05" startDate="20120426" endDate="20120529" />
+</periods>

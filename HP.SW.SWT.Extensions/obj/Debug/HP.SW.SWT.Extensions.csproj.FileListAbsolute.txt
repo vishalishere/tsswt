@@ -1,0 +1,10 @@
+C:\desarr\Tenaris\SWT\Codigo\HP.SW.SWT.Extensions\bin\Debug\HP.SW.SWT.Extensions.dll
+C:\desarr\Tenaris\SWT\Codigo\HP.SW.SWT.Extensions\bin\Debug\HP.SW.SWT.Extensions.pdb
+C:\desarr\Tenaris\SWT\Codigo\HP.SW.SWT.Extensions\obj\Debug\ResolveAssemblyReference.cache
+C:\desarr\Tenaris\SWT\Codigo\HP.SW.SWT.Extensions\obj\Debug\HP.SW.SWT.Extensions.dll
+C:\desarr\Tenaris\SWT\Codigo\HP.SW.SWT.Extensions\obj\Debug\HP.SW.SWT.Extensions.pdb
+C:\Users\freidenb\Desktop\SWT\Codigo\HP.SW.SWT.Extensions\bin\Debug\HP.SW.SWT.Extensions.dll
+C:\Users\freidenb\Desktop\SWT\Codigo\HP.SW.SWT.Extensions\bin\Debug\HP.SW.SWT.Extensions.pdb
+C:\Users\freidenb\Desktop\SWT\Codigo\HP.SW.SWT.Extensions\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\freidenb\Desktop\SWT\Codigo\HP.SW.SWT.Extensions\obj\Debug\HP.SW.SWT.Extensions.dll
+C:\Users\freidenb\Desktop\SWT\Codigo\HP.SW.SWT.Extensions\obj\Debug\HP.SW.SWT.Extensions.pdb
