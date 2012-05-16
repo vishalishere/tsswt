@@ -128,21 +128,68 @@ namespace HP.SW.SWT.Data
 
             try
             {
-                int maxId = Context.ExcelRow.Max(x => x.IdeXcelRow);   //VER
+                //int maxId = Context.ExcelRow.Max(x => x.IdeXcelRow);   //VER
                 //Add
-                Context.ExcelRow.Attach(new Data.ExcelRow {
-                                                            IdeXcelRow = maxId + 1, //excelRow.Id,
-                                                            Date = excelRow.Date,
-                                                            StartHour = excelRow.StartHour,
-                                                            EndHour = excelRow.EndHour,
-                                                            Ticket = excelRow.Ticket,
-                                                            Description = excelRow.Description,
-                                                            ScphOurs = excelRow.SCPHours,
-                                                            ScptIcket = excelRow.Ticket,
-                                                            SCPt = excelRow.SCPT,
-                                                            ScpcHarged = excelRow.SCPCharged 
-                                                          }
+                //Context.ExcelRow.Attach(new Data.ExcelRow {
+                //                                            //IdeXcelRow = maxId + 1, //excelRow.Id,
+                //                                            Date = excelRow.Date,
+                //                                            StartHour = excelRow.StartHour,
+                //                                            EndHour = excelRow.EndHour,
+                //                                            Ticket = excelRow.Ticket,
+                //                                            Description = excelRow.Description,
+                //                                            ScphOurs = excelRow.SCPHours,
+                //                                            ScptIcket = excelRow.Ticket,
+                //                                            SCPt = excelRow.SCPT,
+                //                                            ScpcHarged = excelRow.SCPCharged 
+                //                                          }
+                //);
+
+                Context.ExcelRow.InsertOnSubmit(new Data.ExcelRow
+                {
+                    //IdeXcelRow = maxId + 1, //excelRow.Id,
+                    Date = excelRow.Date,
+                    StartHour = excelRow.StartHour,
+                    EndHour = excelRow.EndHour,
+                    Ticket = excelRow.Ticket,
+                    Description = excelRow.Description,
+                    ScphOurs = excelRow.SCPHours,
+                    ScptIcket = excelRow.Ticket,
+                    SCPt = excelRow.SCPT,
+                    ScpcHarged = excelRow.SCPCharged
+                }
                 );
+
+                Context.SubmitChanges();
+            }
+            catch
+            {
+                result = 0;
+            }
+
+            return result;
+        }
+
+        public static int DeleteExcelRow(ENT.ExcelRow excelRow)
+        {
+            int result = 1;
+
+            try
+            {
+                Context.ExcelRow.DeleteOnSubmit(new Data.ExcelRow
+                {
+                    IdeXcelRow = excelRow.Id,
+                    Date = excelRow.Date,
+                    StartHour = excelRow.StartHour,
+                    EndHour = excelRow.EndHour,
+                    Ticket = excelRow.Ticket,
+                    Description = excelRow.Description,
+                    ScphOurs = excelRow.SCPHours,
+                    ScptIcket = excelRow.Ticket,
+                    SCPt = excelRow.SCPT,
+                    ScpcHarged = excelRow.SCPCharged
+                }
+                );
+
                 Context.SubmitChanges();
             }
             catch
