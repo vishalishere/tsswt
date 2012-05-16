@@ -144,5 +144,26 @@ namespace HP.SW.SWT.MVC.Controllers
                 return Json(new { Result = "Error", Message = ex.Message });
             }
         }
+
+        [HttpPost]
+        public JsonResult DeleteExcelRow(ExcelRow excelRow, int rowIndex)
+        {
+            try
+            {
+                return Json(new
+                {
+                    Result = "Ok",
+                    Data = new
+                    {
+                        RowIndex = rowIndex,
+                        Id = Data.ADResource.DeleteExcelRow(excelRow)
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "Error", Message = ex.Message });
+            }
+        }
     }
 }
