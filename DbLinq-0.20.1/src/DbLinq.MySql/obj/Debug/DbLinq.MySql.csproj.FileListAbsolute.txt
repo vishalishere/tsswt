@@ -1,0 +1,10 @@
+C:\Users\freidenb\Desktop\SWT\NO_SVN\HP.SW.SWT.Data\DbLinq-0.20.1\build.dbg\DbLinq.MySql.dll
+C:\Users\freidenb\Desktop\SWT\NO_SVN\HP.SW.SWT.Data\DbLinq-0.20.1\build.dbg\DbLinq.MySql.pdb
+C:\Users\freidenb\Desktop\SWT\NO_SVN\HP.SW.SWT.Data\DbLinq-0.20.1\src\DbLinq.MySql\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\freidenb\Desktop\SWT\NO_SVN\HP.SW.SWT.Data\DbLinq-0.20.1\src\DbLinq.MySql\obj\Debug\DbLinq.MySql.dll
+C:\Users\freidenb\Desktop\SWT\NO_SVN\HP.SW.SWT.Data\DbLinq-0.20.1\src\DbLinq.MySql\obj\Debug\DbLinq.MySql.pdb
+C:\Users\freidenb\Desktop\SWT\SVN\DbLinq-0.20.1\build.dbg\DbLinq.MySql.dll
+C:\Users\freidenb\Desktop\SWT\SVN\DbLinq-0.20.1\build.dbg\DbLinq.MySql.pdb
+C:\Users\freidenb\Desktop\SWT\SVN\DbLinq-0.20.1\src\DbLinq.MySql\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\freidenb\Desktop\SWT\SVN\DbLinq-0.20.1\src\DbLinq.MySql\obj\Debug\DbLinq.MySql.dll
+C:\Users\freidenb\Desktop\SWT\SVN\DbLinq-0.20.1\src\DbLinq.MySql\obj\Debug\DbLinq.MySql.pdb
