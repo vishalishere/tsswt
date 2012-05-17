@@ -13,6 +13,14 @@ namespace HP.SW.SWT.Data
         {
             bool all = string.IsNullOrEmpty(cluster);
 
+            var tasks = (from task in Context.Task
+                         select new ENT.Task
+                         {
+                             //Description = task.Description,
+                             //EstimatedHours = task.EstimatedHours,
+                             //DonePercentage = task.DonePercentage
+                         });
+
             return (from ticket in Context.Ticket
                     where all || ticket.Cluster.ShortDescription == cluster
                     select new ENT.Ticket
@@ -28,13 +36,13 @@ namespace HP.SW.SWT.Data
                         StartDate = ticket.StartDate,
                         DeliveryDate = ticket.DeliveryDate,
                         //ConsumedHours = ticket.ConsumedHours,
-                        Tasks = (from task in ticket.Task
-                                 select new ENT.Task
-                                 {
-                                     //Description = task.Description,
-                                     //EstimatedHours = task.EstimatedHours,
-                                     //DonePercentage = task.DonePercentage
-                                 })
+                        //Tasks = (from task in ticket.Task
+                        //         select new ENT.Task
+                        //         {
+                        //             //Description = task.Description,
+                        //             //EstimatedHours = task.EstimatedHours,
+                        //             //DonePercentage = task.DonePercentage
+                        //         })
                     });
         }
 

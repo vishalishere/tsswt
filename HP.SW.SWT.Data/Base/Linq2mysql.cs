@@ -5,7 +5,7 @@
 // | |_| | |_) | |  | |  __/ || (_| | |
 // |____/|_.__/|_|  |_|\___|\__\__,_|_|
 //
-// Auto-generated from swt on 2012-05-06 00:30:47Z.
+// Auto-generated from swt on 2012-05-17 18:54:47Z.
 // Please visit http://code.google.com/p/dblinq2007/ for more information.
 //
 namespace HP.SW.SWT.Data
@@ -21,8 +21,6 @@ namespace HP.SW.SWT.Data
 #endif  // MONO_STRICT
 	using System.Data.Linq.Mapping;
 	using System.Diagnostics;
-    using MySql.Data.MySqlClient;
-    using DbLinq.MySql;
 	
 	
 	public partial class SwT : DataContext
@@ -34,15 +32,10 @@ namespace HP.SW.SWT.Data
 		
 		
 		public SwT(string connectionString) : 
-				base(new MySqlConnection(connectionString), new MySqlVendor())
+				base(connectionString)
 		{
 			this.OnCreated();
 		}
-
-        private static string MySqlConnection(string connectionString)
-        {
-            throw new NotImplementedException();
-        }
 		
 		public SwT(string connection, MappingSource mappingSource) : 
 				base(connection, mappingSource)
@@ -55,56 +48,56 @@ namespace HP.SW.SWT.Data
 		{
 			this.OnCreated();
 		}
-
-        internal Table<Cluster> Cluster
+		
+		public Table<Cluster> Cluster
 		{
 			get
 			{
 				return this.GetTable<Cluster>();
 			}
 		}
-
-        internal Table<ExcelRow> ExcelRow
+		
+		public Table<ExcelRow> ExcelRow
 		{
 			get
 			{
 				return this.GetTable<ExcelRow>();
 			}
 		}
-
-        internal Table<Holiday> Holiday
+		
+		public Table<Holiday> Holiday
 		{
 			get
 			{
 				return this.GetTable<Holiday>();
 			}
 		}
-
-        internal Table<Period> Period
+		
+		public Table<Period> Period
 		{
 			get
 			{
 				return this.GetTable<Period>();
 			}
 		}
-
-        internal Table<Resource> Resource
+		
+		public Table<Resource> Resource
 		{
 			get
 			{
 				return this.GetTable<Resource>();
 			}
 		}
-
-        internal Table<Task> Task
+		
+		public Table<Task> Task
 		{
 			get
 			{
 				return this.GetTable<Task>();
 			}
 		}
-
-        internal Table<Ticket> Ticket
+		
+		public Table<Ticket> Ticket
 		{
 			get
 			{
@@ -156,7 +149,7 @@ namespace HP.SW.SWT.Data
 	#endregion
 	
 	[Table(Name="swt.cluster")]
-	internal partial class Cluster : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	public partial class Cluster : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
 		private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
@@ -195,7 +188,7 @@ namespace HP.SW.SWT.Data
 			this.OnCreated();
 		}
 		
-		[Column(Storage="_description", Name="Description", DbType="varchar(100)", AutoSync=AutoSync.Never, CanBeNull=false)]
+		[Column(Storage="_description", Name="Description", DbType="varchar(100)", AutoSync=AutoSync.Never)]
 		[DebuggerNonUserCode()]
 		public string Description
 		{
@@ -261,7 +254,7 @@ namespace HP.SW.SWT.Data
 		}
 		
 		#region Children
-		[Association(Storage="_resource", OtherKey="DefaultCluster", ThisKey="IdcLuster", Name="fk_Resource_Cluster")]
+		[Association(Storage="_resource", OtherKey="DefaultCluster", ThisKey="IdcLuster", Name="fk_Res_Cluster")]
 		[DebuggerNonUserCode()]
 		public EntitySet<Resource> Resource
 		{
@@ -275,7 +268,7 @@ namespace HP.SW.SWT.Data
 			}
 		}
 		
-		[Association(Storage="_ticket", OtherKey="IdcLuster", ThisKey="IdcLuster", Name="fk_Ticket_Cluster1")]
+		[Association(Storage="_ticket", OtherKey="IdcLuster", ThisKey="IdcLuster", Name="fk_Ticket_Cluster")]
 		[DebuggerNonUserCode()]
 		public EntitySet<Ticket> Ticket
 		{
@@ -340,7 +333,7 @@ namespace HP.SW.SWT.Data
 	}
 	
 	[Table(Name="swt.excelrow")]
-    internal partial class ExcelRow : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	public partial class ExcelRow : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
 		private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
@@ -374,6 +367,8 @@ namespace HP.SW.SWT.Data
 		private EntityRef<Resource> _resource = new EntityRef<Resource>();
 		
 		private EntityRef<Ticket> _ticketTicket = new EntityRef<Ticket>();
+		
+		private EntityRef<Resource> _resource1 = new EntityRef<Resource>();
 		
 		#region Extensibility Method Declarations
 		partial void OnCreated();
@@ -497,7 +492,7 @@ namespace HP.SW.SWT.Data
 			}
 		}
 		
-		[Column(Storage="_ideXcelRow", Name="IDExcelRow", DbType="int", IsPrimaryKey=true, IsDbGenerated=true, AutoSync=AutoSync.Never, CanBeNull=false)]
+		[Column(Storage="_ideXcelRow", Name="IDExcelRow", DbType="int", IsPrimaryKey=true, AutoSync=AutoSync.Never, CanBeNull=false)]
 		[DebuggerNonUserCode()]
 		public int IdeXcelRow
 		{
@@ -580,8 +575,8 @@ namespace HP.SW.SWT.Data
 				}
 			}
 		}
-
-        [Column(Storage = "_scpT", Name = "SCPT", DbType = "varchar(15)", AutoSync = AutoSync.Never)]
+		
+		[Column(Storage="_scpT", Name="SCPT", DbType="varchar(6)", AutoSync=AutoSync.Never)]
 		[DebuggerNonUserCode()]
 		public string SCPt
 		{
@@ -603,7 +598,7 @@ namespace HP.SW.SWT.Data
 			}
 		}
 		
-		[Column(Storage="_scptIcket", Name="SCPTicket", DbType="varchar(15)", AutoSync=AutoSync.Never)]
+		[Column(Storage="_scptIcket", Name="SCPTicket", DbType="varchar(13)", AutoSync=AutoSync.Never)]
 		[DebuggerNonUserCode()]
 		public string ScptIcket
 		{
@@ -646,7 +641,7 @@ namespace HP.SW.SWT.Data
 			}
 		}
 		
-		[Column(Storage="_t", Name="T", DbType="varchar(15)", AutoSync=AutoSync.Never, CanBeNull=false)]
+		[Column(Storage="_t", Name="T", DbType="varchar(6)", AutoSync=AutoSync.Never, CanBeNull=false)]
 		[DebuggerNonUserCode()]
 		public string T
 		{
@@ -659,7 +654,7 @@ namespace HP.SW.SWT.Data
 				if (((_t == value) 
 							== false))
 				{
-					if (_resource.HasLoadedOrAssignedValue)
+					if (_resource1.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -672,7 +667,7 @@ namespace HP.SW.SWT.Data
 			}
 		}
 		
-		[Column(Storage="_ticket", Name="Ticket", DbType="varchar(15)", AutoSync=AutoSync.Never, CanBeNull=false)]
+		[Column(Storage="_ticket", Name="Ticket", DbType="varchar(15)", AutoSync=AutoSync.Never)]
 		[DebuggerNonUserCode()]
 		public string Ticket
 		{
@@ -685,10 +680,6 @@ namespace HP.SW.SWT.Data
 				if (((_ticket == value) 
 							== false))
 				{
-					if (_ticketTicket.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnTicketChanging(value);
 					this.SendPropertyChanging();
 					this._ticket = value;
@@ -699,7 +690,7 @@ namespace HP.SW.SWT.Data
 		}
 		
 		#region Parents
-		[Association(Storage="_period", OtherKey="IdpEriod", ThisKey="IdpEriod", Name="fk_ExcelRow_Period1", IsForeignKey=true)]
+		[Association(Storage="_period", OtherKey="IdpEriod", ThisKey="IdpEriod", Name="fk_ExcelRow_Period", IsForeignKey=true)]
 		[DebuggerNonUserCode()]
 		public Period Period
 		{
@@ -732,7 +723,7 @@ namespace HP.SW.SWT.Data
 			}
 		}
 		
-		[Association(Storage="_resource", OtherKey="T", ThisKey="T", Name="fk_ExcelRow_Resource1", IsForeignKey=true)]
+		[Association(Storage="_resource", OtherKey="T", ThisKey="SCPt", Name="fk_ExcelRow_SCPT", IsForeignKey=true)]
 		[DebuggerNonUserCode()]
 		public Resource Resource
 		{
@@ -755,17 +746,17 @@ namespace HP.SW.SWT.Data
 					if ((value != null))
 					{
 						value.ExcelRow.Add(this);
-						_t = value.T;
+						_scpT = value.T;
 					}
 					else
 					{
-						_t = default(string);
+						_scpT = null;
 					}
 				}
 			}
 		}
 		
-		[Association(Storage="_ticketTicket", OtherKey="Number", ThisKey="Ticket", Name="fk_ExcelRow_Ticket1", IsForeignKey=true)]
+		[Association(Storage="_ticketTicket", OtherKey="Number", ThisKey="ScptIcket", Name="fk_ExcelRow_SCPTicket", IsForeignKey=true)]
 		[DebuggerNonUserCode()]
 		public Ticket TicketTicket
 		{
@@ -788,11 +779,44 @@ namespace HP.SW.SWT.Data
 					if ((value != null))
 					{
 						value.ExcelRow.Add(this);
-						_ticket = value.Number;
+						_scptIcket = value.Number;
 					}
 					else
 					{
-						_ticket = default(string);
+						_scptIcket = null;
+					}
+				}
+			}
+		}
+		
+		[Association(Storage="_resource1", OtherKey="T", ThisKey="T", Name="fk_ExcelRow_T", IsForeignKey=true)]
+		[DebuggerNonUserCode()]
+		public Resource Resource1
+		{
+			get
+			{
+				return this._resource1.Entity;
+			}
+			set
+			{
+				if (((this._resource1.Entity == value) 
+							== false))
+				{
+					if ((this._resource1.Entity != null))
+					{
+						Resource previousResource = this._resource1.Entity;
+						this._resource1.Entity = null;
+						previousResource.ExcelRow1.Remove(this);
+					}
+					this._resource1.Entity = value;
+					if ((value != null))
+					{
+						value.ExcelRow1.Add(this);
+						_t = value.T;
+					}
+					else
+					{
+						_t = default(string);
 					}
 				}
 			}
@@ -823,7 +847,7 @@ namespace HP.SW.SWT.Data
 	}
 	
 	[Table(Name="swt.holiday")]
-    internal partial class Holiday : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	public partial class Holiday : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
 		private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
@@ -871,7 +895,7 @@ namespace HP.SW.SWT.Data
 			}
 		}
 		
-		[Column(Storage="_description", Name="Description", DbType="varchar(100)", AutoSync=AutoSync.Never, CanBeNull=false)]
+		[Column(Storage="_description", Name="Description", DbType="varchar(100)", AutoSync=AutoSync.Never)]
 		[DebuggerNonUserCode()]
 		public string Description
 		{
@@ -917,14 +941,14 @@ namespace HP.SW.SWT.Data
 	}
 	
 	[Table(Name="swt.period")]
-    internal partial class Period : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	public partial class Period : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
 		private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
 		
 		private string _description;
 		
-		private System.DateTime? _endDate;
+		private System.Nullable<System.DateTime> _endDate;
 		
 		private int _idpEriod;
 		
@@ -945,7 +969,7 @@ namespace HP.SW.SWT.Data
 		
 		partial void OnEndDateChanged();
 		
-		partial void OnEndDateChanging(System.DateTime? value);
+		partial void OnEndDateChanging(System.Nullable<System.DateTime> value);
 		
 		partial void OnIdpEriodChanged();
 		
@@ -993,9 +1017,9 @@ namespace HP.SW.SWT.Data
 			}
 		}
 		
-		[Column(Storage="_endDate", Name="EndDate", DbType="datetime", AutoSync=AutoSync.Never, CanBeNull=true)]
+		[Column(Storage="_endDate", Name="EndDate", DbType="datetime", AutoSync=AutoSync.Never)]
 		[DebuggerNonUserCode()]
-		public System.DateTime? EndDate
+		public System.Nullable<System.DateTime> EndDate
 		{
 			get
 			{
@@ -1099,7 +1123,7 @@ namespace HP.SW.SWT.Data
 		}
 		
 		#region Children
-		[Association(Storage="_excelRow", OtherKey="IdpEriod", ThisKey="IdpEriod", Name="fk_ExcelRow_Period1")]
+		[Association(Storage="_excelRow", OtherKey="IdpEriod", ThisKey="IdpEriod", Name="fk_ExcelRow_Period")]
 		[DebuggerNonUserCode()]
 		public EntitySet<ExcelRow> ExcelRow
 		{
@@ -1152,7 +1176,7 @@ namespace HP.SW.SWT.Data
 	}
 	
 	[Table(Name="swt.resource")]
-    internal partial class Resource : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	public partial class Resource : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
 		private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
@@ -1164,6 +1188,8 @@ namespace HP.SW.SWT.Data
 		private string _t;
 		
 		private EntitySet<ExcelRow> _excelRow;
+		
+		private EntitySet<ExcelRow> _excelRow1;
 		
 		private EntitySet<Ticket> _ticket;
 		
@@ -1189,6 +1215,7 @@ namespace HP.SW.SWT.Data
 		public Resource()
 		{
 			_excelRow = new EntitySet<ExcelRow>(new Action<ExcelRow>(this.ExcelRow_Attach), new Action<ExcelRow>(this.ExcelRow_Detach));
+			_excelRow1 = new EntitySet<ExcelRow>(new Action<ExcelRow>(this.ExcelRow1_Attach), new Action<ExcelRow>(this.ExcelRow1_Detach));
 			_ticket = new EntitySet<Ticket>(new Action<Ticket>(this.Ticket_Attach), new Action<Ticket>(this.Ticket_Detach));
 			this.OnCreated();
 		}
@@ -1240,7 +1267,7 @@ namespace HP.SW.SWT.Data
 			}
 		}
 		
-		[Column(Storage="_t", Name="T", DbType="varchar(15)", IsPrimaryKey=true, AutoSync=AutoSync.Never, CanBeNull=false)]
+		[Column(Storage="_t", Name="T", DbType="varchar(6)", IsPrimaryKey=true, AutoSync=AutoSync.Never, CanBeNull=false)]
 		[DebuggerNonUserCode()]
 		public string T
 		{
@@ -1263,7 +1290,7 @@ namespace HP.SW.SWT.Data
 		}
 		
 		#region Children
-		[Association(Storage="_excelRow", OtherKey="T", ThisKey="T", Name="fk_ExcelRow_Resource1")]
+		[Association(Storage="_excelRow", OtherKey="SCPt", ThisKey="T", Name="fk_ExcelRow_SCPT")]
 		[DebuggerNonUserCode()]
 		public EntitySet<ExcelRow> ExcelRow
 		{
@@ -1277,7 +1304,21 @@ namespace HP.SW.SWT.Data
 			}
 		}
 		
-		[Association(Storage="_ticket", OtherKey="T", ThisKey="T", Name="fk_Ticket_Resource1")]
+		[Association(Storage="_excelRow1", OtherKey="T", ThisKey="T", Name="fk_ExcelRow_T")]
+		[DebuggerNonUserCode()]
+		public EntitySet<ExcelRow> ExcelRow1
+		{
+			get
+			{
+				return this._excelRow1;
+			}
+			set
+			{
+				this._excelRow1 = value;
+			}
+		}
+		
+		[Association(Storage="_ticket", OtherKey="T", ThisKey="T", Name="fk_Ticket_Resource")]
 		[DebuggerNonUserCode()]
 		public EntitySet<Ticket> Ticket
 		{
@@ -1293,7 +1334,7 @@ namespace HP.SW.SWT.Data
 		#endregion
 		
 		#region Parents
-		[Association(Storage="_cluster", OtherKey="IdcLuster", ThisKey="DefaultCluster", Name="fk_Resource_Cluster", IsForeignKey=true)]
+		[Association(Storage="_cluster", OtherKey="IdcLuster", ThisKey="DefaultCluster", Name="fk_Res_Cluster", IsForeignKey=true)]
 		[DebuggerNonUserCode()]
 		public Cluster Cluster
 		{
@@ -1362,6 +1403,18 @@ namespace HP.SW.SWT.Data
 			entity.Resource = null;
 		}
 		
+		private void ExcelRow1_Attach(ExcelRow entity)
+		{
+			this.SendPropertyChanging();
+			entity.Resource1 = this;
+		}
+		
+		private void ExcelRow1_Detach(ExcelRow entity)
+		{
+			this.SendPropertyChanging();
+			entity.Resource1 = null;
+		}
+		
 		private void Ticket_Attach(Ticket entity)
 		{
 			this.SendPropertyChanging();
@@ -1377,7 +1430,7 @@ namespace HP.SW.SWT.Data
 	}
 	
 	[Table(Name="swt.task")]
-    internal partial class Task : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	public partial class Task : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
 		private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
@@ -1388,11 +1441,11 @@ namespace HP.SW.SWT.Data
 		
 		private System.Nullable<decimal> _estimatedHours;
 		
+		private int _idtAsk;
+		
 		private int _taskNumber;
 		
 		private string _ticketNumber;
-		
-		private string _title;
 		
 		private EntityRef<Ticket> _ticket = new EntityRef<Ticket>();
 		
@@ -1411,6 +1464,10 @@ namespace HP.SW.SWT.Data
 		
 		partial void OnEstimatedHoursChanging(System.Nullable<decimal> value);
 		
+		partial void OnIdtAskChanged();
+		
+		partial void OnIdtAskChanging(int value);
+		
 		partial void OnTaskNumberChanged();
 		
 		partial void OnTaskNumberChanging(int value);
@@ -1418,10 +1475,6 @@ namespace HP.SW.SWT.Data
 		partial void OnTicketNumberChanged();
 		
 		partial void OnTicketNumberChanging(string value);
-		
-		partial void OnTitleChanged();
-		
-		partial void OnTitleChanging(string value);
 		#endregion
 		
 		
@@ -1430,7 +1483,7 @@ namespace HP.SW.SWT.Data
 			this.OnCreated();
 		}
 		
-		[Column(Storage="_description", Name="Description", DbType="varchar(4000)", AutoSync=AutoSync.Never, CanBeNull=false)]
+		[Column(Storage="_description", Name="Description", DbType="varchar(100)", AutoSync=AutoSync.Never, CanBeNull=false)]
 		[DebuggerNonUserCode()]
 		public string Description
 		{
@@ -1494,7 +1547,28 @@ namespace HP.SW.SWT.Data
 			}
 		}
 		
-		[Column(Storage="_taskNumber", Name="TaskNumber", DbType="int", IsPrimaryKey=true, AutoSync=AutoSync.Never, CanBeNull=false)]
+		[Column(Storage="_idtAsk", Name="IDTask", DbType="int", IsPrimaryKey=true, IsDbGenerated=true, AutoSync=AutoSync.Never, CanBeNull=false)]
+		[DebuggerNonUserCode()]
+		public int IdtAsk
+		{
+			get
+			{
+				return this._idtAsk;
+			}
+			set
+			{
+				if ((_idtAsk != value))
+				{
+					this.OnIdtAskChanging(value);
+					this.SendPropertyChanging();
+					this._idtAsk = value;
+					this.SendPropertyChanged("IdtAsk");
+					this.OnIdtAskChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_taskNumber", Name="TaskNumber", DbType="int", AutoSync=AutoSync.Never, CanBeNull=false)]
 		[DebuggerNonUserCode()]
 		public int TaskNumber
 		{
@@ -1515,7 +1589,7 @@ namespace HP.SW.SWT.Data
 			}
 		}
 		
-		[Column(Storage="_ticketNumber", Name="TicketNumber", DbType="varchar(15)", IsPrimaryKey=true, AutoSync=AutoSync.Never, CanBeNull=false)]
+		[Column(Storage="_ticketNumber", Name="TicketNumber", DbType="varchar(13)", AutoSync=AutoSync.Never, CanBeNull=false)]
 		[DebuggerNonUserCode()]
 		public string TicketNumber
 		{
@@ -1541,30 +1615,8 @@ namespace HP.SW.SWT.Data
 			}
 		}
 		
-		[Column(Storage="_title", Name="Title", DbType="varchar(100)", AutoSync=AutoSync.Never, CanBeNull=false)]
-		[DebuggerNonUserCode()]
-		public string Title
-		{
-			get
-			{
-				return this._title;
-			}
-			set
-			{
-				if (((_title == value) 
-							== false))
-				{
-					this.OnTitleChanging(value);
-					this.SendPropertyChanging();
-					this._title = value;
-					this.SendPropertyChanged("Title");
-					this.OnTitleChanged();
-				}
-			}
-		}
-		
 		#region Parents
-		[Association(Storage="_ticket", OtherKey="Number", ThisKey="TicketNumber", Name="fk_Task_Ticket1", IsForeignKey=true)]
+		[Association(Storage="_ticket", OtherKey="Number", ThisKey="TicketNumber", Name="fk_Task_Ticket", IsForeignKey=true)]
 		[DebuggerNonUserCode()]
 		public Ticket Ticket
 		{
@@ -1622,7 +1674,7 @@ namespace HP.SW.SWT.Data
 	}
 	
 	[Table(Name="swt.ticket")]
-    internal partial class Ticket : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	public partial class Ticket : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
 	{
 		
 		private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
@@ -1719,7 +1771,7 @@ namespace HP.SW.SWT.Data
 			}
 		}
 		
-		[Column(Storage="_number", Name="Number", DbType="varchar(15)", IsPrimaryKey=true, AutoSync=AutoSync.Never, CanBeNull=false)]
+		[Column(Storage="_number", Name="Number", DbType="varchar(13)", IsPrimaryKey=true, AutoSync=AutoSync.Never, CanBeNull=false)]
 		[DebuggerNonUserCode()]
 		public string Number
 		{
@@ -1762,7 +1814,7 @@ namespace HP.SW.SWT.Data
 			}
 		}
 		
-		[Column(Storage="_t", Name="T", DbType="varchar(15)", AutoSync=AutoSync.Never, CanBeNull=false)]
+		[Column(Storage="_t", Name="T", DbType="varchar(6)", AutoSync=AutoSync.Never, CanBeNull=false)]
 		[DebuggerNonUserCode()]
 		public string T
 		{
@@ -1789,7 +1841,7 @@ namespace HP.SW.SWT.Data
 		}
 		
 		#region Children
-		[Association(Storage="_excelRow", OtherKey="Ticket", ThisKey="Number", Name="fk_ExcelRow_Ticket1")]
+		[Association(Storage="_excelRow", OtherKey="ScptIcket", ThisKey="Number", Name="fk_ExcelRow_SCPTicket")]
 		[DebuggerNonUserCode()]
 		public EntitySet<ExcelRow> ExcelRow
 		{
@@ -1803,7 +1855,7 @@ namespace HP.SW.SWT.Data
 			}
 		}
 		
-		[Association(Storage="_task", OtherKey="TicketNumber", ThisKey="Number", Name="fk_Task_Ticket1")]
+		[Association(Storage="_task", OtherKey="TicketNumber", ThisKey="Number", Name="fk_Task_Ticket")]
 		[DebuggerNonUserCode()]
 		public EntitySet<Task> Task
 		{
@@ -1819,7 +1871,7 @@ namespace HP.SW.SWT.Data
 		#endregion
 		
 		#region Parents
-		[Association(Storage="_cluster", OtherKey="IdcLuster", ThisKey="IdcLuster", Name="fk_Ticket_Cluster1", IsForeignKey=true)]
+		[Association(Storage="_cluster", OtherKey="IdcLuster", ThisKey="IdcLuster", Name="fk_Ticket_Cluster", IsForeignKey=true)]
 		[DebuggerNonUserCode()]
 		public Cluster Cluster
 		{
@@ -1852,7 +1904,7 @@ namespace HP.SW.SWT.Data
 			}
 		}
 		
-		[Association(Storage="_resource", OtherKey="T", ThisKey="T", Name="fk_Ticket_Resource1", IsForeignKey=true)]
+		[Association(Storage="_resource", OtherKey="T", ThisKey="T", Name="fk_Ticket_Resource", IsForeignKey=true)]
 		[DebuggerNonUserCode()]
 		public Resource Resource
 		{
