@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DbLinq, Version=0.20.0.0, Culture=neutral, PublicKeyToken=61e015a67077348b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\DbLinq.dll</HintPath>
+    </Reference>
+    <Reference Include="DbLinq.MySql, Version=0.20.0.0, Culture=neutral, PublicKeyToken=61e015a67077348b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\DbLinq.MySql.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.5.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\MySql.Data.dll</HintPath>
