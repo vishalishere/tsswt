@@ -13,36 +13,28 @@ namespace HP.SW.SWT.Data
         {
             bool all = string.IsNullOrEmpty(cluster);
 
-            var tasks = (from task in Context.Task
-                         select new ENT.Task
-                         {
-                             //Description = task.Description,
-                             //EstimatedHours = task.EstimatedHours,
-                             //DonePercentage = task.DonePercentage
-                         });
-
-            return (from ticket in Context.Ticket
-                    where all || ticket.Cluster.ShortDescription == cluster
-                    select new ENT.Ticket
+            return (from task in Context.Task
+                    where all || task.Ticket.Cluster.ShortDescription == cluster
+                    group task by new
                     {
-                        Number = ticket.Number,
-                        Cluster = ticket.Cluster.ShortDescription,
+                        Number = task.Ticket.Number,
+                        Cluster = task.Ticket.Cluster.ShortDescription,
                         Resource = new ENT.Resource
                         {
-                            T = ticket.Resource.T,
-                            Cluster = ticket.Resource.Cluster.ShortDescription,
-                            Name = ticket.Resource.Name
+                            T = task.Ticket.Resource.T,
+                            Cluster = task.Ticket.Resource.Cluster.ShortDescription,
+                            Name = task.Ticket.Resource.Name
                         },
-                        StartDate = ticket.StartDate,
-                        DeliveryDate = ticket.DeliveryDate,
-                        //ConsumedHours = ticket.ConsumedHours,
-                        //Tasks = (from task in ticket.Task
-                        //         select new ENT.Task
-                        //         {
-                        //             //Description = task.Description,
-                        //             //EstimatedHours = task.EstimatedHours,
-                        //             //DonePercentage = task.DonePercentage
-                        //         })
+                        StartDate = task.Ticket.StartDate,
+                        DeliveryDate = task.Ticket.DeliveryDate,
+                    } into t
+                    select new ENT.Ticket
+                    {
+                        Number = t.Key.Number,
+                        Cluster = t.Key.Cluster,
+                        Resource = t.Key.Resource,
+                        StartDate = t.Key.StartDate,
+                        DeliveryDate = t.Key.DeliveryDate,
                     });
         }
 
