@@ -21,6 +21,8 @@ namespace HP.SW.SWT.Data
 #endif  // MONO_STRICT
 	using System.Data.Linq.Mapping;
 	using System.Diagnostics;
+    using DbLinq.MySql;
+using MySql.Data.MySqlClient;
 	
 	
 	public partial class SwT : DataContext
@@ -32,7 +34,7 @@ namespace HP.SW.SWT.Data
 		
 		
 		public SwT(string connectionString) : 
-				base(connectionString)
+				base(new MySqlConnection(connectionString), new MySqlVendor())
 		{
 			this.OnCreated();
 		}
