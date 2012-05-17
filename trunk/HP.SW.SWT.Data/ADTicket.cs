@@ -31,9 +31,9 @@ namespace HP.SW.SWT.Data
                         Tasks = (from task in ticket.Task
                                  select new ENT.Task
                                  {
-                                     Description = task.Description,
-                                     EstimatedHours = task.EstimatedHours,
-                                     DonePercentage = task.DonePercentage
+                                     //Description = task.Description,
+                                     //EstimatedHours = task.EstimatedHours,
+                                     //DonePercentage = task.DonePercentage
                                  })
                     });
         }
@@ -55,13 +55,13 @@ namespace HP.SW.SWT.Data
                         StartDate = ticket.StartDate,
                         DeliveryDate = ticket.DeliveryDate,
                         //ConsumedHours = ticket.ConsumedHours,
-                        Tasks = (from task in ticket.Task
-                                 select new ENT.Task
-                                 {
-                                     Description = task.Description,
-                                     EstimatedHours = task.EstimatedHours,
-                                     DonePercentage = task.DonePercentage
-                                 })
+                        //Tasks = (from task in ticket.Task
+                        //         select new ENT.Task
+                        //         {
+                        //             Description = task.Description,
+                        //             EstimatedHours = task.EstimatedHours,
+                        //             DonePercentage = task.DonePercentage
+                        //         })
                     });
         }
     }
