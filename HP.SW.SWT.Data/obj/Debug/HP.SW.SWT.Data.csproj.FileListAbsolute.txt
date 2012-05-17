@@ -20,3 +20,16 @@ C:\Users\freidenb\Desktop\SWT\Codigo\HP.SW.SWT.Data\bin\Debug\HP.SW.SWT.Extensio
 C:\Users\freidenb\Desktop\SWT\Codigo\HP.SW.SWT.Data\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\freidenb\Desktop\SWT\Codigo\HP.SW.SWT.Data\obj\Debug\HP.SW.SWT.Data.dll
 C:\Users\freidenb\Desktop\SWT\Codigo\HP.SW.SWT.Data\obj\Debug\HP.SW.SWT.Data.pdb
+C:\Users\freidenb\Desktop\SWT\SVN\HP.SW.SWT.Data\bin\Debug\HP.SW.SWT.Data.dll
+C:\Users\freidenb\Desktop\SWT\SVN\HP.SW.SWT.Data\bin\Debug\HP.SW.SWT.Data.pdb
+C:\Users\freidenb\Desktop\SWT\SVN\HP.SW.SWT.Data\bin\Debug\DbLinq.dll
+C:\Users\freidenb\Desktop\SWT\SVN\HP.SW.SWT.Data\bin\Debug\DbLinq.MySql.dll
+C:\Users\freidenb\Desktop\SWT\SVN\HP.SW.SWT.Data\bin\Debug\HP.SW.SWT.Entities.dll
+C:\Users\freidenb\Desktop\SWT\SVN\HP.SW.SWT.Data\bin\Debug\HP.SW.SWT.Extensions.dll
+C:\Users\freidenb\Desktop\SWT\SVN\HP.SW.SWT.Data\bin\Debug\HP.SW.SWT.Entities.pdb
+C:\Users\freidenb\Desktop\SWT\SVN\HP.SW.SWT.Data\bin\Debug\HP.SW.SWT.Extensions.pdb
+C:\Users\freidenb\Desktop\SWT\SVN\HP.SW.SWT.Data\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\freidenb\Desktop\SWT\SVN\HP.SW.SWT.Data\obj\Debug\HP.SW.SWT.Data.dll
+C:\Users\freidenb\Desktop\SWT\SVN\HP.SW.SWT.Data\obj\Debug\HP.SW.SWT.Data.pdb
+C:\Users\freidenb\Desktop\SWT\SVN\HP.SW.SWT.Data\bin\Debug\DbLinq.MySql.pdb
+C:\Users\freidenb\Desktop\SWT\SVN\HP.SW.SWT.Data\bin\Debug\DbLinq.pdb

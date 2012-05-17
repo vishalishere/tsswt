@@ -20,7 +20,7 @@ function newTask() {
     row.cells[0].innerHTML = getDayString(now) + '<input type="hidden" value="-1"></input>';
     row.cells[1].innerHTML = getHourString(now);
     row.cells[7].innerHTML = 'No'
-    row.cells[11].style.display = 'none';
+    row.cells[11].style.display = 'none';    
     row.cells[12].innerHTML = "<img src='" + imgOkTemplate + "' onclick='okRow(this);' style='cursor:pointer' alt='ok' />&nbsp;"
 		        + "<img src='" + imgCancelTemplate + "' onclick='cancelRow(this);' style='cursor:pointer' alt='cancel' />";
     
@@ -87,7 +87,11 @@ function editRow(row) {
     row.cells[8].innerHTML = '<input type="text" style="width:40px; text-align: right" value="' + row.cells[8].innerHTML + '"></input>';
     row.cells[9].innerHTML = '<input type="text" style="width:100px" value="' + row.cells[9].innerHTML + '"></input>';
     row.cells[10].innerHTML = '<input type="text" style="width:100px" value="' + row.cells[10].innerHTML + '"></input>';
-    row.cells[11].innerHTML = rowHTML;
+
+    //row.cells[11].innerHTML = rowHTML;
+    row.cells[11].innerHTML = '<input type="hidden"></input>';
+    $(row.cells[11]).find("input").val(rowHTML);
+
     row.cells[12].style.display = '';
 }
 
@@ -172,9 +176,15 @@ function cancelRow(src) {
     if (row.nodeName == 'IMG') {
         row = $(row).closest('tr')[0];
     }
-    var rowHTML = row.cells[11].innerHTML;
-    //$(row).html('<td>' + rowHTML + '</td>');
-    //$(row).html.find('td').each(function () {  });
+    //var rowHTML = row.cells[11].innerHTML;
+    var rowHTML = $(row.cells[11]).find('input').val();
+
+    //row.innerHTML = rowHTML;
+    $(row).find("td").each(function (index, el) {
+        row.cells[index].innerHTML = el.innerHTML;
+    });
+    row.style = "vertical-align:top";
+    row.onclick = function () { editRow(row); };
 }
 
 function isValidHour(h) {
