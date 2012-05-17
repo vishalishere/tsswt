@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="DbLinq">
+</Property><Property Name="Solution File" Value="C:\Users\freidenb\Desktop\SWT\NO_SVN\HP.SW.SWT.Data\DbLinq-0.20.1\src\DbLinq.sln">
+</Property><Property Name="Date" Value="jueves, 17 de mayo de 2012">
+</Property><Property Name="Time" Value="15:32 p.m.">
+</Property></Properties><Event ErrorLevel="0" Project="DbLinq" Source="DbLinq\DbLinq.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq" Source="DbLinq\DbLinq.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.MySql" Source="DbLinq.MySql\DbLinq.MySql.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.MySql" Source="DbLinq.MySql\DbLinq.MySql.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.SqlServer" Source="DbLinq.SqlServer\DbLinq.SqlServer.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.SqlServer" Source="DbLinq.SqlServer\DbLinq.SqlServer.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.Oracle" Source="DbLinq.Oracle\DbLinq.Oracle.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.Oracle" Source="DbLinq.Oracle\DbLinq.Oracle.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.PostgreSql" Source="DbLinq.PostgreSql\DbLinq.PostgreSql.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.PostgreSql" Source="DbLinq.PostgreSql\DbLinq.PostgreSql.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.Sqlite" Source="DbLinq.Sqlite\DbLinq.Sqlite.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.Sqlite" Source="DbLinq.Sqlite\DbLinq.Sqlite.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.Ingres" Source="DbLinq.Ingres\DbLinq.Ingres.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.Ingres" Source="DbLinq.Ingres\DbLinq.Ingres.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbMetal" Source="DbMetal\DbMetal.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbMetal" Source="DbMetal\DbMetal.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="System.Data.Linq" Source="DbLinq\System.Data.Linq.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="System.Data.Linq" Source="DbLinq\System.Data.Linq.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.Ingres.Example" Source="..\examples\DbLinq.Ingres.Example\DbLinq.Ingres.Example.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.Ingres.Example" Source="..\examples\DbLinq.Ingres.Example\DbLinq.Ingres.Example.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.MySql.Example" Source="..\examples\DbLinq.MySql.Example\DbLinq.MySql.Example.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.MySql.Example" Source="..\examples\DbLinq.MySql.Example\DbLinq.MySql.Example.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.Ora.Example" Source="..\examples\DbLinq.Ora.Example\DbLinq.Ora.Example.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.Ora.Example" Source="..\examples\DbLinq.Ora.Example\DbLinq.Ora.Example.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.Pgsql.Example" Source="..\examples\DbLinq.Pgsql.Example\DbLinq.Pgsql.Example.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.Pgsql.Example" Source="..\examples\DbLinq.Pgsql.Example\DbLinq.Pgsql.Example.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.SQLite.Example" Source="..\examples\DbLinq.SQLite.Example\DbLinq.SQLite.Example.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.SQLite.Example" Source="..\examples\DbLinq.SQLite.Example\DbLinq.SQLite.Example.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.Mssql.Example" Source="..\examples\DbLinq.Mssql.Example\DbLinq.Mssql.Example.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.Mssql.Example" Source="..\examples\DbLinq.Mssql.Example\DbLinq.Mssql.Example.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.Ingres_test" Source="DbLinq.Ingres\Test\DbLinq.Ingres_test.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.Ingres_test" Source="DbLinq.Ingres\Test\DbLinq.Ingres_test.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.SqlServer_test" Source="DbLinq.SqlServer\Test\DbLinq.SqlServer_test.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.SqlServer_test" Source="DbLinq.SqlServer\Test\DbLinq.SqlServer_test.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.SqlServer_test_strict" Source="DbLinq.SqlServer\Test\DbLinq.SqlServer_test_strict.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.SqlServer_test_strict" Source="DbLinq.SqlServer\Test\DbLinq.SqlServer_test_strict.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.MySql_test" Source="DbLinq.MySql\Test\DbLinq.MySql_test.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.MySql_test" Source="DbLinq.MySql\Test\DbLinq.MySql_test.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.Oracle_test" Source="DbLinq.Oracle\Test\DbLinq.Oracle_test.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.Oracle_test" Source="DbLinq.Oracle\Test\DbLinq.Oracle_test.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.Oracle_test_odp" Source="DbLinq.Oracle\Test\DbLinq.Oracle_test_odp.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.Oracle_test_odp" Source="DbLinq.Oracle\Test\DbLinq.Oracle_test_odp.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.PostgreSql_test" Source="DbLinq.PostgreSql\Test\DbLinq.PostgreSql_test.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.PostgreSql_test" Source="DbLinq.PostgreSql\Test\DbLinq.PostgreSql_test.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.Sqlite_test" Source="DbLinq.Sqlite\Test\DbLinq.Sqlite_test.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.Sqlite_test" Source="DbLinq.Sqlite\Test\DbLinq.Sqlite_test.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.Firebird" Source="DbLinq.Firebird\DbLinq.Firebird.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.Firebird" Source="DbLinq.Firebird\DbLinq.Firebird.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.Firebird_test" Source="DbLinq.Firebird\Test\DbLinq.Firebird_test.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.Firebird_test" Source="DbLinq.Firebird\Test\DbLinq.Firebird_test.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.FbSql.Example" Source="..\examples\DbLinq.FbSql.Example\DbLinq.FbSql.Example.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.FbSql.Example" Source="..\examples\DbLinq.FbSql.Example\DbLinq.FbSql.Example.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq_test" Source="DbLinq\Test\DbLinq_test.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq_test" Source="DbLinq\Test\DbLinq_test.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq_test_ndb_strict" Source="DbLinq\Test\DbLinq_test_ndb_strict.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq_test_ndb_strict" Source="DbLinq\Test\DbLinq_test_ndb_strict.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbMetal_test" Source="DbMetal\Test\DbMetal_test.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbMetal_test" Source="DbMetal\Test\DbMetal_test.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.SqlServer_test_ndb" Source="DbLinq.SqlServer\Test\DbLinq.SqlServer_test_ndb.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.SqlServer_test_ndb" Source="DbLinq.SqlServer\Test\DbLinq.SqlServer_test_ndb.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="TestNamespaceWriter" Source="Tools\TestNamespaceWriter\TestNamespaceWriter.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="TestNamespaceWriter" Source="Tools\TestNamespaceWriter\TestNamespaceWriter.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.Sqlite_test_mono" Source="DbLinq.Sqlite\Test\DbLinq.Sqlite_test_mono.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.Sqlite_test_mono" Source="DbLinq.Sqlite\Test\DbLinq.Sqlite_test_mono.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.Sqlite_test_mono_strict" Source="DbLinq.Sqlite\Test\DbLinq.Sqlite_test_mono_strict.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbLinq.Sqlite_test_mono_strict" Source="DbLinq.Sqlite\Test\DbLinq.Sqlite_test_mono_strict.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="SqlMetal" Source="DbMetal\SqlMetal.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="SqlMetal" Source="DbMetal\SqlMetal.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbMetal_test_sqlite" Source="DbMetal\Test\DbMetal_test_sqlite.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="DbMetal_test_sqlite" Source="DbMetal\Test\DbMetal_test_sqlite.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="SqlMetal_test_sqlite" Source="DbMetal\Test\SqlMetal_test_sqlite.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="SqlMetal_test_sqlite" Source="DbMetal\Test\SqlMetal_test_sqlite.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="TestReporter" Source="Tools\TestReporter\TestReporter.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="TestReporter" Source="Tools\TestReporter\TestReporter.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="DbLinq.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="DbLinq.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="DbLinq.Ingres_test" Source="DbLinq.Ingres\Test\DbLinq.Ingres_test.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.SqlServer_test" Source="DbLinq.SqlServer\Test\DbLinq.SqlServer_test.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.SqlServer_test_strict" Source="DbLinq.SqlServer\Test\DbLinq.SqlServer_test_strict.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.MySql_test" Source="DbLinq.MySql\Test\DbLinq.MySql_test.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.Oracle_test" Source="DbLinq.Oracle\Test\DbLinq.Oracle_test.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.Oracle_test_odp" Source="DbLinq.Oracle\Test\DbLinq.Oracle_test_odp.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.PostgreSql_test" Source="DbLinq.PostgreSql\Test\DbLinq.PostgreSql_test.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.Sqlite_test" Source="DbLinq.Sqlite\Test\DbLinq.Sqlite_test.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.Firebird_test" Source="DbLinq.Firebird\Test\DbLinq.Firebird_test.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq_test" Source="DbLinq\Test\DbLinq_test.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq_test_ndb_strict" Source="DbLinq\Test\DbLinq_test_ndb_strict.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbMetal_test" Source="DbMetal\Test\DbMetal_test.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.SqlServer_test_ndb" Source="DbLinq.SqlServer\Test\DbLinq.SqlServer_test_ndb.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="TestNamespaceWriter" Source="Tools\TestNamespaceWriter\TestNamespaceWriter.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.Sqlite_test_mono" Source="DbLinq.Sqlite\Test\DbLinq.Sqlite_test_mono.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.Sqlite_test_mono_strict" Source="DbLinq.Sqlite\Test\DbLinq.Sqlite_test_mono_strict.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbMetal_test_sqlite" Source="DbMetal\Test\DbMetal_test_sqlite.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="SqlMetal_test_sqlite" Source="DbMetal\Test\SqlMetal_test_sqlite.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.Ingres.Example" Source="..\examples\DbLinq.Ingres.Example\DbLinq.Ingres.Example.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.MySql.Example" Source="..\examples\DbLinq.MySql.Example\DbLinq.MySql.Example.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.Ora.Example" Source="..\examples\DbLinq.Ora.Example\DbLinq.Ora.Example.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.Pgsql.Example" Source="..\examples\DbLinq.Pgsql.Example\DbLinq.Pgsql.Example.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.SQLite.Example" Source="..\examples\DbLinq.SQLite.Example\DbLinq.SQLite.Example.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.Mssql.Example" Source="..\examples\DbLinq.Mssql.Example\DbLinq.Mssql.Example.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.FbSql.Example" Source="..\examples\DbLinq.FbSql.Example\DbLinq.FbSql.Example.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq" Source="DbLinq\DbLinq.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.MySql" Source="DbLinq.MySql\DbLinq.MySql.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.SqlServer" Source="DbLinq.SqlServer\DbLinq.SqlServer.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.Oracle" Source="DbLinq.Oracle\DbLinq.Oracle.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.PostgreSql" Source="DbLinq.PostgreSql\DbLinq.PostgreSql.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.Sqlite" Source="DbLinq.Sqlite\DbLinq.Sqlite.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.Ingres" Source="DbLinq.Ingres\DbLinq.Ingres.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbMetal" Source="DbMetal\DbMetal.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="System.Data.Linq" Source="DbLinq\System.Data.Linq.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="DbLinq.Firebird" Source="DbLinq.Firebird\DbLinq.Firebird.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="SqlMetal" Source="DbMetal\SqlMetal.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="TestReporter" Source="Tools\TestReporter\TestReporter.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>
