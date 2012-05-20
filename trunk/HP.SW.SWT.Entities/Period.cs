@@ -7,6 +7,7 @@ namespace HP.SW.SWT.Entities
 {
     public class Period
     {
+        public int ID { get; set; }
         public int Year { get; set; }
         public int Month { get; set; }
         public DateTime StartDate { get; set; }

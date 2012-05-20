@@ -89,7 +89,12 @@ namespace HP.SW.SWT.MVC.Controllers
         [HttpPost]
         public JsonResult GetCurrentAssignments()
         {
-            return Json(new[] { new { Resource = "Santiago Ribero Vairo", Ticket = "ITTEN00999999" } });
+            return Json(from er in Data.ADResource.GetCurrentAssignments()
+                        select new 
+                        { 
+                            Resource = er.Resource.Name,
+                            Ticket = er.Ticket
+                        });
         }
 
         public ActionResult Excel()
