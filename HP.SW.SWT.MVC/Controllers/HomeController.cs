@@ -18,7 +18,7 @@ namespace HP.SW.SWT.MVC.Controllers
 
         public JsonResult GetDashboardTickets(DashboardOrder order, string cluster)
         {
-            IEnumerable<Ticket> tickets = Data.ADTicket.GetAllTickets(cluster);
+            IEnumerable<Ticket> tickets = Data.ADTicket.GetWorkingTickets(cluster);
 
             switch (order)
             {
@@ -56,7 +56,6 @@ namespace HP.SW.SWT.MVC.Controllers
 
             // Solo se llevan al dashboard los tickets que se empezaron o los tickets que ya tienen comprometida fecha de entrega.
             return Json(from t in tickets
-                        where (t.StartDate != null || t.DeliveryDate != null) && t.DonePercentage < 100
                         select new
                         {
                             Number = t.Number,

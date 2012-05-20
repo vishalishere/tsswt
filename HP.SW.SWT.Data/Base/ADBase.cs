@@ -4,9 +4,12 @@ using System.Web.Mvc;
 using HP.SW.SWT.Extensions;
 using MySql.Data.MySqlClient;
 using System;
+using System.IO;
 
 namespace HP.SW.SWT.Data
 {
+    // Como ver queries on the fly
+    // Context.GetCommand(query).CommandText
     public abstract class ADBase
     {
         private static string ConnectionString

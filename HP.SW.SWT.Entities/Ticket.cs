@@ -52,7 +52,7 @@ namespace HP.SW.SWT.Entities
             get
             {
                 return this.DeliveryDate == null ? (DateTime?)null :
-                    DateHelper.AddWorkingHours(DateHelper.EndWorkingDay(this.DeliveryDate.Value.AddDays(-1)), -1 * (this.Tasks.Sum(x => x.EstimatedHours) ?? 0));
+                    DateHelper.AddWorkingHours(DateHelper.EndWorkingDay(this.DeliveryDate.Value.AddDays(-1)), -1 * this.Tasks.Sum(x => x.EstimatedHours));
             }
         }
 
@@ -67,11 +67,12 @@ namespace HP.SW.SWT.Entities
             }
         }
 
-        public decimal? DonePercentage
+        public decimal DonePercentage
         {
             get
             {
-                return (this.EstimatedHours - this.PendingHours) * 100 / this.EstimatedHours;
+                //No hace falta multiplicar por 100 porque el DonePercentage va de 0 a 100.
+                return this.Tasks.Sum(t => t.DonePercentage * t.EstimatedHours) / this.Tasks.Sum(t => t.EstimatedHours);
             }
         }
     }
