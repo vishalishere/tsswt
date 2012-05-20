@@ -9,60 +9,43 @@ namespace HP.SW.SWT.Data
 {
     public class ADTicket : ADBase
     {
-        public static IEnumerable<ENT.Ticket> GetAllTickets(string cluster)
+        public static IEnumerable<ENT.Ticket> GetWorkingTickets(string cluster)
         {
             bool all = string.IsNullOrEmpty(cluster);
 
-            return (from task in Context.Task
-                    where all || task.Ticket.Cluster.ShortDescription == cluster
-                    group task by new
-                    {
-                        Number = task.Ticket.Number,
-                        Cluster = task.Ticket.Cluster.ShortDescription,
-                        Resource = new ENT.Resource
-                        {
-                            T = task.Ticket.Resource.T,
-                            Cluster = task.Ticket.Resource.Cluster.ShortDescription,
-                            Name = task.Ticket.Resource.Name
-                        },
-                        StartDate = task.Ticket.StartDate,
-                        DeliveryDate = task.Ticket.DeliveryDate,
-                    } into t
-                    select new ENT.Ticket
-                    {
-                        Number = t.Key.Number,
-                        Cluster = t.Key.Cluster,
-                        Resource = t.Key.Resource,
-                        StartDate = t.Key.StartDate,
-                        DeliveryDate = t.Key.DeliveryDate,
-                    });
-        }
+            var mySqlTickets = (from t in Context.Ticket
+                                where (all || t.Cluster.ShortDescription == cluster)
+                                && (t.StartDate.HasValue || t.DeliveryDate.HasValue)
+                                select t).ToList();
 
-        public static IEnumerable<ENT.Ticket> GetWorkingTickets()
-        {
-            return (from ticket in Context.Ticket
-                    //where ticket.Attribute("working") != null && bool.Parse(ticket.Attribute("working").Value)
-                    select new ENT.Ticket
-                    {
-                        Number = ticket.Number,
-                        Cluster = ticket.Cluster.ShortDescription,
-                        Resource = new ENT.Resource
-                        {
-                            T = ticket.Resource.T,
-                            Cluster = ticket.Resource.Cluster.ShortDescription,
-                            Name = ticket.Resource.Name
-                        },
-                        StartDate = ticket.StartDate,
-                        DeliveryDate = ticket.DeliveryDate,
-                        //ConsumedHours = ticket.ConsumedHours,
-                        //Tasks = (from task in ticket.Task
-                        //         select new ENT.Task
-                        //         {
-                        //             Description = task.Description,
-                        //             EstimatedHours = task.EstimatedHours,
-                        //             DonePercentage = task.DonePercentage
-                        //         })
-                    });
+            // Hay que hacerlo en dos pasos 
+            // porque no logro convertir directo de la base de datos 
+            // el Data.Task en ENT.Task
+            var entTickets = (from t in mySqlTickets
+                              select new ENT.Ticket
+                              {
+                                  Number = t.Number,
+                                  Cluster = t.Cluster.ShortDescription,
+                                  Resource = new ENT.Resource
+                                   {
+                                       T = t.Resource.T,
+                                       Name = t.Resource.Name,
+                                       Cluster = t.Resource.Cluster.ShortDescription
+                                   },
+                                  StartDate = t.StartDate,
+                                  DeliveryDate = t.DeliveryDate,
+                                  Tasks = (from ta in t.Task
+                                           select new ENT.Task
+                                           {
+                                               Description = ta.Description,
+                                               EstimatedHours = ta.EstimatedHours.Value,
+                                               DonePercentage = ta.DonePercentage.Value,
+                                           })
+                              });
+
+            return (from t in entTickets
+                    where t.DonePercentage < 100
+                    select t);
         }
     }
 }
