@@ -6,7 +6,7 @@ using System.Xml.Linq;
 using ENT = HP.SW.SWT.Entities;
 
 namespace HP.SW.SWT.Data
-{    
+{
     public class ADResource : ADBase
     {
         #region SP constants
@@ -52,6 +52,7 @@ namespace HP.SW.SWT.Data
         public static IEnumerable<ENT.ExcelRow> GetExcel(string T, ENT.Period period)
         {
             return (from er in Context.ExcelRow
+                    where er.T == T && er.Period.IdpEriod == period.ID
                     select new ENT.ExcelRow
                     {
                         Id = er.IdeXcelRow,
@@ -198,6 +199,30 @@ namespace HP.SW.SWT.Data
             }
 
             return result;
+        }
+
+        public static IEnumerable<ENT.ExcelRow> GetCurrentAssignments()
+        {
+            var currAss = (from er in Context.ExcelRow
+                           orderby er.StartHour
+                           group er by er.T into g
+                           select g).ToList();
+
+            return (from er in currAss.ConvertAll<ExcelRow>(x => x.First())
+                    select new ENT.ExcelRow
+                    {
+                        Id = er.IdeXcelRow,
+                        Date = er.Date,
+                        StartHour = er.StartHour,
+                        EndHour = er.EndHour,
+                        Ticket = er.Ticket,
+                        Description = er.Description,
+                        SCPHours = er.ScphOurs,
+                        SCPTicket = er.ScptIcket,
+                        SCPT = er.SCPt,
+                        SCPCharged = er.ScpcHarged, //(er.ScpcHarged == 1)
+                        Resource = ADResource.Get(er.T)
+                    });
         }
     }
 }

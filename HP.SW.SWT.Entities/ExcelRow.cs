@@ -21,8 +21,7 @@ namespace HP.SW.SWT.Entities
         public string Ticket { get; set; }
         public string Description { get; set; }
         public string Cluster { get; set; }
-
-        //public bool SCPCharged { get; set; }
+        public Resource Resource { get; set; }
         public sbyte SCPCharged { get; set; }
         public decimal? SCPHours { get; set; }
         public string SCPTicket { get; set; }
