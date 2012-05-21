@@ -18,11 +18,33 @@ namespace HP.SW.SWT.Entities
         None = 0,
     }
 
+    public enum TicketPriority
+    {
+        High,
+        Normal,
+        Low
+    }
+
+    public enum TicketCategory
+    {
+        Incident,
+        MinorChange,
+        Evolutive
+    }
+
     public class Ticket
     {
         [DisplayName("Número")]
         [Required]
         public string Number { get; set; }
+
+        [DisplayName("Título")]
+        [Required]
+        public string Title { get; set; }
+
+        [DisplayName("Descripción")]
+        [Required]
+        public string Description { get; set; }
 
         [DisplayName("Recurso")]
         [Required]
@@ -32,15 +54,30 @@ namespace HP.SW.SWT.Entities
         [Required]
         public TicketStatus Status { get; set; }
 
+        [DisplayName("Prioridad")]
+        [Required]
+        public TicketPriority Priority { get; set; }
+
+        [DisplayName("Categoría")]
+        [Required]
+        public TicketCategory Category { get; set; }
+
         [DisplayName("Cluster")]
         [Required]
         public string Cluster { get; set; }
+
+        [DisplayName("Sistema")]
+        [Required]
+        public string System { get; set; }
 
         [DisplayName("Fecha de Inicio")]
         public DateTime? StartDate { get; set; }
 
         [DisplayName("Fecha estimada de Entrega")]
         public DateTime? DeliveryDate { get; set; }
+
+        [DisplayName("Fecha real de Entrega")]
+        public DateTime? RealDeliveryDate { get; set; }
 
         [DisplayName("Horas consumidas")]
         public decimal? ConsumedHours { get; set; }
@@ -50,7 +87,7 @@ namespace HP.SW.SWT.Entities
         [DisplayName("Comentarios")]
         public IEnumerable<TicketComment> Comments { get; set; }
 
-        [DisplayName("Horas estimadas")]
+        [DisplayName("Estimación")]
         public decimal? EstimatedHours
         {
             get

@@ -86,8 +86,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Contents\CRUD.css" />
+    <Content Include="Contents\Images\arrowDown.png" />
+    <Content Include="Contents\Images\arrowDown2.png" />
     <Content Include="Contents\Images\cancel.png" />
     <Content Include="Contents\Images\ok.png" />
+    <Content Include="Contents\Images\sharepoint_arrow_down.png" />
+    <Content Include="Contents\Images\sharepoint_attach.png" />
+    <Content Include="Contents\Images\sharepoint_delete.png" />
+    <Content Include="Contents\Images\sharepoint_edit.png" />
+    <Content Include="Contents\Images\sharepoint_history.png" />
+    <Content Include="Contents\Images\sharepoint_new.png" />
+    <Content Include="Contents\Images\sharepoint_next_page.png" />
+    <Content Include="Contents\Images\sharepoint_previous_page.png" />
     <Content Include="Contents\Images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Contents\Images\ui-bg_flat_55_fbec88_40x100.png" />
     <Content Include="Contents\Images\ui-bg_glass_75_d0e5f5_1x400.png" />
@@ -128,7 +138,6 @@
     <Content Include="Views\Resource\Excel.aspx" />
     <Content Include="Views\Resource\Index.aspx" />
     <Content Include="Views\Ticket\Details.aspx" />
-    <Content Include="Views\Ticket\Edit.aspx" />
     <Content Include="Views\Ticket\Index.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

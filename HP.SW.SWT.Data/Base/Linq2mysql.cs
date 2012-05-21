@@ -5,7 +5,7 @@
 // | |_| | |_) | |  | |  __/ || (_| | |
 // |____/|_.__/|_|  |_|\___|\__\__,_|_|
 //
-// Auto-generated from swt on 2012-05-20 23:47:25Z.
+// Auto-generated from swt on 2012-05-21 19:13:54Z.
 // Please visit http://code.google.com/p/dblinq2007/ for more information.
 //
 namespace HP.SW.SWT.Data
@@ -1209,6 +1209,8 @@ namespace HP.SW.SWT.Data
 
         private EntitySet<ExcelRow> _excelRow1;
 
+        private EntitySet<Ticket> _ticket;
+
         private EntityRef<Cluster> _cluster = new EntityRef<Cluster>();
 
         #region Extensibility Method Declarations
@@ -1232,6 +1234,7 @@ namespace HP.SW.SWT.Data
         {
             _excelRow = new EntitySet<ExcelRow>(new Action<ExcelRow>(this.ExcelRow_Attach), new Action<ExcelRow>(this.ExcelRow_Detach));
             _excelRow1 = new EntitySet<ExcelRow>(new Action<ExcelRow>(this.ExcelRow1_Attach), new Action<ExcelRow>(this.ExcelRow1_Detach));
+            _ticket = new EntitySet<Ticket>(new Action<Ticket>(this.Ticket_Attach), new Action<Ticket>(this.Ticket_Detach));
             this.OnCreated();
         }
 
@@ -1332,6 +1335,20 @@ namespace HP.SW.SWT.Data
                 this._excelRow1 = value;
             }
         }
+
+        [Association(Storage = "_ticket", OtherKey = "AssignedTo", ThisKey = "T", Name = "fk_Ticket_AssignedTo")]
+        [DebuggerNonUserCode()]
+        public EntitySet<Ticket> Ticket
+        {
+            get
+            {
+                return this._ticket;
+            }
+            set
+            {
+                this._ticket = value;
+            }
+        }
         #endregion
 
         #region Parents
@@ -1414,6 +1431,18 @@ namespace HP.SW.SWT.Data
         {
             this.SendPropertyChanging();
             entity.Resource1 = null;
+        }
+
+        private void Ticket_Attach(Ticket entity)
+        {
+            this.SendPropertyChanging();
+            entity.Resource = this;
+        }
+
+        private void Ticket_Detach(Ticket entity)
+        {
+            this.SendPropertyChanging();
+            entity.Resource = null;
         }
         #endregion
     }
@@ -1668,11 +1697,19 @@ namespace HP.SW.SWT.Data
 
         private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
 
+        private string _assignedTo;
+
+        private int _category;
+
+        private decimal _consumedHours;
+
         private System.DateTime _dateCreate;
 
         private System.Nullable<System.DateTime> _dateDelete;
 
         private System.Nullable<System.DateTime> _deliveryDate;
+
+        private string _description;
 
         private int _idcLuster;
 
@@ -1682,13 +1719,25 @@ namespace HP.SW.SWT.Data
 
         private string _number;
 
+        private int _priority;
+
+        private System.Nullable<System.DateTime> _realDeliveryDate;
+
         private System.Nullable<System.DateTime> _startDate;
+
+        private int _status;
+
+        private string _system;
+
+        private string _title;
 
         private EntitySet<ExcelRow> _excelRow;
 
         private EntitySet<Task> _task;
 
         private EntitySet<TicketComment> _ticketComment;
+
+        private EntityRef<Resource> _resource = new EntityRef<Resource>();
 
         private EntityRef<Cluster> _cluster = new EntityRef<Cluster>();
 
@@ -1698,6 +1747,18 @@ namespace HP.SW.SWT.Data
 
         #region Extensibility Method Declarations
         partial void OnCreated();
+
+        partial void OnAssignedToChanged();
+
+        partial void OnAssignedToChanging(string value);
+
+        partial void OnCategoryChanged();
+
+        partial void OnCategoryChanging(int value);
+
+        partial void OnConsumedHoursChanged();
+
+        partial void OnConsumedHoursChanging(decimal value);
 
         partial void OnDateCreateChanged();
 
@@ -1710,6 +1771,10 @@ namespace HP.SW.SWT.Data
         partial void OnDeliveryDateChanged();
 
         partial void OnDeliveryDateChanging(System.Nullable<System.DateTime> value);
+
+        partial void OnDescriptionChanged();
+
+        partial void OnDescriptionChanging(string value);
 
         partial void OnIdcLusterChanged();
 
@@ -1727,9 +1792,29 @@ namespace HP.SW.SWT.Data
 
         partial void OnNumberChanging(string value);
 
+        partial void OnPriorityChanged();
+
+        partial void OnPriorityChanging(int value);
+
+        partial void OnRealDeliveryDateChanged();
+
+        partial void OnRealDeliveryDateChanging(System.Nullable<System.DateTime> value);
+
         partial void OnStartDateChanged();
 
         partial void OnStartDateChanging(System.Nullable<System.DateTime> value);
+
+        partial void OnStatusChanged();
+
+        partial void OnStatusChanging(int value);
+
+        partial void OnSystemChanged();
+
+        partial void OnSystemChanging(string value);
+
+        partial void OnTitleChanged();
+
+        partial void OnTitleChanging(string value);
         #endregion
 
 
@@ -1739,6 +1824,74 @@ namespace HP.SW.SWT.Data
             _task = new EntitySet<Task>(new Action<Task>(this.Task_Attach), new Action<Task>(this.Task_Detach));
             _ticketComment = new EntitySet<TicketComment>(new Action<TicketComment>(this.TicketComment_Attach), new Action<TicketComment>(this.TicketComment_Detach));
             this.OnCreated();
+        }
+
+        [Column(Storage = "_assignedTo", Name = "AssignedTo", DbType = "varchar(6)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string AssignedTo
+        {
+            get
+            {
+                return this._assignedTo;
+            }
+            set
+            {
+                if (((_assignedTo == value)
+                            == false))
+                {
+                    if (_resource.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnAssignedToChanging(value);
+                    this.SendPropertyChanging();
+                    this._assignedTo = value;
+                    this.SendPropertyChanged("AssignedTo");
+                    this.OnAssignedToChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_category", Name = "Category", DbType = "int", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public int Category
+        {
+            get
+            {
+                return this._category;
+            }
+            set
+            {
+                if ((_category != value))
+                {
+                    this.OnCategoryChanging(value);
+                    this.SendPropertyChanging();
+                    this._category = value;
+                    this.SendPropertyChanged("Category");
+                    this.OnCategoryChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_consumedHours", Name = "ConsumedHours", DbType = "decimal(4,1)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public decimal ConsumedHours
+        {
+            get
+            {
+                return this._consumedHours;
+            }
+            set
+            {
+                if ((_consumedHours != value))
+                {
+                    this.OnConsumedHoursChanging(value);
+                    this.SendPropertyChanging();
+                    this._consumedHours = value;
+                    this.SendPropertyChanged("ConsumedHours");
+                    this.OnConsumedHoursChanged();
+                }
+            }
         }
 
         [Column(Storage = "_dateCreate", Name = "DateCreate", DbType = "datetime", AutoSync = AutoSync.Never, CanBeNull = false)]
@@ -1800,6 +1953,28 @@ namespace HP.SW.SWT.Data
                     this._deliveryDate = value;
                     this.SendPropertyChanged("DeliveryDate");
                     this.OnDeliveryDateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_description", Name = "Description", DbType = "varchar(4000)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string Description
+        {
+            get
+            {
+                return this._description;
+            }
+            set
+            {
+                if (((_description == value)
+                            == false))
+                {
+                    this.OnDescriptionChanging(value);
+                    this.SendPropertyChanging();
+                    this._description = value;
+                    this.SendPropertyChanged("Description");
+                    this.OnDescriptionChanged();
                 }
             }
         }
@@ -1889,6 +2064,48 @@ namespace HP.SW.SWT.Data
             }
         }
 
+        [Column(Storage = "_priority", Name = "Priority", DbType = "int", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public int Priority
+        {
+            get
+            {
+                return this._priority;
+            }
+            set
+            {
+                if ((_priority != value))
+                {
+                    this.OnPriorityChanging(value);
+                    this.SendPropertyChanging();
+                    this._priority = value;
+                    this.SendPropertyChanged("Priority");
+                    this.OnPriorityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_realDeliveryDate", Name = "RealDeliveryDate", DbType = "datetime", AutoSync = AutoSync.Never)]
+        [DebuggerNonUserCode()]
+        public System.Nullable<System.DateTime> RealDeliveryDate
+        {
+            get
+            {
+                return this._realDeliveryDate;
+            }
+            set
+            {
+                if ((_realDeliveryDate != value))
+                {
+                    this.OnRealDeliveryDateChanging(value);
+                    this.SendPropertyChanging();
+                    this._realDeliveryDate = value;
+                    this.SendPropertyChanged("RealDeliveryDate");
+                    this.OnRealDeliveryDateChanged();
+                }
+            }
+        }
+
         [Column(Storage = "_startDate", Name = "StartDate", DbType = "datetime", AutoSync = AutoSync.Never)]
         [DebuggerNonUserCode()]
         public System.Nullable<System.DateTime> StartDate
@@ -1906,6 +2123,71 @@ namespace HP.SW.SWT.Data
                     this._startDate = value;
                     this.SendPropertyChanged("StartDate");
                     this.OnStartDateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_status", Name = "Status", DbType = "int", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public int Status
+        {
+            get
+            {
+                return this._status;
+            }
+            set
+            {
+                if ((_status != value))
+                {
+                    this.OnStatusChanging(value);
+                    this.SendPropertyChanging();
+                    this._status = value;
+                    this.SendPropertyChanged("Status");
+                    this.OnStatusChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_system", Name = "System", DbType = "varchar(45)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string System
+        {
+            get
+            {
+                return this._system;
+            }
+            set
+            {
+                if (((_system == value)
+                            == false))
+                {
+                    this.OnSystemChanging(value);
+                    this.SendPropertyChanging();
+                    this._system = value;
+                    this.SendPropertyChanged("System");
+                    this.OnSystemChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_title", Name = "Title", DbType = "varchar(100)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string Title
+        {
+            get
+            {
+                return this._title;
+            }
+            set
+            {
+                if (((_title == value)
+                            == false))
+                {
+                    this.OnTitleChanging(value);
+                    this.SendPropertyChanging();
+                    this._title = value;
+                    this.SendPropertyChanged("Title");
+                    this.OnTitleChanged();
                 }
             }
         }
@@ -1955,6 +2237,39 @@ namespace HP.SW.SWT.Data
         #endregion
 
         #region Parents
+        [Association(Storage = "_resource", OtherKey = "T", ThisKey = "AssignedTo", Name = "fk_Ticket_AssignedTo", IsForeignKey = true)]
+        [DebuggerNonUserCode()]
+        public Resource Resource
+        {
+            get
+            {
+                return this._resource.Entity;
+            }
+            set
+            {
+                if (((this._resource.Entity == value)
+                            == false))
+                {
+                    if ((this._resource.Entity != null))
+                    {
+                        Resource previousResource = this._resource.Entity;
+                        this._resource.Entity = null;
+                        previousResource.Ticket.Remove(this);
+                    }
+                    this._resource.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Ticket.Add(this);
+                        _assignedTo = value.T;
+                    }
+                    else
+                    {
+                        _assignedTo = default(string);
+                    }
+                }
+            }
+        }
+
         [Association(Storage = "_cluster", OtherKey = "IdcLuster", ThisKey = "IdcLuster", Name = "fk_Ticket_Cluster", IsForeignKey = true)]
         [DebuggerNonUserCode()]
         public Cluster Cluster

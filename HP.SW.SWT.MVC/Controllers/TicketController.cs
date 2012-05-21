@@ -12,9 +12,33 @@ namespace HP.SW.SWT.MVC.Controllers
         //
         // GET: /Ticket/
 
-        public ActionResult Index(int? page)
+        public ActionResult Index()
         {
-            return View(Data.ADTicket.GetAll(null, null));
+            TicketFilterOptions ticketFilterOptions = new TicketFilterOptions();
+            PagingOptions pagingOptions = new PagingOptions { Page = 1 };
+
+            IEnumerable<Ticket> tickets = Data.ADTicket.GetAll(ticketFilterOptions, pagingOptions);
+
+            ViewData["FirstPage"] = pagingOptions.FirstPage;
+            ViewData["FirstRowNumber"] = pagingOptions.FirstRowNumber;
+            ViewData["LastRowNumber"] = pagingOptions.LastRowNumber;
+            ViewData["LastPage"] = pagingOptions.LastPage;
+            return View(tickets);
+        }
+
+        [HttpPost]
+        public JsonResult Index(FormCollection collection)
+        {
+            TicketFilterOptions ticketFilterOptions = new TicketFilterOptions();
+            PagingOptions pagingOptions = new PagingOptions { Page = 1 };
+
+            IEnumerable<Ticket> tickets = Data.ADTicket.GetAll(ticketFilterOptions, pagingOptions);
+
+            ViewData["FirstPage"] = pagingOptions.FirstPage;
+            ViewData["FirstRowNumber"] = pagingOptions.FirstRowNumber;
+            ViewData["LastRowNumber"] = pagingOptions.LastRowNumber;
+            ViewData["LastPage"] = pagingOptions.LastPage;
+            return Json(tickets);
         }
 
         //
