@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -44,6 +45,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExcelRow.cs" />
+    <Compile Include="GridUtilities\DataFilter.cs" />
+    <Compile Include="GridUtilities\FilterOptions.cs" />
+    <Compile Include="GridUtilities\DatetimeFilter.cs" />
+    <Compile Include="GridUtilities\NumberFilter.cs" />
+    <Compile Include="GridUtilities\PagingOptions.cs" />
+    <Compile Include="GridUtilities\StringFilter.cs" />
+    <Compile Include="TicketComment.cs" />
+    <Compile Include="TicketFilterOptions.cs" />
     <Compile Include="Period.cs" />
     <Compile Include="DateHelper.cs" />
     <Compile Include="Holiday.cs" />
@@ -51,6 +60,7 @@
     <Compile Include="Resource.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="Ticket.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HP.SW.SWT.Extensions\HP.SW.SWT.Extensions.csproj">
