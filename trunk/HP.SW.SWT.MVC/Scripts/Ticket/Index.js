@@ -13,6 +13,14 @@ function showColumnOptions(img, col) {
     $("#column" + col + "Options").show();
 }
 
+function rowOptionsClick(img, ticket) {
+    if ($("#rowOptions").css('display') != 'none' && $("#rowOptions").html().indexOf(ticket) >= 0) {
+        hideAllOptions();
+    } else {
+        showRowOptions(img, ticket);
+    }
+}
+
 function showRowOptions(img, ticket) {
     hideAllOptions();
     var cell = $(img).closest("td");
@@ -26,10 +34,32 @@ function showRowOptions(img, ticket) {
     }).show();
 }
 
-function showMenuImage(row) {
-    $(row).find('img').css('visibility', '');
+function showColumnMenuImage(cell) {
+    $(cell).find("table").css("background-color", "LightGray");
+    $(cell).find("table").css("color", "White");
+    $(cell).find("td").css("border", "solid 1px LightGray");
+    $(cell).find('img').css('visibility', '');
 }
 
-function hideMenuImage(row) {
-    $(row).find('img').css('visibility', 'hidden');
+function hideColumnMenuImage(cell) {
+    $(cell).find("table").css("background-color", "");
+    $(cell).find("table").css("color", "");
+    $(cell).find("td").css("border", "");
+    $(cell).find('img').css('visibility', 'hidden');
+}
+
+function showRowMenuImage(cell) {
+    $(cell).find("table").css("border", "solid 1px Gray");
+    $(cell).find('img').css('visibility', '');
+}
+
+function hideRowMenuImage(cell) {
+    $(cell).find("table").css("border", "none 0px White");
+    $(cell).find('img').css('visibility', 'hidden');
+}
+
+function previous_page() { 
+}
+
+function next_page() {
 }

@@ -26,16 +26,42 @@ namespace HP.SW.SWT.Data
                               select new ENT.Ticket
                               {
                                   Number = t.Number,
+                                  Title = t.Title,
+                                  Description = t.Description,
+                                  Resource = new ENT.Resource
+                                  {
+                                      T = t.Resource.T,
+                                      Name = t.Resource.Name,
+                                      Cluster = t.Resource.Cluster.ShortDescription,
+                                  },
+                                  Status = (ENT.TicketStatus)t.Status,
+                                  Priority = (ENT.TicketPriority)t.Priority,
+                                  Category = (ENT.TicketCategory)t.Category,
                                   Cluster = t.Cluster.ShortDescription,
+                                  System = t.System,
                                   StartDate = t.StartDate,
                                   DeliveryDate = t.DeliveryDate,
+                                  RealDeliveryDate = t.RealDeliveryDate,
+                                  ConsumedHours = t.ConsumedHours,
                                   Tasks = (from ta in t.Task
                                            select new ENT.Task
                                            {
                                                Description = ta.Description,
                                                EstimatedHours = ta.EstimatedHours.Value,
                                                DonePercentage = ta.DonePercentage.Value,
-                                           })
+                                           }),
+                                  Comments = (from tc in t.TicketComment
+                                    select new ENT.TicketComment
+                                    {
+                                        Comment = tc.Comment,
+                                        User = new ENT.User
+                                        {
+                                            ID = tc.User.IduSer,
+                                            Logon = tc.User.UserLogon,
+                                            Name = tc.User.Name
+                                        },
+                                        Date = tc.Date,
+                                    })
                               });
 
             return (from t in entTickets
@@ -50,21 +76,37 @@ namespace HP.SW.SWT.Data
                                select t).ToList();
             //.Where((Expression<Func<Ticket, bool>>)filterOptions.GetExpression()).OrderBy(pagingOptions.GetExpression());
 
+            pagingOptions.Count = dataTickets.Count;
+
             return (from t in dataTickets
-                    select new ENT.Ticket
-                    {
-                        Number = t.Number,
-                        Cluster = t.Cluster.ShortDescription,
-                        StartDate = t.StartDate,
-                        DeliveryDate = t.DeliveryDate,
-                        Tasks = (from ta in t.Task
-                                 select new ENT.Task
-                                 {
-                                     Description = ta.Description,
-                                     EstimatedHours = ta.EstimatedHours.Value,
-                                     DonePercentage = ta.DonePercentage.Value,
-                                 }),
-                        Comments = (from tc in t.TicketComment
+                     select new ENT.Ticket
+                              {
+                                  Number = t.Number,
+                                  Title = t.Title,
+                                  Description = t.Description,
+                                  Resource = new ENT.Resource
+                                  {
+                                      T = t.Resource.T,
+                                      Name = t.Resource.Name,
+                                      Cluster = t.Resource.Cluster.ShortDescription,
+                                  },
+                                  Status = (ENT.TicketStatus)t.Status,
+                                  Priority = (ENT.TicketPriority)t.Priority,
+                                  Category = (ENT.TicketCategory)t.Category,
+                                  Cluster = t.Cluster.ShortDescription,
+                                  System = t.System,
+                                  StartDate = t.StartDate,
+                                  DeliveryDate = t.DeliveryDate,
+                                  RealDeliveryDate = t.RealDeliveryDate,
+                                  ConsumedHours = t.ConsumedHours,
+                                  Tasks = (from ta in t.Task
+                                           select new ENT.Task
+                                           {
+                                               Description = ta.Description,
+                                               EstimatedHours = ta.EstimatedHours.Value,
+                                               DonePercentage = ta.DonePercentage.Value,
+                                           }),
+                                  Comments = (from tc in t.TicketComment
                                     select new ENT.TicketComment
                                     {
                                         Comment = tc.Comment,
@@ -76,7 +118,7 @@ namespace HP.SW.SWT.Data
                                         },
                                         Date = tc.Date,
                                     })
-                    });
+                              });
         }
 
         public static ENT.Ticket Get(string ticketNumber)
@@ -89,31 +131,45 @@ namespace HP.SW.SWT.Data
             if (ticket != null)
             {
                 res = new ENT.Ticket
-                {
-                    Number = ticket.Number,
-                    Cluster = ticket.Cluster.ShortDescription,
-                    StartDate = ticket.StartDate,
-                    DeliveryDate = ticket.DeliveryDate,
-                    Tasks = (from ta in ticket.Task
-                             select new ENT.Task
-                             {
-                                 Description = ta.Description,
-                                 EstimatedHours = ta.EstimatedHours.Value,
-                                 DonePercentage = ta.DonePercentage.Value,
-                             }),
-                    Comments = (from tc in ticket.TicketComment
-                                select new ENT.TicketComment
-                                {
-                                    Comment = tc.Comment,
-                                    User = new ENT.User
+                              {
+                                  Number = ticket.Number,
+                                  Title = ticket.Title,
+                                  Description = ticket.Description,
+                                  Resource = new ENT.Resource
+                                  {
+                                      T = ticket.Resource.T,
+                                      Name = ticket.Resource.Name,
+                                      Cluster = ticket.Resource.Cluster.ShortDescription,
+                                  },
+                                  Status = (ENT.TicketStatus)ticket.Status,
+                                  Priority = (ENT.TicketPriority)ticket.Priority,
+                                  Category = (ENT.TicketCategory)ticket.Category,
+                                  Cluster = ticket.Cluster.ShortDescription,
+                                  System = ticket.System,
+                                  StartDate = ticket.StartDate,
+                                  DeliveryDate = ticket.DeliveryDate,
+                                  RealDeliveryDate = ticket.RealDeliveryDate,
+                                  ConsumedHours = ticket.ConsumedHours,
+                                  Tasks = (from ta in ticket.Task
+                                           select new ENT.Task
+                                           {
+                                               Description = ta.Description,
+                                               EstimatedHours = ta.EstimatedHours.Value,
+                                               DonePercentage = ta.DonePercentage.Value,
+                                           }),
+                                  Comments = (from tc in ticket.TicketComment
+                                    select new ENT.TicketComment
                                     {
-                                        ID = tc.User.IduSer,
-                                        Logon = tc.User.UserLogon,
-                                        Name = tc.User.Name
-                                    },
-                                    Date = tc.Date,
-                                })
-                };
+                                        Comment = tc.Comment,
+                                        User = new ENT.User
+                                        {
+                                            ID = tc.User.IduSer,
+                                            Logon = tc.User.UserLogon,
+                                            Name = tc.User.Name
+                                        },
+                                        Date = tc.Date,
+                                    })
+                              };
             }
             return res;
         }
