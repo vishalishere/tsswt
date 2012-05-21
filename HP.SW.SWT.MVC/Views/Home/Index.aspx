@@ -47,7 +47,7 @@
                         </option>
                     </select>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            Orden:  <select id='dashboardCluster' onchange='reloadDashboard();'>
+            Cluster:  <select id='dashboardCluster' onchange='reloadDashboard();'>
                         <option value='' selected='selected'>
                             Todos
                         </option>

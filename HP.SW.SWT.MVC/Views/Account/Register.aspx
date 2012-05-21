@@ -1,38 +1,28 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HP.SW.SWT.MVC.Models.RegisterModel>" %>
 
 <asp:Content ID="registerTitle" ContentPlaceHolderID="TitleContent" runat="server">
-    Register
+    Registrarse
 </asp:Content>
 
 <asp:Content ID="registerContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>Create a New Account</h2>
+    <h2>Registrarse</h2>
     <p>
-        Use the form below to create a new account. 
+        Use el formulario para crear su usuario.
     </p>
     <p>
-        Passwords are required to be a minimum of <%: ViewData["PasswordLength"] %> characters in length.
+        La clave debe tener como mínimo <%: ViewData["PasswordLength"] %> caracteres.
     </p>
 
     <% using (Html.BeginForm()) { %>
-        <%: Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.") %>
+        <%: Html.ValidationSummary(true, "La creación de la cuenta falló. Por favor corrija los errores e intentelo de nuevo.") %>
         <div>
             <fieldset>
-                <legend>Account Information</legend>
-                
                 <div class="editor-label">
                     <%: Html.LabelFor(m => m.UserName) %>
                 </div>
                 <div class="editor-field">
                     <%: Html.TextBoxFor(m => m.UserName) %>
                     <%: Html.ValidationMessageFor(m => m.UserName) %>
-                </div>
-                
-                <div class="editor-label">
-                    <%: Html.LabelFor(m => m.Email) %>
-                </div>
-                <div class="editor-field">
-                    <%: Html.TextBoxFor(m => m.Email) %>
-                    <%: Html.ValidationMessageFor(m => m.Email) %>
                 </div>
                 
                 <div class="editor-label">
@@ -52,7 +42,7 @@
                 </div>
                 
                 <p>
-                    <input type="submit" value="Register" />
+                    <input type="submit" value="Registrarse" />
                 </p>
             </fieldset>
         </div>

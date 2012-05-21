@@ -33,7 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ISymWrapper" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Web, Version=6.4.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -69,6 +71,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -117,12 +120,16 @@
     <Content Include="Scripts\Home\Index.js" />
     <Content Include="Scripts\Resource\excel.js" />
     <Content Include="Scripts\dateutil.js" />
+    <Content Include="Scripts\Ticket\Index.js" />
     <Content Include="Views\Resource\Create.ascx" />
     <Content Include="Views\Resource\Delete.ascx" />
     <Content Include="Views\Resource\Details.ascx" />
     <Content Include="Views\Resource\Edit.ascx" />
     <Content Include="Views\Resource\Excel.aspx" />
     <Content Include="Views\Resource\Index.aspx" />
+    <Content Include="Views\Ticket\Details.aspx" />
+    <Content Include="Views\Ticket\Edit.aspx" />
+    <Content Include="Views\Ticket\Index.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
