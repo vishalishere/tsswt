@@ -1,24 +1,22 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HP.SW.SWT.MVC.Models.ChangePasswordModel>" %>
 
 <asp:Content ID="changePasswordTitle" ContentPlaceHolderID="TitleContent" runat="server">
-    Change Password
+    Cambio de clave
 </asp:Content>
 
 <asp:Content ID="changePasswordContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>Change Password</h2>
+    <h2>Cambio de clave</h2>
     <p>
-        Use the form below to change your password. 
+        Use el formulario para cambiar su clave.
     </p>
     <p>
-        New passwords are required to be a minimum of <%: ViewData["PasswordLength"] %> characters in length.
+        La nueva clave debe tener como mínimo <%: ViewData["PasswordLength"] %> caracteres.
     </p>
 
     <% using (Html.BeginForm()) { %>
-        <%: Html.ValidationSummary(true, "Password change was unsuccessful. Please correct the errors and try again.") %>
+        <%: Html.ValidationSummary(true, "El cambio de clave falló. Por favor corrija los errores e intentelo de nuevo.") %>
         <div>
             <fieldset>
-                <legend>Account Information</legend>
-                
                 <div class="editor-label">
                     <%: Html.LabelFor(m => m.OldPassword) %>
                 </div>
@@ -44,7 +42,7 @@
                 </div>
                 
                 <p>
-                    <input type="submit" value="Change Password" />
+                    <input type="submit" value="Cambiar clave" />
                 </p>
             </fieldset>
         </div>

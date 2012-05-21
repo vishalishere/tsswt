@@ -12,62 +12,57 @@ namespace HP.SW.SWT.MVC.Models
 {
 
     #region Models
-    [PropertiesMustMatch("NewPassword", "ConfirmPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+    [PropertiesMustMatch("NewPassword", "ConfirmPassword", ErrorMessage = "La clave y su confirmación no coinciden.")]
     public class ChangePasswordModel
     {
         [Required]
         [DataType(DataType.Password)]
-        [DisplayName("Current password")]
+        [DisplayName("Clave Actual")]
         public string OldPassword { get; set; }
 
         [Required]
         [ValidatePasswordLength]
         [DataType(DataType.Password)]
-        [DisplayName("New password")]
+        [DisplayName("Nueva Clave")]
         public string NewPassword { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [DisplayName("Confirm new password")]
+        [DisplayName("Confirme su nueva clave")]
         public string ConfirmPassword { get; set; }
     }
 
     public class LogOnModel
     {
         [Required]
-        [DisplayName("User name")]
+        [DisplayName("Usuario")]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [DisplayName("Password")]
+        [DisplayName("Clave")]
         public string Password { get; set; }
 
-        [DisplayName("Remember me?")]
+        [DisplayName("Recordarme en esta máquina")]
         public bool RememberMe { get; set; }
     }
 
-    [PropertiesMustMatch("Password", "ConfirmPassword", ErrorMessage = "The password and confirmation password do not match.")]
+    [PropertiesMustMatch("Password", "ConfirmPassword", ErrorMessage = "La clave y su confirmación no coinciden.")]
     public class RegisterModel
     {
         [Required]
-        [DisplayName("User name")]
+        [DisplayName("Usuario")]
         public string UserName { get; set; }
-
-        [Required]
-        [DataType(DataType.EmailAddress)]
-        [DisplayName("Email address")]
-        public string Email { get; set; }
 
         [Required]
         [ValidatePasswordLength]
         [DataType(DataType.Password)]
-        [DisplayName("Password")]
+        [DisplayName("Clave")]
         public string Password { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [DisplayName("Confirm password")]
+        [DisplayName("Confirme su clave")]
         public string ConfirmPassword { get; set; }
     }
     #endregion
@@ -111,17 +106,16 @@ namespace HP.SW.SWT.MVC.Models
 
         public bool ValidateUser(string userName, string password)
         {
-            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("Value cannot be null or empty.", "userName");
-            if (String.IsNullOrEmpty(password)) throw new ArgumentException("Value cannot be null or empty.", "password");
+            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("El campo es obligatorio.", "Usuario");
+            if (String.IsNullOrEmpty(password)) throw new ArgumentException("El campo es obligatorio.", "Clave");
 
             return _provider.ValidateUser(userName, password);
         }
 
         public MembershipCreateStatus CreateUser(string userName, string password, string email)
         {
-            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("Value cannot be null or empty.", "userName");
-            if (String.IsNullOrEmpty(password)) throw new ArgumentException("Value cannot be null or empty.", "password");
-            if (String.IsNullOrEmpty(email)) throw new ArgumentException("Value cannot be null or empty.", "email");
+            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("El campo es obligatorio.", "Usuario");
+            if (String.IsNullOrEmpty(password)) throw new ArgumentException("El campo es obligatorio.", "Clave");
 
             MembershipCreateStatus status;
             _provider.CreateUser(userName, password, email, null, null, true, null, out status);
@@ -130,9 +124,9 @@ namespace HP.SW.SWT.MVC.Models
 
         public bool ChangePassword(string userName, string oldPassword, string newPassword)
         {
-            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("Value cannot be null or empty.", "userName");
-            if (String.IsNullOrEmpty(oldPassword)) throw new ArgumentException("Value cannot be null or empty.", "oldPassword");
-            if (String.IsNullOrEmpty(newPassword)) throw new ArgumentException("Value cannot be null or empty.", "newPassword");
+            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("El campo es obligatorio.", "Usuario");
+            if (String.IsNullOrEmpty(oldPassword)) throw new ArgumentException("El campo es obligatorio.", "Clave Actual");
+            if (String.IsNullOrEmpty(newPassword)) throw new ArgumentException("El campo es obligatorio.", "Nueva Clave");
 
             // The underlying ChangePassword() will throw an exception rather
             // than return false in certain failure scenarios.
@@ -162,7 +156,7 @@ namespace HP.SW.SWT.MVC.Models
     {
         public void SignIn(string userName, bool createPersistentCookie)
         {
-            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("Value cannot be null or empty.", "userName");
+            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("El campo es obligatorio.", "Usuario");
 
             FormsAuthentication.SetAuthCookie(userName, createPersistentCookie);
         }
@@ -184,34 +178,22 @@ namespace HP.SW.SWT.MVC.Models
             switch (createStatus)
             {
                 case MembershipCreateStatus.DuplicateUserName:
-                    return "Username already exists. Please enter a different user name.";
-
-                case MembershipCreateStatus.DuplicateEmail:
-                    return "A username for that e-mail address already exists. Please enter a different e-mail address.";
+                    return "El usuario ya existe.";
 
                 case MembershipCreateStatus.InvalidPassword:
-                    return "The password provided is invalid. Please enter a valid password value.";
-
-                case MembershipCreateStatus.InvalidEmail:
-                    return "The e-mail address provided is invalid. Please check the value and try again.";
-
-                case MembershipCreateStatus.InvalidAnswer:
-                    return "The password retrieval answer provided is invalid. Please check the value and try again.";
-
-                case MembershipCreateStatus.InvalidQuestion:
-                    return "The password retrieval question provided is invalid. Please check the value and try again.";
+                    return "La clave ingresada es inválida.";
 
                 case MembershipCreateStatus.InvalidUserName:
-                    return "The user name provided is invalid. Please check the value and try again.";
+                    return "El usuario es inválido.";
 
                 case MembershipCreateStatus.ProviderError:
                     return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
 
                 case MembershipCreateStatus.UserRejected:
-                    return "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return "La creación del usuario falló. Por favor verifique los datos y vuelva a intentarlo. Si el problema persiste, por favor contacte al administrador del sistema.";
 
                 default:
-                    return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return "Ocurrió un error inesperado. Please verify your entry and try again. Por favor verifique los datos y vuelva a intentarlo. Si el problema persiste, por favor contacte al administrador del sistema.";
             }
         }
     }
@@ -219,7 +201,7 @@ namespace HP.SW.SWT.MVC.Models
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
     public sealed class PropertiesMustMatchAttribute : ValidationAttribute
     {
-        private const string _defaultErrorMessage = "'{0}' and '{1}' do not match.";
+        private const string _defaultErrorMessage = "'{0}' y '{1}' no coinciden.";
         private readonly object _typeId = new object();
 
         public PropertiesMustMatchAttribute(string originalProperty, string confirmProperty)
@@ -258,7 +240,7 @@ namespace HP.SW.SWT.MVC.Models
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public sealed class ValidatePasswordLengthAttribute : ValidationAttribute
     {
-        private const string _defaultErrorMessage = "'{0}' must be at least {1} characters long.";
+        private const string _defaultErrorMessage = "'{0}' tiene que tener por lo menos {1} caracteres.";
         private readonly int _minCharacters = Membership.Provider.MinRequiredPasswordLength;
 
         public ValidatePasswordLengthAttribute()

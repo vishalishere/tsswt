@@ -1,21 +1,19 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HP.SW.SWT.MVC.Models.LogOnModel>" %>
 
 <asp:Content ID="loginTitle" ContentPlaceHolderID="TitleContent" runat="server">
-    Log On
+    Acceso al sistema
 </asp:Content>
 
 <asp:Content ID="loginContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2>Log On</h2>
+    <h2>Acceso al sistema</h2>
     <p>
-        Please enter your username and password. <%: Html.ActionLink("Register", "Register") %> if you don't have an account.
+        Bienvenido a SWT. Para acceder al sistema, por favor ingrese su usuario y clave. Si es un usuario nuevo, por favor <%: Html.ActionLink("registrese", "Register") %>.
     </p>
 
     <% using (Html.BeginForm()) { %>
         <%: Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.") %>
         <div>
             <fieldset>
-                <legend>Account Information</legend>
-                
                 <div class="editor-label">
                     <%: Html.LabelFor(m => m.UserName) %>
                 </div>

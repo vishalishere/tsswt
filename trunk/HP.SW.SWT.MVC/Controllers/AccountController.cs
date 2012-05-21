@@ -11,11 +11,9 @@ using HP.SW.SWT.MVC.Models;
 
 namespace HP.SW.SWT.MVC.Controllers
 {
-
     [HandleError]
     public class AccountController : Controller
     {
-
         public IFormsAuthenticationService FormsService { get; set; }
         public IMembershipService MembershipService { get; set; }
 
@@ -30,7 +28,6 @@ namespace HP.SW.SWT.MVC.Controllers
         // **************************************
         // URL: /Account/LogOn
         // **************************************
-
         public ActionResult LogOn()
         {
             return View();
@@ -55,7 +52,7 @@ namespace HP.SW.SWT.MVC.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    ModelState.AddModelError("", "Usuario o clave incorrectos.");
                 }
             }
 
@@ -90,7 +87,7 @@ namespace HP.SW.SWT.MVC.Controllers
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
-                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserName, model.Password, model.Email);
+                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserName, model.Password, string.Empty);
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
@@ -131,7 +128,7 @@ namespace HP.SW.SWT.MVC.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                    ModelState.AddModelError("", "La clave actual es incorrecta o la nueva clave es inválida.");
                 }
             }
 

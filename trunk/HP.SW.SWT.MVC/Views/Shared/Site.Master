@@ -17,6 +17,9 @@
 </head>
 
 <body>
-    <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    <div style="width:100%; height:30px;"></div>
+    <div style="width:98%; margin:1%;">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    </div>
 </body>
 </html>
