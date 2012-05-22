@@ -46,7 +46,7 @@ namespace HP.SW.SWT.Entities
         [Required]
         public string Description { get; set; }
 
-        [DisplayName("Recurso")]
+        [DisplayName("Asignado A")]
         [Required]
         public Resource Resource { get; set; }
 
@@ -160,5 +160,23 @@ namespace HP.SW.SWT.Entities
                 }
             }
         }
+
+        [DisplayName("Fecha de Creación")]
+        public DateTime DateCreated { get; set; }
+
+        [DisplayName("Usuario de Creación")]
+        public User UserCreated { get; set; }
+
+        [DisplayName("Fecha de Última Modificación")]
+        public DateTime DateLastModified { get; set; }
+
+        [DisplayName("Usuario de Última Modificación")]
+        public User UserLastModified { get; set; }
+
+        [DisplayName("Fecha de Eliminación")]
+        public DateTime DateDeleted { get; set; }
+
+        [DisplayName("Usuario de Eliminación")]
+        public User UserDeleted { get; set; }
     }
 }
