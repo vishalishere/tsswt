@@ -2,7 +2,7 @@
 <%@ Import Namespace="HP.SW.SWT.Extensions" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Tickets > <%: Model.Title %>
+	Tickets > <%: Model.Title %> > Editar
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContent" runat="server">
@@ -21,12 +21,12 @@
         background-color: #e8eef4;
     }
      
-    #details 
+    #edit 
     {
         border-left: 0px none White;
-     }
+    }
 
-    #details th
+    #edit th
     {
         background-color: White;
         border-left: 0px none White;
@@ -35,7 +35,7 @@
         vertical-align: top;
     }
 
-    #details td
+    #edit td
     {
         background-color: #e8eef4;
         border-top: 1px solid #696969;
@@ -48,28 +48,24 @@
 
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2><%: Html.ActionLink("Tickets", "Index") %> > <%: Model.Title %></h2>
+    <h2><%: Html.ActionLink("Tickets", "Index") %> > <%: Html.ActionLink(Model.Title, "Edit") %> > Editar</h2>
 
+    <% using (Html.BeginForm()) {%>
+        <%: Html.ValidationSummary(true) %>
+        
     <div style="width: 100%; text-align: right">
+        <input type="submit" value="Grabar" />
         <input type="button" value="Cerrar" onclick="window.location = '<%= Url.RouteUrl(new { Controller= "Ticket", Action= "Index"}) %>';" />
     </div>
 
     <div id="menu">
         &nbsp;
-        <a href='<%= Url.RouteUrl(new { Controller= "Ticket", Action= "Create"}) %>' style='color: #696969; font-weight: normal; text-decoration:none'>
-            <img src='<%= Url.Contents("Images/sharepoint_new.png") %>' alt="Nuevo Ticket" style="vertical-align: bottom;" />&nbsp;&nbsp;Nuevo Ticket
-        </a>
-        |
-        <a href='<%= Url.RouteUrl(new { Controller= "Ticket", Action= "Edit", id= Model.Number}) %>' style='color: #696969; font-weight: normal; text-decoration:none;'>
-            <img src='<%= Url.Contents("Images/sharepoint_edit.png") %>' alt="Editar Ticket" style="vertical-align: bottom;"  />&nbsp;&nbsp;Editar Ticket
+        <a href='<%= Url.RouteUrl(new { Controller= "Ticket", Action= "Attach", id= Model.Number}) %>' style='color: #696969; font-weight: normal; text-decoration:none;'>
+            <img src='<%= Url.Contents("Images/sharepoint_attach.png") %>' alt="Adjuntar Archivo" style="vertical-align: bottom;"  />&nbsp;&nbsp;Adjuntar Archivo
         </a>
         |
         <a href='<%= Url.RouteUrl(new { Controller= "Ticket", Action= "Delete", id= Model.Number}) %>' style='color: #696969; font-weight: normal; text-decoration:none'>
             <img src='<%= Url.Contents("Images/sharepoint_delete.png") %>' alt="Eliminar Ticket" style="vertical-align: bottom;"  />&nbsp;&nbsp;Eliminar Ticket
-        </a>
-        |
-        <a href='<%= Url.RouteUrl(new { Controller= "Ticket", Action= "History", id= Model.Number}) %>' style='color: #696969; font-weight: normal; text-decoration:none'>
-            <img src='<%= Url.Contents("Images/sharepoint_history.png") %>' alt="Ver Historial" style="vertical-align: bottom;"  />&nbsp;&nbsp;Ver Historial
         </a>
     </div>
 
@@ -143,7 +139,17 @@
     </tr>
     </table>
 
-    <div style="width: 100%; text-align: right">
-        <input type="button" value="Cerrar" onclick="window.location = '<%= Url.RouteUrl(new { Controller= "Ticket", Action= "Index"}) %>';" />
-    </div>
+    <table style="width: 100%;">
+    <tr>
+        <td style="text-align: right">
+            Creado el <%: String.Format("0:g", Model.DateCreated) %> por <%: Model.UserCreated.Name %>
+            Modificado por última vez el <%: String.Format("0:g", Model.DateLastModified) %> por <%: Model.UserLastModified.Name %>
+        </td>
+        <td style="text-align: left">
+            <input type="submit" value="Grabar" />
+            <input type="button" value="Cerrar" onclick="window.location = '<%= Url.RouteUrl(new { Controller= "Ticket", Action= "Index"}) %>';" />
+        </td>
+    </tr> 
+    </table>
+    <% } %>
 </asp:Content>

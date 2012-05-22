@@ -137,6 +137,7 @@
     <Content Include="Views\Resource\Edit.ascx" />
     <Content Include="Views\Resource\Excel.aspx" />
     <Content Include="Views\Resource\Index.aspx" />
+    <Content Include="Views\Ticket\Edit.aspx" />
     <Content Include="Views\Ticket\Details.aspx" />
     <Content Include="Views\Ticket\Index.aspx" />
     <Content Include="Web.config" />
