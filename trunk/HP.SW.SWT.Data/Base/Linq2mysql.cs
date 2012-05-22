@@ -1707,6 +1707,8 @@ namespace HP.SW.SWT.Data
 
         private System.Nullable<System.DateTime> _dateDelete;
 
+        private System.DateTime _dateLastModified;
+
         private System.Nullable<System.DateTime> _deliveryDate;
 
         private string _description;
@@ -1716,6 +1718,8 @@ namespace HP.SW.SWT.Data
         private int _iduSerCreate;
 
         private System.Nullable<int> _iduSerDelete;
+
+        private int _iduSerLastModified;
 
         private string _number;
 
@@ -1745,6 +1749,8 @@ namespace HP.SW.SWT.Data
 
         private EntityRef<User> _user1 = new EntityRef<User>();
 
+        private EntityRef<User> _user2 = new EntityRef<User>();
+
         #region Extensibility Method Declarations
         partial void OnCreated();
 
@@ -1768,6 +1774,10 @@ namespace HP.SW.SWT.Data
 
         partial void OnDateDeleteChanging(System.Nullable<System.DateTime> value);
 
+        partial void OnDateLastModifiedChanged();
+
+        partial void OnDateLastModifiedChanging(System.DateTime value);
+
         partial void OnDeliveryDateChanged();
 
         partial void OnDeliveryDateChanging(System.Nullable<System.DateTime> value);
@@ -1787,6 +1797,10 @@ namespace HP.SW.SWT.Data
         partial void OnIduSerDeleteChanged();
 
         partial void OnIduSerDeleteChanging(System.Nullable<int> value);
+
+        partial void OnIduSerLastModifiedChanged();
+
+        partial void OnIduSerLastModifiedChanging(int value);
 
         partial void OnNumberChanged();
 
@@ -1936,6 +1950,27 @@ namespace HP.SW.SWT.Data
             }
         }
 
+        [Column(Storage = "_dateLastModified", Name = "DateLastModified", DbType = "datetime", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public System.DateTime DateLastModified
+        {
+            get
+            {
+                return this._dateLastModified;
+            }
+            set
+            {
+                if ((_dateLastModified != value))
+                {
+                    this.OnDateLastModifiedChanging(value);
+                    this.SendPropertyChanging();
+                    this._dateLastModified = value;
+                    this.SendPropertyChanged("DateLastModified");
+                    this.OnDateLastModifiedChanged();
+                }
+            }
+        }
+
         [Column(Storage = "_deliveryDate", Name = "DeliveryDate", DbType = "datetime", AutoSync = AutoSync.Never)]
         [DebuggerNonUserCode()]
         public System.Nullable<System.DateTime> DeliveryDate
@@ -2038,6 +2073,27 @@ namespace HP.SW.SWT.Data
                     this._iduSerDelete = value;
                     this.SendPropertyChanged("IduSerDelete");
                     this.OnIduSerDeleteChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_iduSerLastModified", Name = "IDUserLastModified", DbType = "int", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public int IduSerLastModified
+        {
+            get
+            {
+                return this._iduSerLastModified;
+            }
+            set
+            {
+                if ((_iduSerLastModified != value))
+                {
+                    this.OnIduSerLastModifiedChanging(value);
+                    this.SendPropertyChanging();
+                    this._iduSerLastModified = value;
+                    this.SendPropertyChanged("IduSerLastModified");
+                    this.OnIduSerLastModifiedChanged();
                 }
             }
         }
@@ -2364,6 +2420,39 @@ namespace HP.SW.SWT.Data
                     else
                     {
                         _iduSerDelete = null;
+                    }
+                }
+            }
+        }
+
+        [Association(Storage = "_user2", OtherKey = "IduSer", ThisKey = "IduSerLastModified", Name = "fk_Ticket_UserLastModified", IsForeignKey = true)]
+        [DebuggerNonUserCode()]
+        public User User2
+        {
+            get
+            {
+                return this._user2.Entity;
+            }
+            set
+            {
+                if (((this._user2.Entity == value)
+                            == false))
+                {
+                    if ((this._user2.Entity != null))
+                    {
+                        User previousUser = this._user2.Entity;
+                        this._user2.Entity = null;
+                        previousUser.Ticket2.Remove(this);
+                    }
+                    this._user2.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Ticket2.Add(this);
+                        _iduSerLastModified = value.IduSer;
+                    }
+                    else
+                    {
+                        _iduSerLastModified = default(int);
                     }
                 }
             }
@@ -2703,6 +2792,8 @@ namespace HP.SW.SWT.Data
 
         private EntitySet<Ticket> _ticket1;
 
+        private EntitySet<Ticket> _ticket2;
+
         #region Extensibility Method Declarations
         partial void OnCreated();
 
@@ -2729,6 +2820,7 @@ namespace HP.SW.SWT.Data
             _ticketComment = new EntitySet<TicketComment>(new Action<TicketComment>(this.TicketComment_Attach), new Action<TicketComment>(this.TicketComment_Detach));
             _ticket = new EntitySet<Ticket>(new Action<Ticket>(this.Ticket_Attach), new Action<Ticket>(this.Ticket_Detach));
             _ticket1 = new EntitySet<Ticket>(new Action<Ticket>(this.Ticket1_Attach), new Action<Ticket>(this.Ticket1_Detach));
+            _ticket2 = new EntitySet<Ticket>(new Action<Ticket>(this.Ticket2_Attach), new Action<Ticket>(this.Ticket2_Detach));
             this.OnCreated();
         }
 
@@ -2861,6 +2953,20 @@ namespace HP.SW.SWT.Data
                 this._ticket1 = value;
             }
         }
+
+        [Association(Storage = "_ticket2", OtherKey = "IduSerLastModified", ThisKey = "IduSer", Name = "fk_Ticket_UserLastModified")]
+        [DebuggerNonUserCode()]
+        public EntitySet<Ticket> Ticket2
+        {
+            get
+            {
+                return this._ticket2;
+            }
+            set
+            {
+                this._ticket2 = value;
+            }
+        }
         #endregion
 
         public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
@@ -2920,6 +3026,18 @@ namespace HP.SW.SWT.Data
         {
             this.SendPropertyChanging();
             entity.User1 = null;
+        }
+
+        private void Ticket2_Attach(Ticket entity)
+        {
+            this.SendPropertyChanging();
+            entity.User2 = this;
+        }
+
+        private void Ticket2_Detach(Ticket entity)
+        {
+            this.SendPropertyChanging();
+            entity.User2 = null;
         }
         #endregion
     }

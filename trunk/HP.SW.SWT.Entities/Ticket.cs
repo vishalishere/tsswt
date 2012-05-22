@@ -174,7 +174,7 @@ namespace HP.SW.SWT.Entities
         public User UserLastModified { get; set; }
 
         [DisplayName("Fecha de Eliminación")]
-        public DateTime DateDeleted { get; set; }
+        public DateTime? DateDeleted { get; set; }
 
         [DisplayName("Usuario de Eliminación")]
         public User UserDeleted { get; set; }

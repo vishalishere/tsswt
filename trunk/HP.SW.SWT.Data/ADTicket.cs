@@ -43,6 +43,27 @@ namespace HP.SW.SWT.Data
                                   DeliveryDate = t.DeliveryDate,
                                   RealDeliveryDate = t.RealDeliveryDate,
                                   ConsumedHours = t.ConsumedHours,
+                                  DateCreated = t.DateCreate,
+                                  UserCreated = new ENT.User
+                                  {
+                                      ID = t.User.IduSer,
+                                      Logon = t.User.UserLogon,
+                                      Name = t.User.Name
+                                  },
+                                  DateLastModified = t.DateLastModified,
+                                  UserLastModified = new ENT.User
+                                  {
+                                      ID = t.User1.IduSer,
+                                      Logon = t.User1.UserLogon,
+                                      Name = t.User1.Name
+                                  },
+                                  DateDeleted = t.DateDelete,
+                                  UserDeleted = t.User2 == null ? null : new ENT.User
+                                  {
+                                      ID = t.User2.IduSer,
+                                      Logon = t.User2.UserLogon,
+                                      Name = t.User2.Name
+                                  },
                                   Tasks = (from ta in t.Task
                                            select new ENT.Task
                                            {
