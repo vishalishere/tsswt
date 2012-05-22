@@ -19,7 +19,7 @@ namespace HP.SW.SWT.MVC.Scripts
         {
             context.Response.ContentType = "text/javascript";
 
-            context.Response.Write(ADHoliday.GetHolidays(DateTime.Now.Year).Aggregate("var holidays = [", ((x, y) => x + "'" + y.Date.ToString("yyyyMMdd") + "',")).TrimEnd(','));
+            context.Response.Write(ADHoliday.GetAll(DateTime.Now.Year).Aggregate("var holidays = [", ((x, y) => x + "'" + y.Date.ToString("yyyyMMdd") + "',")).TrimEnd(','));
             context.Response.Write("];");
         }
 
