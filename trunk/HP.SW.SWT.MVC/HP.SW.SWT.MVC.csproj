@@ -131,10 +131,6 @@
     <Content Include="Scripts\Resource\excel.js" />
     <Content Include="Scripts\dateutil.js" />
     <Content Include="Scripts\Ticket\Index.js" />
-    <Content Include="Views\Resource\Create.ascx" />
-    <Content Include="Views\Resource\Delete.ascx" />
-    <Content Include="Views\Resource\Details.ascx" />
-    <Content Include="Views\Resource\Edit.ascx" />
     <Content Include="Views\Resource\Excel.aspx" />
     <Content Include="Views\Resource\Index.aspx" />
     <Content Include="Views\Ticket\Edit.aspx" />

@@ -7,7 +7,7 @@ namespace HP.SW.SWT.Data
 {
     public class ADHoliday : ADBase
     {
-        public static IEnumerable<ENT.Holiday> GetHolidays(int year)
+        public static IEnumerable<ENT.Holiday> GetAll(int year)
         {
             return from h in Context.Holiday
                    where h.Date.Year == year

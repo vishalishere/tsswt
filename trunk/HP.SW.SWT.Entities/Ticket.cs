@@ -64,7 +64,7 @@ namespace HP.SW.SWT.Entities
 
         [DisplayName("Cluster")]
         [Required]
-        public string Cluster { get; set; }
+        public Cluster Cluster { get; set; }
 
         [DisplayName("Sistema")]
         [Required]
@@ -84,6 +84,7 @@ namespace HP.SW.SWT.Entities
 
         public IEnumerable<Task> Tasks { get; set; }
 
+        public string NewComment { get; set; }
         [DisplayName("Comentarios")]
         public IEnumerable<TicketComment> Comments { get; set; }
 
@@ -92,7 +93,7 @@ namespace HP.SW.SWT.Entities
         {
             get
             {
-                return this.Tasks.Sum(x => x.EstimatedHours);
+                return this.Tasks == null ? 0 : this.Tasks.Sum(x => x.EstimatedHours);
             }
         }
 
@@ -103,7 +104,7 @@ namespace HP.SW.SWT.Entities
         {
             get
             {
-                return this.Tasks.Sum(x => x.PendingHours);
+                return this.Tasks == null ? 0 : this.Tasks.Sum(x => x.PendingHours);
             }
         }
 
@@ -147,7 +148,7 @@ namespace HP.SW.SWT.Entities
         {
             get
             {
-                decimal estimatedHours = this.Tasks.Sum(t => t.EstimatedHours);
+                decimal estimatedHours = this.Tasks == null ? 0 : this.Tasks.Sum(t => t.EstimatedHours);
 
                 if (estimatedHours == 0)
                 {

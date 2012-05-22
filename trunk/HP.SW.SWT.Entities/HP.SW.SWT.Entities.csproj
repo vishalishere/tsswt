@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cluster.cs" />
     <Compile Include="ExcelRow.cs" />
     <Compile Include="GridUtilities\DataFilter.cs" />
     <Compile Include="GridUtilities\FilterOptions.cs" />

@@ -61,7 +61,7 @@ namespace HP.SW.SWT.MVC.Controllers
                         select new
                         {
                             Number = t.Number,
-                            Cluster = t.Cluster,
+                            Cluster = t.Cluster.ShortDescription,
                             Resource = t.Resource,
                             StartDate = t.StartDate ?? t.StartDateForecast,
                             DeliveryDate = t.DeliveryDate,

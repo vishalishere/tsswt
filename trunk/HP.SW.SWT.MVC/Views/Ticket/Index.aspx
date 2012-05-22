@@ -203,7 +203,7 @@
             <%: item.Priority %>
         </td>
         <td>
-            <%: item.Cluster %>
+            <%: item.Cluster.ShortDescription %>
         </td>
         <td>
             <%: item.System %>

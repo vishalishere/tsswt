@@ -37,7 +37,12 @@ namespace HP.SW.SWT.Data
                                   Status = (ENT.TicketStatus)t.Status,
                                   Priority = (ENT.TicketPriority)t.Priority,
                                   Category = (ENT.TicketCategory)t.Category,
-                                  Cluster = t.Cluster.ShortDescription,
+                                  Cluster = new ENT.Cluster
+                                    {
+                                        ID = t.Cluster.IdcLuster,
+                                        ShortDescription = t.Cluster.ShortDescription,
+                                        Description = t.Cluster.Description,
+                                    },
                                   System = t.System,
                                   StartDate = t.StartDate,
                                   DeliveryDate = t.DeliveryDate,
@@ -53,16 +58,16 @@ namespace HP.SW.SWT.Data
                                   DateLastModified = t.DateLastModified,
                                   UserLastModified = new ENT.User
                                   {
-                                      ID = t.User1.IduSer,
-                                      Logon = t.User1.UserLogon,
-                                      Name = t.User1.Name
-                                  },
-                                  DateDeleted = t.DateDelete,
-                                  UserDeleted = t.User2 == null ? null : new ENT.User
-                                  {
                                       ID = t.User2.IduSer,
                                       Logon = t.User2.UserLogon,
                                       Name = t.User2.Name
+                                  },
+                                  DateDeleted = t.DateDelete,
+                                  UserDeleted = t.User1 == null ? null : new ENT.User
+                                  {
+                                      ID = t.User1.IduSer,
+                                      Logon = t.User1.UserLogon,
+                                      Name = t.User1.Name
                                   },
                                   Tasks = (from ta in t.Task
                                            select new ENT.Task
@@ -114,12 +119,38 @@ namespace HP.SW.SWT.Data
                                   Status = (ENT.TicketStatus)t.Status,
                                   Priority = (ENT.TicketPriority)t.Priority,
                                   Category = (ENT.TicketCategory)t.Category,
-                                  Cluster = t.Cluster.ShortDescription,
+                                  Cluster = new ENT.Cluster
+                                  {
+                                      ID = t.Cluster.IdcLuster,
+                                      ShortDescription = t.Cluster.ShortDescription,
+                                      Description = t.Cluster.Description,
+                                  },
                                   System = t.System,
                                   StartDate = t.StartDate,
                                   DeliveryDate = t.DeliveryDate,
                                   RealDeliveryDate = t.RealDeliveryDate,
                                   ConsumedHours = t.ConsumedHours,
+                                  DateCreated = t.DateCreate,
+                                  UserCreated = new ENT.User
+                                  {
+                                      ID = t.User.IduSer,
+                                      Logon = t.User.UserLogon,
+                                      Name = t.User.Name
+                                  },
+                                  DateLastModified = t.DateLastModified,
+                                  UserLastModified = new ENT.User
+                                  {
+                                      ID = t.User2.IduSer,
+                                      Logon = t.User2.UserLogon,
+                                      Name = t.User2.Name
+                                  },
+                                  DateDeleted = t.DateDelete,
+                                  UserDeleted = t.User1 == null ? null : new ENT.User
+                                  {
+                                      ID = t.User1.IduSer,
+                                      Logon = t.User1.UserLogon,
+                                      Name = t.User1.Name
+                                  },
                                   Tasks = (from ta in t.Task
                                            select new ENT.Task
                                            {
@@ -165,12 +196,38 @@ namespace HP.SW.SWT.Data
                                   Status = (ENT.TicketStatus)ticket.Status,
                                   Priority = (ENT.TicketPriority)ticket.Priority,
                                   Category = (ENT.TicketCategory)ticket.Category,
-                                  Cluster = ticket.Cluster.ShortDescription,
+                                  Cluster = new ENT.Cluster
+                                  {
+                                      ID = ticket.Cluster.IdcLuster,
+                                      ShortDescription = ticket.Cluster.ShortDescription,
+                                      Description = ticket.Cluster.Description,
+                                  },
                                   System = ticket.System,
                                   StartDate = ticket.StartDate,
                                   DeliveryDate = ticket.DeliveryDate,
                                   RealDeliveryDate = ticket.RealDeliveryDate,
                                   ConsumedHours = ticket.ConsumedHours,
+                                  DateCreated = ticket.DateCreate,
+                                  UserCreated = new ENT.User
+                                  {
+                                      ID = ticket.User.IduSer,
+                                      Logon = ticket.User.UserLogon,
+                                      Name = ticket.User.Name
+                                  },
+                                  DateLastModified = ticket.DateLastModified,
+                                  UserLastModified = new ENT.User
+                                  {
+                                      ID = ticket.User2.IduSer,
+                                      Logon = ticket.User2.UserLogon,
+                                      Name = ticket.User2.Name
+                                  },
+                                  DateDeleted = ticket.DateDelete,
+                                  UserDeleted = ticket.User1 == null ? null : new ENT.User
+                                  {
+                                      ID = ticket.User1.IduSer,
+                                      Logon = ticket.User1.UserLogon,
+                                      Name = ticket.User1.Name
+                                  },
                                   Tasks = (from ta in ticket.Task
                                            select new ENT.Task
                                            {
@@ -197,7 +254,30 @@ namespace HP.SW.SWT.Data
 
         public static void Update(ENT.Ticket ticket)
         {
-            throw new NotImplementedException();
+        //    Ticket dbTicket = (from t in Context.Ticket
+        //                     where t.Number == ticket.Number
+        //                     select t);
+
+        //    dbTicket.AssignedTo = ticket.Resource.T;
+        //        origTidbTicketcket.Title = viewTicket.Title;
+        //        dbTicket.Resource = Data.ADResource.Get(viewTicket.Resource.T);
+        //        ticket.Status = viewTicket.Status;
+        //        ticket.Priority = viewTicket.Priority;
+        //        ticket.Description = viewTicket.Description;
+        //        ticket.Category = viewTicket.Category;
+        //        if (!string.IsNullOrEmpty(viewTicket.NewComment))
+        //        {
+        //            ticket.Comments.
+        //        ticket.com
+
+
+        //    <%: Html.TextAreaFor(model => model.NewComment, new { rows = 4 })%>
+        //<td><%: Html.TextBoxFor(model => model.DeliveryDate)%></td>
+        //<td><%: Html.DropDownListFor(model => model.Cluster.ID, (IEnumerable<SelectListItem>)ViewData["Clusters"], "--seleccione--")%></td>
+        //<td><%: Html.TextBoxFor(model => model.System)%></td>
+        //<td><%: String.Format("{0:F1}", Model.EstimatedHours)%></td>
+        //<td><%: String.Format("{0:P0}", Model.DonePercentage / 100)%></td>
+        //<td><%: Html.TextBoxFor(model => model.RealDeliveryDate)%></td>
         }
 
         public static void Delete(string ticketNumber, ENT.User user)

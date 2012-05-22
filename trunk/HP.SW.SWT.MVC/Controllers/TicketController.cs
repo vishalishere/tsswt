@@ -80,6 +80,84 @@ namespace HP.SW.SWT.MVC.Controllers
 
         public ActionResult Edit(string id)
         {
+            List<SelectListItem> resources = new List<SelectListItem>();
+            foreach (Resource resource in Data.ADResource.GetAll().OrderBy(r => r.Name))
+            {
+                resources.Add(new SelectListItem { Value = resource.T, Text = resource.Name + " (" + resource.T + ")" });
+            }
+            ViewData["Resources"] = resources;
+            ViewData["Statuses"] = new List<SelectListItem>
+                { 
+                    new SelectListItem
+                    { 
+                        Text = "Recibido", 
+                        Value = ((int)TicketStatus.Recibido).ToString() 
+                    },
+                    new SelectListItem
+                    { 
+                        Text = "En Analisis", 
+                        Value = ((int)TicketStatus.EnAnalisis).ToString() 
+                    },
+                    new SelectListItem
+                    { 
+                        Text = "Estimado", 
+                        Value = ((int)TicketStatus.Estimado).ToString() 
+                    },
+                    new SelectListItem
+                    { 
+                        Text = "En Desarrollo", 
+                        Value = ((int)TicketStatus.EnDesarrollo).ToString() 
+                    },
+                    new SelectListItem
+                    { 
+                        Text = "Entregado", 
+                        Value = ((int)TicketStatus.Entregado).ToString() 
+                    },
+                };
+            ViewData["Priorities"] = new List<SelectListItem>
+                { 
+                    new SelectListItem
+                    { 
+                        Text = "Alta", 
+                        Value = ((int)TicketPriority.High).ToString() 
+                    },
+                    new SelectListItem
+                    { 
+                        Text = "Normal", 
+                        Value = ((int)TicketPriority.Normal).ToString() 
+                    },
+                    new SelectListItem
+                    { 
+                        Text = "Baja", 
+                        Value = ((int)TicketPriority.Low).ToString() 
+                    }
+                };
+            ViewData["Categories"] = new List<SelectListItem>
+                { 
+                    new SelectListItem
+                    { 
+                        Text = "Incidencia", 
+                        Value = ((int)TicketCategory.Incident).ToString() 
+                    },
+                    new SelectListItem
+                    { 
+                        Text = "Cambio Menor", 
+                        Value = ((int)TicketCategory.MinorChange).ToString() 
+                    },
+                    new SelectListItem
+                    { 
+                        Text = "Evolutivo", 
+                        Value = ((int)TicketCategory.Evolutive).ToString() 
+                    }
+                };
+
+            List<SelectListItem> clusters = new List<SelectListItem>();
+            foreach (Cluster cluster in Data.ADCluster.GetAll().OrderBy(r => r.Description))
+            {
+                clusters.Add(new SelectListItem { Value = cluster.ID.ToString(), Text = cluster.Description });
+            }
+            ViewData["Clusters"] = clusters;
+
             return View(Data.ADTicket.Get(id));
         }
 
@@ -87,13 +165,11 @@ namespace HP.SW.SWT.MVC.Controllers
         // POST: /Ticket/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(string id, FormCollection collection)
+        public ActionResult Edit(string id, Ticket viewTicket)
         {
             try
             {
-                Ticket ticket = Data.ADTicket.Get(id);
-
-                Data.ADTicket.Update(ticket);
+                Data.ADTicket.Update(viewTicket);
  
                 return RedirectToAction("Index");
             }
