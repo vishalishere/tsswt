@@ -52,33 +52,7 @@ namespace HP.SW.SWT.MVC.Controllers
         //
         // GET: /Ticket/Create
 
-        public ActionResult Create()
-        {
-            return View();
-        } 
-
-        //
-        // POST: /Ticket/Create
-
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        
-        //
-        // GET: /Ticket/Edit/5
-
-        public ActionResult Edit(string id)
+        public void LoadCombos()
         {
             ViewData["Resources"] = Data.ADResource.GetAll().OrderBy(r => r.Name).ToList().
                 ConvertAll<SelectListItem>(r => new SelectListItem { Value = r.T, Text = r.Name + " (" + r.T + ")" });
@@ -149,7 +123,39 @@ namespace HP.SW.SWT.MVC.Controllers
 
             ViewData["Clusters"] = Data.ADCluster.GetAll().OrderBy(r => r.Description).ToList().
                 ConvertAll<SelectListItem>(c => new SelectListItem { Value = c.ID.ToString(), Text = c.Description });
+        }
 
+        public ActionResult Create()
+        {
+            LoadCombos();
+            return View();
+        }
+
+        //
+        // POST: /Ticket/Create
+
+        [HttpPost]
+        public ActionResult Create(Ticket viewTicket)
+        {
+            try
+            {
+                Data.ADTicket.Insert(viewTicket, new User { ID = 1 });
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewData["error"] = ex.Message;
+                return Create();
+            }
+        }
+
+        //
+        // GET: /Ticket/Edit/5
+
+        public ActionResult Edit(string id)
+        {
+            LoadCombos();
             return View(Data.ADTicket.Get(id));
         }
 
@@ -176,12 +182,13 @@ namespace HP.SW.SWT.MVC.Controllers
                 ticket.RealDeliveryDate = viewTicket.RealDeliveryDate;
 
                 Data.ADTicket.Update(ticket, new User { ID = 1 });
- 
+
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View(Data.ADTicket.Get(id));
+                ViewData["error"] = ex.Message;
+                return Edit(id);
             }
         }
 
@@ -190,24 +197,24 @@ namespace HP.SW.SWT.MVC.Controllers
 
         public ActionResult Delete(string id)
         {
-            return View(id);
+            return View(Data.ADTicket.Get(id));
         }
 
         //
         // POST: /Ticket/Delete/5
 
         [HttpPost]
-        public ActionResult Delete(string id, FormCollection collection)
+        public ActionResult Delete(string id, Ticket viewTicket)
         {
             try
             {
-                Data.ADTicket.Delete(id, null);
- 
+                Data.ADTicket.Delete(id, new User { ID = 1 });
+
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return Delete(id);
             }
         }
     }

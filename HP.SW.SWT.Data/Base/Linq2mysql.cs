@@ -1840,7 +1840,7 @@ namespace HP.SW.SWT.Data
             this.OnCreated();
         }
 
-        [Column(Storage = "_assignedTo", Name = "AssignedTo", DbType = "varchar(6)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [Column(Storage = "_assignedTo", Name = "AssignedTo", DbType = "varchar(6)", AutoSync = AutoSync.Never)]
         [DebuggerNonUserCode()]
         public string AssignedTo
         {
@@ -2320,7 +2320,7 @@ namespace HP.SW.SWT.Data
                     }
                     else
                     {
-                        _assignedTo = default(string);
+                        _assignedTo = null;
                     }
                 }
             }

@@ -1,8 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HP.SW.SWT.Entities.Ticket>" %>
-<%@ Import Namespace="HP.SW.SWT.Extensions" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Tickets > <%: Model.Title %>
+	Tickets > <%: Model.Title %> > Eliminar
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContent" runat="server">
@@ -11,22 +10,12 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="StyleContent" runat="server">
 <style type="text/css">
     
-    #menu
-    {
-        width: 100%; 
-        height: 22px; 
-        padding: 2px; 
-        margin-bottom: 10px; 
-        text-align: left; 
-        background-color: #e8eef4;
-    }
-     
-    #details 
+    #delete
     {
         border-left: 0px none White;
-     }
+    }
 
-    #details th
+    #delete th
     {
         background-color: White;
         border-left: 0px none White;
@@ -35,7 +24,7 @@
         vertical-align: top;
     }
 
-    #details td
+    #delete td
     {
         background-color: #e8eef4;
         border-top: 1px solid #696969;
@@ -43,37 +32,38 @@
         border-right: 0px none White;
         padding: 5px 10px;
     }
+
+    #header, #footer 
+    {
+        border: 0px none White;
+    }
+
+    #header td, #footer td
+    {
+        border: 0px none White;
+    }
+
 </style>
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2><%: Html.ActionLink("Tickets", "Index") %> > <%: Model.Title %></h2>
+    <h2><%: Html.ActionLink("Tickets", "Index") %> > <%: Html.ActionLink(Model.Title, "Details", new { id = Model.Number })%> > Eliminar</h2>
 
-    <div style="width: 100%; text-align: right">
-        <input type="button" value="Cerrar" onclick="window.location = '<%= Url.RouteUrl(new { Controller= "Ticket", Action= "Index"}) %>';" />
-    </div>
+    <h3>¿Está seguro de que desea eliminar este ticket?</h3>
 
-    <div id="menu">
-        &nbsp;
-        <a href='<%= Url.RouteUrl(new { Controller= "Ticket", Action= "Create"}) %>' style='color: #696969; font-weight: normal; text-decoration:none'>
-            <img src='<%= Url.Contents("Images/sharepoint_new.png") %>' alt="Nuevo Ticket" style="vertical-align: bottom;" />&nbsp;&nbsp;Nuevo Ticket
-        </a>
-        |
-        <a href='<%= Url.RouteUrl(new { Controller= "Ticket", Action= "Edit", id= Model.Number}) %>' style='color: #696969; font-weight: normal; text-decoration:none;'>
-            <img src='<%= Url.Contents("Images/sharepoint_edit.png") %>' alt="Editar Ticket" style="vertical-align: bottom;"  />&nbsp;&nbsp;Editar Ticket
-        </a>
-        |
-        <a href='<%= Url.RouteUrl(new { Controller= "Ticket", Action= "Delete", id= Model.Number}) %>' style='color: #696969; font-weight: normal; text-decoration:none'>
-            <img src='<%= Url.Contents("Images/sharepoint_delete.png") %>' alt="Eliminar Ticket" style="vertical-align: bottom;"  />&nbsp;&nbsp;Eliminar Ticket
-        </a>
-        |
-        <a href='<%= Url.RouteUrl(new { Controller= "Ticket", Action= "History", id= Model.Number}) %>' style='color: #696969; font-weight: normal; text-decoration:none'>
-            <img src='<%= Url.Contents("Images/sharepoint_history.png") %>' alt="Ver Historial" style="vertical-align: bottom;"  />&nbsp;&nbsp;Ver Historial
-        </a>
-    </div>
+    <% using (Html.BeginForm()) {%>
 
-    <table id="details" width="100%" border="0">
+    <table id="header" style="width: 100%;" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td style="text-align: right">
+            <input type="submit" value="Eliminar" />
+            <input type="button" value="Cerrar" onclick="window.location = '<%= Url.RouteUrl(new { Controller= "Ticket", Action= "Index"}) %>';" />
+        </td>
+    </tr> 
+    </table>
+
+    <table id="delete" width="100%" border="0">
     <tr>
         <th><%: Html.LabelFor(model => model.Title) %></th>
         <td><%: Model.Title %></td>
@@ -143,7 +133,15 @@
     </tr>
     </table>
 
-    <div style="width: 100%; text-align: right">
-        <input type="button" value="Cerrar" onclick="window.location = '<%= Url.RouteUrl(new { Controller= "Ticket", Action= "Index"}) %>';" />
-    </div>
+    <table id="footer" style="width: 100%;" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td style="text-align: right">
+            <input type="submit" value="Eliminar" />
+            <input type="button" value="Cerrar" onclick="window.location = '<%= Url.RouteUrl(new { Controller= "Ticket", Action= "Index"}) %>';" />
+        </td>
+    </tr> 
+    </table>
+
+    <% } %>
+
 </asp:Content>

@@ -194,7 +194,7 @@
             <%: item.Title %>
         </td>
         <td>
-            <%: item.Resource.Name %>
+            <%: item.Resource == null ? string.Empty: item.Resource.Name %>
         </td>
         <td>
             <%: item.Status %>

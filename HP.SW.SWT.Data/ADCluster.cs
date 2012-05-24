@@ -16,7 +16,18 @@ namespace HP.SW.SWT.Data
                        ShortDescription = c.ShortDescription,
                        Description = c.Description
                    };
+        }
 
+        public static ENT.Cluster Get(int id)
+        {
+            return (from c in Context.Cluster
+                    where c.IdcLuster == id
+                    select new ENT.Cluster
+                    {
+                        ID = c.IdcLuster,
+                        ShortDescription = c.ShortDescription,
+                        Description = c.Description
+                    }).FirstOrDefault();
         }
     }
 }
