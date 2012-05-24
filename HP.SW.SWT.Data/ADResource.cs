@@ -2,6 +2,7 @@
 using System.Linq;
 
 using ENT = HP.SW.SWT.Entities;
+using System;
 
 namespace HP.SW.SWT.Data
 {
@@ -47,10 +48,10 @@ namespace HP.SW.SWT.Data
                     }).FirstOrDefault();
         }
 
-        public static IEnumerable<ENT.ExcelRow> GetExcel(string T, ENT.Period period)
+        public static IEnumerable<ENT.ExcelRow> GetExcel(Entities.Resource r, ENT.Period period)
         {
             return (from er in Context.ExcelRow
-                    where er.T == T && er.Period.IdpEriod == period.ID
+                    where er.T == r.T && er.Period.IdpEriod == period.ID
                     select new ENT.ExcelRow
                     {
                         Id = er.IdeXcelRow,
@@ -62,7 +63,10 @@ namespace HP.SW.SWT.Data
                         SCPHours = er.ScphOurs,
                         SCPTicket = er.ScptIcket,
                         SCPT = er.SCPt,
-                        SCPCharged = er.ScpcHarged //(er.ScpcHarged == 1)
+                        SCPCharged = er.ScpcHarged, //(er.ScpcHarged == 1)
+                        Resource = new Entities.Resource { Cluster = er.Resource1.Cluster.IdcLuster.ToString(),       
+                                                      Name = er.Resource1.Name,
+                                                      T = er.Resource1.T }
                     });
         }
 
@@ -89,31 +93,8 @@ namespace HP.SW.SWT.Data
                 eR.ScpcHarged = excelRow.SCPCharged;
 
                 Context.SubmitChanges();
-
-                //try
-                //{
-                //    MySql.Data.MySqlClient.MySqlParameter[] pars = new MySql.Data.MySqlClient.MySqlParameter[10];
-                //    pars[0] = new MySql.Data.MySqlClient.MySqlParameter(paramIdExcelRow, MySql.Data.MySqlClient.MySqlDbType.Int32, 32, System.Data.ParameterDirection.Input, false, 2, 1, "IDExcelRow", System.Data.DataRowVersion.Current, excelRow.Id);
-                //    pars[1] = new MySql.Data.MySqlClient.MySqlParameter(paramDate, MySql.Data.MySqlClient.MySqlDbType.DateTime, 10, System.Data.ParameterDirection.Input, false, 2, 1, "Date", System.Data.DataRowVersion.Current, excelRow.Date);
-                //    pars[2] = new MySql.Data.MySqlClient.MySqlParameter(paramStartHour, MySql.Data.MySqlClient.MySqlDbType.DateTime, 10, System.Data.ParameterDirection.Input, false, 2, 1, "StartHour", System.Data.DataRowVersion.Current, excelRow.StartHour);
-                //    pars[3] = new MySql.Data.MySqlClient.MySqlParameter(paramEndHour, MySql.Data.MySqlClient.MySqlDbType.DateTime, 10, System.Data.ParameterDirection.Input, false, 2, 1, "EndHour", System.Data.DataRowVersion.Current, excelRow.EndHour);
-                //    pars[4] = new MySql.Data.MySqlClient.MySqlParameter(paramTicket, MySql.Data.MySqlClient.MySqlDbType.String, 15, System.Data.ParameterDirection.Input, false, 2, 1, "Ticket", System.Data.DataRowVersion.Current, excelRow.Ticket);
-                //    pars[5] = new MySql.Data.MySqlClient.MySqlParameter(paramDescription, MySql.Data.MySqlClient.MySqlDbType.String, 4000, System.Data.ParameterDirection.Input, false, 0, 0, "Description", System.Data.DataRowVersion.Current, excelRow.Description);
-                //    pars[6] = new MySql.Data.MySqlClient.MySqlParameter(paramSCPHours, MySql.Data.MySqlClient.MySqlDbType.Decimal);
-                //    pars[7] = new MySql.Data.MySqlClient.MySqlParameter(paramSCPTicket, MySql.Data.MySqlClient.MySqlDbType.String);
-                //    pars[8] = new MySql.Data.MySqlClient.MySqlParameter(paramSCPT, MySql.Data.MySqlClient.MySqlDbType.String);
-                //    pars[9] = new MySql.Data.MySqlClient.MySqlParameter(paramSCPCharged, MySql.Data.MySqlClient.MySqlDbType.Int32);
-
-                //    Context.ExecuteQuery<Data.ExcelRow>(UpdateExcelRow_SP, pars);
-
-                //}
-                //catch
-                //{
-                //    result = 0;
-                //    throw;
-                //}
             }
-            catch
+            catch (Exception Ex)
             {
                 result = 0;
             }
@@ -127,40 +108,29 @@ namespace HP.SW.SWT.Data
 
             try
             {
-                //int maxId = Context.ExcelRow.Max(x => x.IdeXcelRow);   //VER
-                //Add
-                //Context.ExcelRow.Attach(new Data.ExcelRow {
-                //                                            //IdeXcelRow = maxId + 1, //excelRow.Id,
-                //                                            Date = excelRow.Date,
-                //                                            StartHour = excelRow.StartHour,
-                //                                            EndHour = excelRow.EndHour,
-                //                                            Ticket = excelRow.Ticket,
-                //                                            Description = excelRow.Description,
-                //                                            ScphOurs = excelRow.SCPHours,
-                //                                            ScptIcket = excelRow.Ticket,
-                //                                            SCPt = excelRow.SCPT,
-                //                                            ScpcHarged = excelRow.SCPCharged 
-                //                                          }
-                //);
-
-                Context.ExcelRow.InsertOnSubmit(new Data.ExcelRow
+                using (SwT swt = Context)
                 {
-                    //IdeXcelRow = maxId + 1, //excelRow.Id,
-                    Date = excelRow.Date,
-                    StartHour = excelRow.StartHour,
-                    EndHour = excelRow.EndHour,
-                    Ticket = excelRow.Ticket,
-                    Description = excelRow.Description,
-                    ScphOurs = excelRow.SCPHours,
-                    ScptIcket = excelRow.Ticket,
-                    SCPt = excelRow.SCPT,
-                    ScpcHarged = excelRow.SCPCharged
-                }
-                );
+                    swt.ExcelRow.InsertOnSubmit(new Data.ExcelRow
+                    {
+                        //IdeXcelRow = maxId + 1, //excelRow.Id,
+                        Date = excelRow.Date,
+                        StartHour = excelRow.StartHour,
+                        EndHour = excelRow.EndHour,
+                        Ticket = excelRow.Ticket,
+                        Description = excelRow.Description,
+                        ScphOurs = excelRow.SCPHours,
+                        ScptIcket = excelRow.Ticket,
+                        SCPt = excelRow.SCPT,
+                        ScpcHarged = excelRow.SCPCharged,
+                        T = "T31070", //excelRow.Resource.T
+                        Period = new Data.Period { IdpEriod = 1 }
+                    }
+                    );
 
-                Context.SubmitChanges();
+                    swt.SubmitChanges();
+                }
             }
-            catch
+            catch (Exception Ex)
             {
                 result = 0;
             }

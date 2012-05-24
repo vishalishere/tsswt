@@ -741,6 +741,9 @@ namespace HP.SW.SWT.Data
             }
         }
 
+        /// <summary>
+        /// Resource: es SCPT
+        /// </summary>
         [Association(Storage = "_resource", OtherKey = "T", ThisKey = "SCPt", Name = "fk_ExcelRow_SCPT", IsForeignKey = true)]
         [DebuggerNonUserCode()]
         public Resource Resource
@@ -807,8 +810,11 @@ namespace HP.SW.SWT.Data
             }
         }
 
+        /// <summary>
+        /// Resource1: es T
+        /// </summary>
         [Association(Storage = "_resource1", OtherKey = "T", ThisKey = "T", Name = "fk_ExcelRow_T", IsForeignKey = true)]
-        [DebuggerNonUserCode()]
+        [DebuggerNonUserCode()]        
         public Resource Resource1
         {
             get
