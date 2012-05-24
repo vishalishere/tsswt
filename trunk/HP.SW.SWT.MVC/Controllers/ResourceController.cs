@@ -5,6 +5,7 @@ using System.Web.Mvc;
 
 using Data = HP.SW.SWT.Data;
 using HP.SW.SWT.Entities;
+using System.Web.Script.Services;
 
 namespace HP.SW.SWT.MVC.Controllers
 {
@@ -99,7 +100,9 @@ namespace HP.SW.SWT.MVC.Controllers
 
         public ActionResult Excel()
         {
-            return View(Data.ADResource.GetExcel("T31210", Data.ADPeriod.GetCurrentPeriod()));
+            ViewData["Resource"] = Data.ADResource.Get("T31210");
+            Resource resource = (Resource)ViewData["Resource"];
+            return View(Data.ADResource.GetExcel(resource, Data.ADPeriod.GetCurrentPeriod()));
         }
 
         [HttpPost]
@@ -124,6 +127,7 @@ namespace HP.SW.SWT.MVC.Controllers
         }
 
         [HttpPost]
+        [GenerateScriptType(typeof(Resource))]
         public JsonResult AddExcelRow(ExcelRow excelRow, int rowIndex)
         {
             try

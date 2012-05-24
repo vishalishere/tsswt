@@ -57,6 +57,6 @@ namespace HP.SW.SWT.Entities
         public string SCPTicket { get; set; }
 
         [DisplayName("Cargadas al usuario")]
-        public string SCPT { get; set; }
+        public string SCPT { get; set; }        
     }
 }
