@@ -252,32 +252,45 @@ namespace HP.SW.SWT.Data
             return res;
         }
 
-        public static void Update(ENT.Ticket ticket)
+        public static void Update(ENT.Ticket ticket, ENT.User currentUser)
         {
-        //    Ticket dbTicket = (from t in Context.Ticket
-        //                     where t.Number == ticket.Number
-        //                     select t);
+            using (SwT context = Context)
+            {
+                Ticket dbTicket = (from t in context.Ticket
+                                   where t.Number == ticket.Number
+                                   select t).FirstOrDefault();
 
-        //    dbTicket.AssignedTo = ticket.Resource.T;
-        //        origTidbTicketcket.Title = viewTicket.Title;
-        //        dbTicket.Resource = Data.ADResource.Get(viewTicket.Resource.T);
-        //        ticket.Status = viewTicket.Status;
-        //        ticket.Priority = viewTicket.Priority;
-        //        ticket.Description = viewTicket.Description;
-        //        ticket.Category = viewTicket.Category;
-        //        if (!string.IsNullOrEmpty(viewTicket.NewComment))
-        //        {
-        //            ticket.Comments.
-        //        ticket.com
+                if (dbTicket == null)
+                {
+                    throw new Exception("El ticket ha sido eliminado. Por favor vuelvalo a crear.");
+                }
 
+                dbTicket.Category = (int)ticket.Category;
+                dbTicket.Cluster.IdcLuster = ticket.Cluster.ID;
+                dbTicket.ConsumedHours = ticket.ConsumedHours ?? 0;
+                dbTicket.DateLastModified = DateTime.Now;
+                dbTicket.DeliveryDate = ticket.DeliveryDate;
+                dbTicket.Description = ticket.Description;
+                dbTicket.Priority = (int)ticket.Priority;
+                dbTicket.RealDeliveryDate = ticket.RealDeliveryDate;
+                dbTicket.Resource.T = ticket.Resource.T;
+                dbTicket.StartDate = ticket.StartDate;
+                dbTicket.Status = (int)ticket.Status;
+                dbTicket.System = ticket.System;
+                if (string.IsNullOrEmpty(ticket.NewComment))
+                {
+                    dbTicket.TicketComment.Add(new TicketComment
+                        {
+                            Date = DateTime.Now,
+                            User = new User { IduSer = currentUser.ID },
+                            Comment = ticket.NewComment
+                        });
+                }
+                dbTicket.Title = ticket.Title;
+                dbTicket.User2 = new User { IduSer = currentUser.ID };
 
-        //    <%: Html.TextAreaFor(model => model.NewComment, new { rows = 4 })%>
-        //<td><%: Html.TextBoxFor(model => model.DeliveryDate)%></td>
-        //<td><%: Html.DropDownListFor(model => model.Cluster.ID, (IEnumerable<SelectListItem>)ViewData["Clusters"], "--seleccione--")%></td>
-        //<td><%: Html.TextBoxFor(model => model.System)%></td>
-        //<td><%: String.Format("{0:F1}", Model.EstimatedHours)%></td>
-        //<td><%: String.Format("{0:P0}", Model.DonePercentage / 100)%></td>
-        //<td><%: Html.TextBoxFor(model => model.RealDeliveryDate)%></td>
+                context.SubmitChanges();
+            }
         }
 
         public static void Delete(string ticketNumber, ENT.User user)

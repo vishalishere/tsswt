@@ -80,12 +80,8 @@ namespace HP.SW.SWT.MVC.Controllers
 
         public ActionResult Edit(string id)
         {
-            List<SelectListItem> resources = new List<SelectListItem>();
-            foreach (Resource resource in Data.ADResource.GetAll().OrderBy(r => r.Name))
-            {
-                resources.Add(new SelectListItem { Value = resource.T, Text = resource.Name + " (" + resource.T + ")" });
-            }
-            ViewData["Resources"] = resources;
+            ViewData["Resources"] = Data.ADResource.GetAll().OrderBy(r => r.Name).ToList().
+                ConvertAll<SelectListItem>(r => new SelectListItem { Value = r.T, Text = r.Name + " (" + r.T + ")" });
             ViewData["Statuses"] = new List<SelectListItem>
                 { 
                     new SelectListItem
@@ -151,12 +147,8 @@ namespace HP.SW.SWT.MVC.Controllers
                     }
                 };
 
-            List<SelectListItem> clusters = new List<SelectListItem>();
-            foreach (Cluster cluster in Data.ADCluster.GetAll().OrderBy(r => r.Description))
-            {
-                clusters.Add(new SelectListItem { Value = cluster.ID.ToString(), Text = cluster.Description });
-            }
-            ViewData["Clusters"] = clusters;
+            ViewData["Clusters"] = Data.ADCluster.GetAll().OrderBy(r => r.Description).ToList().
+                ConvertAll<SelectListItem>(c => new SelectListItem { Value = c.ID.ToString(), Text = c.Description });
 
             return View(Data.ADTicket.Get(id));
         }
@@ -169,13 +161,27 @@ namespace HP.SW.SWT.MVC.Controllers
         {
             try
             {
-                Data.ADTicket.Update(viewTicket);
+                Ticket ticket = Data.ADTicket.Get(id);
+
+                ticket.Title = viewTicket.Title;
+                ticket.Resource = viewTicket.Resource;
+                ticket.Status = viewTicket.Status;
+                ticket.Priority = viewTicket.Priority;
+                ticket.Description = viewTicket.Description;
+                ticket.Category = viewTicket.Category;
+                ticket.NewComment = viewTicket.NewComment;
+                ticket.DeliveryDate = viewTicket.DeliveryDate;
+                ticket.Cluster = viewTicket.Cluster;
+                ticket.System = viewTicket.System;
+                ticket.RealDeliveryDate = viewTicket.RealDeliveryDate;
+
+                Data.ADTicket.Update(ticket, new User { ID = 1 });
  
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(Data.ADTicket.Get(id));
             }
         }
 
