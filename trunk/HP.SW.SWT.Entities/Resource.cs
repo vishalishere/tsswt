@@ -6,7 +6,6 @@ namespace HP.SW.SWT.Entities
     public class Resource
     {
         [DisplayName("T")]
-        [Required]
         public string T { get; set; }
 
         [DisplayName("Cluster")]

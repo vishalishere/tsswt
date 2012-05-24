@@ -9,6 +9,8 @@ namespace HP.SW.SWT.Data
 {
     public class ADTicket : ADBase
     {
+        #region Get
+
         public static IEnumerable<ENT.Ticket> GetWorkingTickets(string cluster)
         {
             bool all = string.IsNullOrEmpty(cluster);
@@ -28,7 +30,7 @@ namespace HP.SW.SWT.Data
                                   Number = t.Number,
                                   Title = t.Title,
                                   Description = t.Description,
-                                  Resource = new ENT.Resource
+                                  Resource = t.Resource == null ? null : new ENT.Resource
                                   {
                                       T = t.Resource.T,
                                       Name = t.Resource.Name,
@@ -77,17 +79,17 @@ namespace HP.SW.SWT.Data
                                                DonePercentage = ta.DonePercentage.Value,
                                            }),
                                   Comments = (from tc in t.TicketComment
-                                    select new ENT.TicketComment
-                                    {
-                                        Comment = tc.Comment,
-                                        User = new ENT.User
-                                        {
-                                            ID = tc.User.IduSer,
-                                            Logon = tc.User.UserLogon,
-                                            Name = tc.User.Name
-                                        },
-                                        Date = tc.Date,
-                                    })
+                                              select new ENT.TicketComment
+                                              {
+                                                  Comment = tc.Comment,
+                                                  User = new ENT.User
+                                                  {
+                                                      ID = tc.User.IduSer,
+                                                      Logon = tc.User.UserLogon,
+                                                      Name = tc.User.Name
+                                                  },
+                                                  Date = tc.Date,
+                                              })
                               });
 
             return (from t in entTickets
@@ -105,72 +107,72 @@ namespace HP.SW.SWT.Data
             pagingOptions.Count = dataTickets.Count;
 
             return (from t in dataTickets
-                     select new ENT.Ticket
-                              {
-                                  Number = t.Number,
-                                  Title = t.Title,
-                                  Description = t.Description,
-                                  Resource = new ENT.Resource
-                                  {
-                                      T = t.Resource.T,
-                                      Name = t.Resource.Name,
-                                      Cluster = t.Resource.Cluster.ShortDescription,
-                                  },
-                                  Status = (ENT.TicketStatus)t.Status,
-                                  Priority = (ENT.TicketPriority)t.Priority,
-                                  Category = (ENT.TicketCategory)t.Category,
-                                  Cluster = new ENT.Cluster
-                                  {
-                                      ID = t.Cluster.IdcLuster,
-                                      ShortDescription = t.Cluster.ShortDescription,
-                                      Description = t.Cluster.Description,
-                                  },
-                                  System = t.System,
-                                  StartDate = t.StartDate,
-                                  DeliveryDate = t.DeliveryDate,
-                                  RealDeliveryDate = t.RealDeliveryDate,
-                                  ConsumedHours = t.ConsumedHours,
-                                  DateCreated = t.DateCreate,
-                                  UserCreated = new ENT.User
-                                  {
-                                      ID = t.User.IduSer,
-                                      Logon = t.User.UserLogon,
-                                      Name = t.User.Name
-                                  },
-                                  DateLastModified = t.DateLastModified,
-                                  UserLastModified = new ENT.User
-                                  {
-                                      ID = t.User2.IduSer,
-                                      Logon = t.User2.UserLogon,
-                                      Name = t.User2.Name
-                                  },
-                                  DateDeleted = t.DateDelete,
-                                  UserDeleted = t.User1 == null ? null : new ENT.User
-                                  {
-                                      ID = t.User1.IduSer,
-                                      Logon = t.User1.UserLogon,
-                                      Name = t.User1.Name
-                                  },
-                                  Tasks = (from ta in t.Task
-                                           select new ENT.Task
-                                           {
-                                               Description = ta.Description,
-                                               EstimatedHours = ta.EstimatedHours.Value,
-                                               DonePercentage = ta.DonePercentage.Value,
-                                           }),
-                                  Comments = (from tc in t.TicketComment
-                                    select new ENT.TicketComment
-                                    {
-                                        Comment = tc.Comment,
-                                        User = new ENT.User
-                                        {
-                                            ID = tc.User.IduSer,
-                                            Logon = tc.User.UserLogon,
-                                            Name = tc.User.Name
-                                        },
-                                        Date = tc.Date,
-                                    })
-                              });
+                    select new ENT.Ticket
+                             {
+                                 Number = t.Number,
+                                 Title = t.Title,
+                                 Description = t.Description,
+                                 Resource = t.Resource == null ? null : new ENT.Resource
+                                 {
+                                     T = t.Resource.T,
+                                     Name = t.Resource.Name,
+                                     Cluster = t.Resource.Cluster.ShortDescription,
+                                 },
+                                 Status = (ENT.TicketStatus)t.Status,
+                                 Priority = (ENT.TicketPriority)t.Priority,
+                                 Category = (ENT.TicketCategory)t.Category,
+                                 Cluster = new ENT.Cluster
+                                 {
+                                     ID = t.Cluster.IdcLuster,
+                                     ShortDescription = t.Cluster.ShortDescription,
+                                     Description = t.Cluster.Description,
+                                 },
+                                 System = t.System,
+                                 StartDate = t.StartDate,
+                                 DeliveryDate = t.DeliveryDate,
+                                 RealDeliveryDate = t.RealDeliveryDate,
+                                 ConsumedHours = t.ConsumedHours,
+                                 DateCreated = t.DateCreate,
+                                 UserCreated = new ENT.User
+                                 {
+                                     ID = t.User.IduSer,
+                                     Logon = t.User.UserLogon,
+                                     Name = t.User.Name
+                                 },
+                                 DateLastModified = t.DateLastModified,
+                                 UserLastModified = new ENT.User
+                                 {
+                                     ID = t.User2.IduSer,
+                                     Logon = t.User2.UserLogon,
+                                     Name = t.User2.Name
+                                 },
+                                 DateDeleted = t.DateDelete,
+                                 UserDeleted = t.User1 == null ? null : new ENT.User
+                                 {
+                                     ID = t.User1.IduSer,
+                                     Logon = t.User1.UserLogon,
+                                     Name = t.User1.Name
+                                 },
+                                 Tasks = (from ta in t.Task
+                                          select new ENT.Task
+                                          {
+                                              Description = ta.Description,
+                                              EstimatedHours = ta.EstimatedHours.Value,
+                                              DonePercentage = ta.DonePercentage.Value,
+                                          }),
+                                 Comments = (from tc in t.TicketComment
+                                             select new ENT.TicketComment
+                                             {
+                                                 Comment = tc.Comment,
+                                                 User = new ENT.User
+                                                 {
+                                                     ID = tc.User.IduSer,
+                                                     Logon = tc.User.UserLogon,
+                                                     Name = tc.User.Name
+                                                 },
+                                                 Date = tc.Date,
+                                             })
+                             });
         }
 
         public static ENT.Ticket Get(string ticketNumber)
@@ -187,7 +189,7 @@ namespace HP.SW.SWT.Data
                                   Number = ticket.Number,
                                   Title = ticket.Title,
                                   Description = ticket.Description,
-                                  Resource = new ENT.Resource
+                                  Resource = ticket.Resource == null ? null : new ENT.Resource
                                   {
                                       T = ticket.Resource.T,
                                       Name = ticket.Resource.Name,
@@ -236,20 +238,62 @@ namespace HP.SW.SWT.Data
                                                DonePercentage = ta.DonePercentage.Value,
                                            }),
                                   Comments = (from tc in ticket.TicketComment
-                                    select new ENT.TicketComment
-                                    {
-                                        Comment = tc.Comment,
-                                        User = new ENT.User
-                                        {
-                                            ID = tc.User.IduSer,
-                                            Logon = tc.User.UserLogon,
-                                            Name = tc.User.Name
-                                        },
-                                        Date = tc.Date,
-                                    })
+                                              select new ENT.TicketComment
+                                              {
+                                                  Comment = tc.Comment,
+                                                  User = new ENT.User
+                                                  {
+                                                      ID = tc.User.IduSer,
+                                                      Logon = tc.User.UserLogon,
+                                                      Name = tc.User.Name
+                                                  },
+                                                  Date = tc.Date,
+                                              })
                               };
             }
             return res;
+        }
+        
+        #endregion
+
+        public static void Insert(ENT.Ticket ticket, ENT.User currentUser)
+        {
+            using (SwT context = Context)
+            {
+                Ticket dbTicket = new Ticket
+                {
+                    AssignedTo = ticket.Resource.T,
+                    Category = (int)ticket.Category,
+                    ConsumedHours = 0,
+                    DateCreate = DateTime.Now,
+                    DateLastModified = DateTime.Now,
+                    DeliveryDate = ticket.DeliveryDate,
+                    Description = ticket.Description,
+                    IdcLuster = ticket.Cluster.ID,
+                    IduSerCreate = currentUser.ID,
+                    IduSerLastModified = currentUser.ID,
+                    Number = ticket.Number,
+                    Priority = (int)ticket.Priority,
+                    RealDeliveryDate = ticket.RealDeliveryDate,
+                    StartDate = ticket.StartDate,
+                    Status = (int)ticket.Status,
+                    System = ticket.System,
+                    Title = ticket.Title,
+                };
+
+                if (!string.IsNullOrEmpty(ticket.NewComment))
+                {
+                    dbTicket.TicketComment.Add(new TicketComment
+                    {
+                        Date = DateTime.Now,
+                        IduSer = currentUser.ID,
+                        Comment = ticket.NewComment
+                    });
+                }
+
+                context.Ticket.InsertOnSubmit(dbTicket);
+                context.SubmitChanges();
+            }
         }
 
         public static void Update(ENT.Ticket ticket, ENT.User currentUser)
@@ -266,28 +310,29 @@ namespace HP.SW.SWT.Data
                 }
 
                 dbTicket.Category = (int)ticket.Category;
-                dbTicket.Cluster.IdcLuster = ticket.Cluster.ID;
                 dbTicket.ConsumedHours = ticket.ConsumedHours ?? 0;
                 dbTicket.DateLastModified = DateTime.Now;
                 dbTicket.DeliveryDate = ticket.DeliveryDate;
                 dbTicket.Description = ticket.Description;
+                dbTicket.IdcLuster = ticket.Cluster.ID;
+                dbTicket.IduSerLastModified = currentUser.ID;
                 dbTicket.Priority = (int)ticket.Priority;
                 dbTicket.RealDeliveryDate = ticket.RealDeliveryDate;
-                dbTicket.Resource.T = ticket.Resource.T;
+                dbTicket.AssignedTo = ticket.Resource.T;
                 dbTicket.StartDate = ticket.StartDate;
                 dbTicket.Status = (int)ticket.Status;
                 dbTicket.System = ticket.System;
-                if (string.IsNullOrEmpty(ticket.NewComment))
+                dbTicket.Title = ticket.Title;
+
+                if (!string.IsNullOrEmpty(ticket.NewComment))
                 {
                     dbTicket.TicketComment.Add(new TicketComment
-                        {
-                            Date = DateTime.Now,
-                            User = new User { IduSer = currentUser.ID },
-                            Comment = ticket.NewComment
-                        });
+                    {
+                        Date = DateTime.Now,
+                        IduSer = currentUser.ID,
+                        Comment = ticket.NewComment
+                    });
                 }
-                dbTicket.Title = ticket.Title;
-                dbTicket.User2 = new User { IduSer = currentUser.ID };
 
                 context.SubmitChanges();
             }
@@ -301,11 +346,18 @@ namespace HP.SW.SWT.Data
                                  where t.Number == ticketNumber
                                  select t).FirstOrDefault();
 
+                if (ticket == null)
+                {
+                    throw new Exception("El ticket ya fue eliminado.");
+                }
+
                 if (ticket != null)
                 {
                     ticket.IduSerDelete = user.ID;
                     ticket.DateDelete = DateTime.Now;
                 }
+
+                swt.SubmitChanges();
             }
         }
     }

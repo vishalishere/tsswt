@@ -47,7 +47,6 @@ namespace HP.SW.SWT.Entities
         public string Description { get; set; }
 
         [DisplayName("Asignado A")]
-        [Required]
         public Resource Resource { get; set; }
 
         [DisplayName("Status")]
