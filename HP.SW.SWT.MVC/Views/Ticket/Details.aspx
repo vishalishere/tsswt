@@ -9,41 +9,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="StyleContent" runat="server">
-<style type="text/css">
-    
-    #menu
-    {
-        width: 100%; 
-        height: 22px; 
-        padding: 2px; 
-        margin-bottom: 10px; 
-        text-align: left; 
-        background-color: #e8eef4;
-    }
-     
-    #details 
-    {
-        border-left: 0px none White;
-     }
-
-    #details th
-    {
-        background-color: White;
-        border-left: 0px none White;
-        padding: 5px 10px;
-        text-align: left;
-        vertical-align: top;
-    }
-
-    #details td
-    {
-        background-color: #e8eef4;
-        border-top: 1px solid #696969;
-        border-bottom: 1px solid #696969;
-        border-right: 0px none White;
-        padding: 5px 10px;
-    }
-</style>
+    <link href='<%= Url.Contents("Ticket/Details.css") %>' rel='stylesheet' type='text/css' />
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
@@ -84,11 +50,11 @@
     </tr>
     <tr>
         <th><%: Html.LabelFor(model => model.Status)%></th>
-        <td><%: Model.Status %></td>
+        <td><%: Model.Status.ToReadableString() %></td>
     </tr>
     <tr>
         <th><%: Html.LabelFor(model => model.Priority) %></th>
-        <td><%: Model.Priority %></td>
+        <td><%: Model.Priority.ToReadableString() %></td>
     </tr>
     <tr>
         <th><%: Html.LabelFor(model => model.Description) %></th>
@@ -96,7 +62,7 @@
     </tr>
     <tr>
         <th><%: Html.LabelFor(model => model.Category)%></th>
-        <td><%: Model.Category %></td>
+        <td><%: Model.Category.ToReadableString()%></td>
     </tr>
     <tr>
         <th><%: Html.LabelFor(model => model.Comments)%></th>
@@ -123,7 +89,7 @@
     </tr>
     <tr>
         <th><%: Html.LabelFor(model => model.Cluster)%></th>
-        <td><%: Model.Cluster %></td>
+        <td><%: Model.Cluster.Description %></td>
     </tr>
     <tr>
         <th><%: Html.LabelFor(model => model.System)%></th>

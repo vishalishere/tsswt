@@ -6,69 +6,22 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContent" runat="server">
+    <script language='javascript' type='text/javascript' src='<%= Url.Script("jquery/jquery.ui.datepicker.js") %>'></script>
+    <script language='javascript' type="text/javascript">
+        $(function () {
+            $("[jType=txtDatePicker]").datepicker({
+                buttonImage: '<%= Url.Contents("Images/calendar.png")%>',
+                buttonImageOnly: true,
+                dateFormat: 'dd/mm/yy',
+                showOn: 'button'
+            });
+        });
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="StyleContent" runat="server">
-<style type="text/css">
-    
-    #menu
-    {
-        width: 100%; 
-        height: 22px; 
-        padding: 2px; 
-        margin-bottom: 10px; 
-        text-align: left; 
-        background-color: #e8eef4;
-    }
-     
-    #create
-    {
-        border-left: 0px none White;
-    }
-
-    #create th
-    {
-        background-color: White;
-        border-left: 0px none White;
-        padding: 5px 10px;
-        text-align: left;
-        vertical-align: top;
-    }
-
-    #create td
-    {
-        background-color: #e8eef4;
-        border-top: 1px solid #696969;
-        border-bottom: 1px solid #696969;
-        border-right: 0px none White;
-        padding: 5px 10px;
-    }
-
-    #create td input
-    {
-        width: 100%;
-    }
-
-    #create td textarea
-    {
-        width: 100%;
-    }
-
-    #create td select
-    {
-        width: 100%;
-    }
-
-    #header, #footer 
-    {
-        border: 0px none White;
-    }
-
-    #header td, #footer td
-    {
-        border: 0px none White;
-    }
-</style>
+    <link href='<%= Url.Contents("Redmond.css") %>' rel='stylesheet' type='text/css' />
+    <link href='<%= Url.Contents("Ticket/Create.css") %>' rel='stylesheet' type='text/css' />
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
@@ -135,7 +88,7 @@
     </tr>
     <tr>
         <th><%: Html.LabelFor(model => model.DeliveryDate)%></th>
-        <td><%: Html.TextBoxFor(model => model.DeliveryDate)%></td>
+        <td><%: Html.DateBoxFor(model => model.DeliveryDate)%></td>
     </tr>
     <tr>
         <th><%: Html.LabelFor(model => model.Cluster)%>&nbsp;<span style="color: Red">*</span></th>
@@ -147,7 +100,7 @@
     </tr>
     <tr>
         <th><%: Html.LabelFor(model => model.RealDeliveryDate)%></th>
-        <td><%: Html.TextBoxFor(model => model.RealDeliveryDate)%></td>
+        <td><%: Html.DateBoxFor(model => model.RealDeliveryDate)%></td>
     </tr>
     </table>
 

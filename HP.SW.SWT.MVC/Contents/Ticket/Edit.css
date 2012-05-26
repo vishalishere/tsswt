@@ -1,0 +1,57 @@
+﻿#menu
+{
+    width: 100%; 
+    height: 30px; 
+    padding: 2px; 
+    margin-bottom: 10px; 
+    text-align: left; 
+    background-color: #e8eef4;
+}
+     
+#edit 
+{
+    border-left: 0px none White;
+}
+
+#edit th
+{
+    background-color: White;
+    border-left: 0px none White;
+    padding: 5px 10px;
+    text-align: left;
+    vertical-align: top;
+}
+
+#edit td
+{
+    background-color: #e8eef4;
+    border-top: 1px solid #696969;
+    border-bottom: 1px solid #696969;
+    border-right: 0px none White;
+    padding: 5px 10px;
+}
+
+#edit td input
+{
+    width: 100%;
+}
+
+#edit td textarea
+{
+    width: 100%;
+}
+
+#edit td select
+{
+    width: 100%;
+}
+
+#header, #footer 
+{
+    border: 0px none White;
+}
+
+#header td, #footer td
+{
+    border: 0px none White;
+}

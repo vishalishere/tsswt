@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HP.SW.SWT.Entities.Ticket>" %>
+<%@ Import Namespace="HP.SW.SWT.Extensions" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Tickets > <%: Model.Title %> > Eliminar
@@ -8,42 +9,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="StyleContent" runat="server">
-<style type="text/css">
-    
-    #delete
-    {
-        border-left: 0px none White;
-    }
-
-    #delete th
-    {
-        background-color: White;
-        border-left: 0px none White;
-        padding: 5px 10px;
-        text-align: left;
-        vertical-align: top;
-    }
-
-    #delete td
-    {
-        background-color: #e8eef4;
-        border-top: 1px solid #696969;
-        border-bottom: 1px solid #696969;
-        border-right: 0px none White;
-        padding: 5px 10px;
-    }
-
-    #header, #footer 
-    {
-        border: 0px none White;
-    }
-
-    #header td, #footer td
-    {
-        border: 0px none White;
-    }
-
-</style>
+    <link href='<%= Url.Contents("Ticket/Delete.css") %>' rel='stylesheet' type='text/css' />
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
@@ -74,11 +40,11 @@
     </tr>
     <tr>
         <th><%: Html.LabelFor(model => model.Status)%></th>
-        <td><%: Model.Status %></td>
+        <td><%: Model.Status.ToReadableString()%></td>
     </tr>
     <tr>
         <th><%: Html.LabelFor(model => model.Priority) %></th>
-        <td><%: Model.Priority %></td>
+        <td><%: Model.Priority.ToReadableString()%></td>
     </tr>
     <tr>
         <th><%: Html.LabelFor(model => model.Description) %></th>
@@ -86,7 +52,7 @@
     </tr>
     <tr>
         <th><%: Html.LabelFor(model => model.Category)%></th>
-        <td><%: Model.Category %></td>
+        <td><%: Model.Category.ToReadableString()%></td>
     </tr>
     <tr>
         <th><%: Html.LabelFor(model => model.Comments)%></th>

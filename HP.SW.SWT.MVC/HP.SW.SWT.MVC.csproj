@@ -85,9 +85,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Holiday.xml" />
     <Content Include="Contents\CRUD.css" />
     <Content Include="Contents\Images\arrowDown.png" />
     <Content Include="Contents\Images\arrowDown2.png" />
+    <Content Include="Contents\Images\calendar.png" />
     <Content Include="Contents\Images\cancel.png" />
     <Content Include="Contents\Images\ok.png" />
     <Content Include="Contents\Images\sharepoint_arrow_down.png" />
@@ -98,6 +100,12 @@
     <Content Include="Contents\Images\sharepoint_new.png" />
     <Content Include="Contents\Images\sharepoint_next_page.png" />
     <Content Include="Contents\Images\sharepoint_previous_page.png" />
+    <Content Include="Contents\Images\sharepoint_task.png" />
+    <Content Include="Contents\Images\sharepoint_task_delete.png" />
+    <Content Include="Contents\Images\sharepoint_task_down.png" />
+    <Content Include="Contents\Images\sharepoint_task_edit.png" />
+    <Content Include="Contents\Images\sharepoint_task_new.png" />
+    <Content Include="Contents\Images\sharepoint_task_up.png" />
     <Content Include="Contents\Images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Contents\Images\ui-bg_flat_55_fbec88_40x100.png" />
     <Content Include="Contents\Images\ui-bg_glass_75_d0e5f5_1x400.png" />
@@ -114,6 +122,10 @@
     <Content Include="Contents\Images\ui-icons_d8e7f3_256x240.png" />
     <Content Include="Contents\Images\ui-icons_f9bd01_256x240.png" />
     <Content Include="Contents\Redmond.css" />
+    <Content Include="Contents\Ticket\Create.css" />
+    <Content Include="Contents\Ticket\Delete.css" />
+    <Content Include="Contents\Ticket\Details.css" />
+    <Content Include="Contents\Ticket\Edit.css" />
     <Content Include="Global.asax" />
     <Content Include="Contents\Images\canvasinfo.png" />
     <Content Include="Contents\Images\reload.png" />
@@ -130,6 +142,7 @@
     <Content Include="Scripts\Home\Index.js" />
     <Content Include="Scripts\Resource\excel.js" />
     <Content Include="Scripts\dateutil.js" />
+    <Content Include="Scripts\Ticket\tasks.js" />
     <Content Include="Scripts\Ticket\Index.js" />
     <Content Include="Views\Resource\Create.ascx" />
     <Content Include="Views\Resource\Delete.ascx" />
@@ -137,11 +150,16 @@
     <Content Include="Views\Resource\Edit.ascx" />
     <Content Include="Views\Resource\Excel.aspx" />
     <Content Include="Views\Resource\Index.aspx" />
+    <Content Include="Views\Ticket\DeleteTask.aspx" />
+    <Content Include="Views\Ticket\DetailsTask.aspx" />
+    <Content Include="Views\Ticket\EditTask.aspx" />
     <Content Include="Views\Ticket\Create.aspx" />
     <Content Include="Views\Ticket\Delete.aspx" />
     <Content Include="Views\Ticket\Edit.aspx" />
     <Content Include="Views\Ticket\Details.aspx" />
     <Content Include="Views\Ticket\Index.aspx" />
+    <Content Include="Views\Ticket\CreateTask.aspx" />
+    <Content Include="Views\Ticket\Tasks.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -1,0 +1,32 @@
+﻿#delete
+{
+    border-left: 0px none White;
+}
+
+#delete th
+{
+    background-color: White;
+    border-left: 0px none White;
+    padding: 5px 10px;
+    text-align: left;
+    vertical-align: top;
+}
+
+#delete td
+{
+    background-color: #e8eef4;
+    border-top: 1px solid #696969;
+    border-bottom: 1px solid #696969;
+    border-right: 0px none White;
+    padding: 5px 10px;
+}
+
+#header, #footer 
+{
+    border: 0px none White;
+}
+
+#header td, #footer td
+{
+    border: 0px none White;
+}
