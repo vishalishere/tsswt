@@ -1467,6 +1467,8 @@ namespace HP.SW.SWT.Data
 
         private int _idtAsk;
 
+        private int _phase;
+
         private int _taskNumber;
 
         private string _ticketNumber;
@@ -1491,6 +1493,10 @@ namespace HP.SW.SWT.Data
         partial void OnIdtAskChanged();
 
         partial void OnIdtAskChanging(int value);
+
+        partial void OnPhaseChanged();
+
+        partial void OnPhaseChanging(int value);
 
         partial void OnTaskNumberChanged();
 
@@ -1588,6 +1594,27 @@ namespace HP.SW.SWT.Data
                     this._idtAsk = value;
                     this.SendPropertyChanged("IdtAsk");
                     this.OnIdtAskChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_phase", Name = "Phase", DbType = "int", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public int Phase
+        {
+            get
+            {
+                return this._phase;
+            }
+            set
+            {
+                if ((_phase != value))
+                {
+                    this.OnPhaseChanging(value);
+                    this.SendPropertyChanging();
+                    this._phase = value;
+                    this.SendPropertyChanged("Phase");
+                    this.OnPhaseChanged();
                 }
             }
         }
