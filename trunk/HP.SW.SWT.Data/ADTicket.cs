@@ -74,9 +74,13 @@ namespace HP.SW.SWT.Data
                                   Tasks = (from ta in t.Task
                                            select new ENT.Task
                                            {
+                                               ID = ta.IdtAsk,
+                                               TicketNumber = ta.TicketNumber,
+                                               Number = ta.TaskNumber,
+                                               Phase = (ENT.TaskPhase)ta.Phase,
                                                Description = ta.Description,
-                                               EstimatedHours = ta.EstimatedHours.Value,
-                                               DonePercentage = ta.DonePercentage.Value,
+                                               EstimatedHours = ta.EstimatedHours,
+                                               DonePercentage = ta.DonePercentage
                                            }),
                                   Comments = (from tc in t.TicketComment
                                               select new ENT.TicketComment
@@ -156,9 +160,13 @@ namespace HP.SW.SWT.Data
                                  Tasks = (from ta in t.Task
                                           select new ENT.Task
                                           {
+                                              ID = ta.IdtAsk,
+                                              TicketNumber = ta.TicketNumber,
+                                              Number = ta.TaskNumber,
+                                              Phase = (ENT.TaskPhase)ta.Phase,
                                               Description = ta.Description,
-                                              EstimatedHours = ta.EstimatedHours.Value,
-                                              DonePercentage = ta.DonePercentage.Value,
+                                              EstimatedHours = ta.EstimatedHours,
+                                              DonePercentage = ta.DonePercentage
                                           }),
                                  Comments = (from tc in t.TicketComment
                                              select new ENT.TicketComment
@@ -233,9 +241,13 @@ namespace HP.SW.SWT.Data
                                   Tasks = (from ta in ticket.Task
                                            select new ENT.Task
                                            {
+                                               ID = ta.IdtAsk,
+                                               TicketNumber = ta.TicketNumber,
+                                               Number = ta.TaskNumber,
+                                               Phase = (ENT.TaskPhase)ta.Phase,
                                                Description = ta.Description,
-                                               EstimatedHours = ta.EstimatedHours.Value,
-                                               DonePercentage = ta.DonePercentage.Value,
+                                               EstimatedHours = ta.EstimatedHours,
+                                               DonePercentage = ta.DonePercentage
                                            }),
                                   Comments = (from tc in ticket.TicketComment
                                               select new ENT.TicketComment

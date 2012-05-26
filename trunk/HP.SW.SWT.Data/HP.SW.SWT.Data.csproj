@@ -48,6 +48,7 @@
     <Compile Include="ADCluster.cs" />
     <Compile Include="ADHoliday.cs" />
     <Compile Include="ADResource.cs" />
+    <Compile Include="ADTask.cs" />
     <Compile Include="ADTicket.cs" />
     <Compile Include="ADPeriod.cs" />
     <Compile Include="Base\ADBase.cs" />
