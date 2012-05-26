@@ -15,21 +15,20 @@ namespace HP.SW.SWT.Entities
         Estimado,
         EnDesarrollo,
         Entregado,
-        None = 0,
     }
 
     public enum TicketPriority
     {
-        High,
+        Alta,
         Normal,
-        Low
+        Baja
     }
 
     public enum TicketCategory
     {
-        Incident,
-        MinorChange,
-        Evolutive
+        Incidente,
+        CambioMenor,
+        Evolutivo
     }
 
     public class Ticket
@@ -88,11 +87,11 @@ namespace HP.SW.SWT.Entities
         public IEnumerable<TicketComment> Comments { get; set; }
 
         [DisplayName("Estimación")]
-        public decimal? EstimatedHours
+        public decimal EstimatedHours
         {
             get
             {
-                return this.Tasks == null ? 0 : this.Tasks.Sum(x => x.EstimatedHours);
+                return this.Tasks == null ? 0 : this.Tasks.Sum(x => x.EstimatedHours ?? 0);
             }
         }
 
@@ -126,7 +125,7 @@ namespace HP.SW.SWT.Entities
             get
             {
                 return this.DeliveryDate == null ? (DateTime?)null :
-                    DateHelper.AddWorkingHours(DateHelper.EndWorkingDay(this.DeliveryDate.Value.AddDays(-1)), -1 * this.Tasks.Sum(x => x.EstimatedHours));
+                    DateHelper.AddWorkingHours(DateHelper.EndWorkingDay(this.DeliveryDate.Value.AddDays(-1)), -1 * this.EstimatedHours);
             }
         }
 
@@ -147,16 +146,14 @@ namespace HP.SW.SWT.Entities
         {
             get
             {
-                decimal estimatedHours = this.Tasks == null ? 0 : this.Tasks.Sum(t => t.EstimatedHours);
-
-                if (estimatedHours == 0)
+                if (this.EstimatedHours == 0)
                 {
                     return 0;
                 }
                 else
                 {
                     //No hace falta multiplicar por 100 porque el DonePercentage va de 0 a 100.
-                    return this.Tasks.Sum(t => t.DonePercentage * t.EstimatedHours) / estimatedHours;
+                    return this.Tasks.Sum(t => (t.DonePercentage ?? 0) * (t.EstimatedHours ?? 0)) / this.EstimatedHours;
                 }
             }
         }
