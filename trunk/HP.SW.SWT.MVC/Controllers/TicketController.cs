@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 using HP.SW.SWT.Entities;
+using HP.SW.SWT.Extensions;
 
 namespace HP.SW.SWT.MVC.Controllers
 {
     public class TicketController : Controller
     {
-        //
-        // GET: /Ticket/
+        #region Ticket
 
         public ActionResult Index()
         {
@@ -41,85 +42,21 @@ namespace HP.SW.SWT.MVC.Controllers
             return Json(tickets);
         }
 
-        //
-        // GET: /Ticket/Details/5
-
         public ActionResult Details(string id)
         {
             return View(Data.ADTicket.Get(id));
         }
 
-        //
-        // GET: /Ticket/Create
-
-        public void LoadCombos()
+        private void LoadTicketCombos()
         {
             ViewData["Resources"] = Data.ADResource.GetAll().OrderBy(r => r.Name).ToList().
                 ConvertAll<SelectListItem>(r => new SelectListItem { Value = r.T, Text = r.Name + " (" + r.T + ")" });
-            ViewData["Statuses"] = new List<SelectListItem>
-                { 
-                    new SelectListItem
-                    { 
-                        Text = "Recibido", 
-                        Value = ((int)TicketStatus.Recibido).ToString() 
-                    },
-                    new SelectListItem
-                    { 
-                        Text = "En Analisis", 
-                        Value = ((int)TicketStatus.EnAnalisis).ToString() 
-                    },
-                    new SelectListItem
-                    { 
-                        Text = "Estimado", 
-                        Value = ((int)TicketStatus.Estimado).ToString() 
-                    },
-                    new SelectListItem
-                    { 
-                        Text = "En Desarrollo", 
-                        Value = ((int)TicketStatus.EnDesarrollo).ToString() 
-                    },
-                    new SelectListItem
-                    { 
-                        Text = "Entregado", 
-                        Value = ((int)TicketStatus.Entregado).ToString() 
-                    },
-                };
-            ViewData["Priorities"] = new List<SelectListItem>
-                { 
-                    new SelectListItem
-                    { 
-                        Text = "Alta", 
-                        Value = ((int)TicketPriority.High).ToString() 
-                    },
-                    new SelectListItem
-                    { 
-                        Text = "Normal", 
-                        Value = ((int)TicketPriority.Normal).ToString() 
-                    },
-                    new SelectListItem
-                    { 
-                        Text = "Baja", 
-                        Value = ((int)TicketPriority.Low).ToString() 
-                    }
-                };
-            ViewData["Categories"] = new List<SelectListItem>
-                { 
-                    new SelectListItem
-                    { 
-                        Text = "Incidencia", 
-                        Value = ((int)TicketCategory.Incident).ToString() 
-                    },
-                    new SelectListItem
-                    { 
-                        Text = "Cambio Menor", 
-                        Value = ((int)TicketCategory.MinorChange).ToString() 
-                    },
-                    new SelectListItem
-                    { 
-                        Text = "Evolutivo", 
-                        Value = ((int)TicketCategory.Evolutive).ToString() 
-                    }
-                };
+
+            ViewData["Statuses"] = Enums.Get<TicketStatus>().ConvertAll<SelectListItem>(e => new SelectListItem { Text = e.ToReadableString(), Value = e.ToString() });
+
+            ViewData["Priorities"] = Enums.Get<TicketPriority>().ConvertAll<SelectListItem>(e => new SelectListItem { Text = e.ToReadableString(), Value = e.ToString() });
+
+            ViewData["Categories"] = Enums.Get<TicketCategory>().ConvertAll<SelectListItem>(e => new SelectListItem { Text = e.ToReadableString(), Value = e.ToString() });
 
             ViewData["Clusters"] = Data.ADCluster.GetAll().OrderBy(r => r.Description).ToList().
                 ConvertAll<SelectListItem>(c => new SelectListItem { Value = c.ID.ToString(), Text = c.Description });
@@ -127,12 +64,9 @@ namespace HP.SW.SWT.MVC.Controllers
 
         public ActionResult Create()
         {
-            LoadCombos();
+            LoadTicketCombos();
             return View();
         }
-
-        //
-        // POST: /Ticket/Create
 
         [HttpPost]
         public ActionResult Create(Ticket viewTicket)
@@ -150,17 +84,11 @@ namespace HP.SW.SWT.MVC.Controllers
             }
         }
 
-        //
-        // GET: /Ticket/Edit/5
-
         public ActionResult Edit(string id)
         {
-            LoadCombos();
+            LoadTicketCombos();
             return View(Data.ADTicket.Get(id));
         }
-
-        //
-        // POST: /Ticket/Edit/5
 
         [HttpPost]
         public ActionResult Edit(string id, Ticket viewTicket)
@@ -192,16 +120,10 @@ namespace HP.SW.SWT.MVC.Controllers
             }
         }
 
-        //
-        // GET: /Ticket/Delete/5
-
         public ActionResult Delete(string id)
         {
             return View(Data.ADTicket.Get(id));
         }
-
-        //
-        // POST: /Ticket/Delete/5
 
         [HttpPost]
         public ActionResult Delete(string id, Ticket viewTicket)
@@ -217,5 +139,122 @@ namespace HP.SW.SWT.MVC.Controllers
                 return Delete(id);
             }
         }
+
+        #endregion
+
+        #region Task
+
+        public ActionResult Tasks(string id)
+        {
+            return View(Data.ADTicket.Get(id));
+        }
+
+        public ActionResult CreateTask(string id, TaskPhase phase, int number)
+        {
+            ViewData["Ticket"] = Data.ADTicket.Get(id);
+            return View(new Task { TicketNumber = id, Phase = phase, Number = number });
+        }
+
+        [HttpPost]
+        public ActionResult CreateTask(string id, Task task)
+        {
+            try
+            {
+                Data.ADTask.Insert(id, task);
+
+                return RedirectToAction("Tasks", new { id = id });
+            }
+            catch (Exception ex)
+            {
+                ViewData["error"] = ex.Message;
+                return Create();
+            }
+        }
+
+        public ActionResult DetailsTask(int id)
+        {
+            Task task = Data.ADTask.Get(id);
+            ViewData["Ticket"] = Data.ADTicket.Get(task.TicketNumber);
+            return View(task);
+        }
+
+        public ActionResult EditTask(int id)
+        {
+            Task task = Data.ADTask.Get(id);
+            ViewData["Ticket"] = Data.ADTicket.Get(task.TicketNumber);
+            return View(task);
+        }
+
+        [HttpPost]
+        public ActionResult EditTask(int id, Task task)
+        {
+            try
+            {
+                Data.ADTask.Update(id, task);
+
+                return RedirectToAction("Tasks", new { id = task.TicketNumber });
+            }
+            catch (Exception ex)
+            {
+                ViewData["error"] = ex.Message;
+                return Create();
+            }
+        }
+
+        public ActionResult UpTask(string ticketNumber, int id)
+        {
+            try
+            {
+                Data.ADTask.Up(id);
+
+                return RedirectToAction("Tasks", new { id = ticketNumber });
+            }
+            catch (Exception ex)
+            {
+                ViewData["error"] = ex.Message;
+                return Create();
+            }
+        }
+
+        public ActionResult DownTask(string ticketNumber, int id)
+        {
+            try
+            {
+                Data.ADTask.Down(id);
+
+
+                return RedirectToAction("Tasks", new { id = ticketNumber });
+            }
+            catch (Exception ex)
+            {
+                ViewData["error"] = ex.Message;
+                return Create();
+            }
+        }
+
+        public ActionResult DeleteTask(int id)
+        {
+            Task task = Data.ADTask.Get(id);
+            ViewData["Ticket"] = Data.ADTicket.Get(task.TicketNumber);
+            return View(task);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteTask(int id, Task task)
+        {
+            try
+            {
+                Data.ADTask.Delete(id);
+
+                return RedirectToAction("Tasks", new { id = task.TicketNumber });
+            }
+            catch (Exception ex)
+            {
+                ViewData["error"] = ex.Message;
+                return Create();
+            }
+        }
+
+        #endregion
     }
 }

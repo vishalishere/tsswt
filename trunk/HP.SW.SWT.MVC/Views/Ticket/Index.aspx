@@ -197,10 +197,10 @@
             <%: item.Resource == null ? string.Empty: item.Resource.Name %>
         </td>
         <td>
-            <%: item.Status %>
+            <%: item.Status.ToReadableString()%>
         </td>
         <td>
-            <%: item.Priority %>
+            <%: item.Priority.ToReadableString()%>
         </td>
         <td>
             <%: item.Cluster.ShortDescription %>
@@ -251,7 +251,7 @@
     <div id="rowOptions" style="display: none; position: absolute; border: solid 1px LightBlue; width: 125px; background-color: White"></div>
     <div id="rowOptionsTemplate" style="display: none">
         <table cellpadding="0" cellspacing="0" border="1" style="text-align: left; border: solid 1px LightBlue" width="100%">
-        <tr>
+        <tr style="width: 19px">
             <td style="background-color: #e8eef4; border: none 0px #e8eef4">
             </td>
             <td style="border: none 0px White">
