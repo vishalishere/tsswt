@@ -3,7 +3,7 @@
 <%@ Import Namespace="HP.SW.SWT.Extensions" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Tickets > <%: ((Ticket)ViewData["Ticket"]).Title %> > Tareas > Editar Tarea <%: Model.Description %>
+	Tickets > <%: ((Ticket)ViewData["Ticket"]).Number %> - <%: ((Ticket)ViewData["Ticket"]).Title %> > Tareas > Editar Tarea <%: Model.Description %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContent" runat="server">
@@ -15,7 +15,7 @@
 
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2><%: Html.ActionLink("Tickets", "Index") %> > <%: Html.ActionLink(((Ticket)ViewData["Ticket"]).Title, "Edit", new { id = ((Ticket)ViewData["Ticket"]).Number })%> > <%: Html.ActionLink("Tareas", "Tasks", new { id = ((Ticket)ViewData["Ticket"]).Number }) %> > Editar Tarea <%: Model.Description %></h2>
+    <h2><%: Html.ActionLink("Tickets", "Index") %> > <%: Html.ActionLink(((Ticket)ViewData["Ticket"]).Number + " - " + ((Ticket)ViewData["Ticket"]).Title, "Edit", new { id = ((Ticket)ViewData["Ticket"]).Number })%> > <%: Html.ActionLink("Tareas", "Tasks", new { id = ((Ticket)ViewData["Ticket"]).Number }) %> > Editar Tarea <%: Model.Description %></h2>
 
     <% using (Html.BeginForm()) {%>
         <%: Html.ValidationSummary(true) %>
@@ -32,7 +32,7 @@
     <div id="menu">
         <div style="width:70%; float: left; text-align: left">
             &nbsp;
-            <a href='<%= Url.RouteUrl(new { Controller= "Ticket", Action= "DeleteTask", id= Model.ID }) %>' style='color: #696969; font-weight: normal; text-decoration:none'>
+            <a href='<%= Url.RouteUrl(new { Controller= "Ticket", Action= "DeleteTask", id= Model.ID }) %>' style='border-style: none; color: #696969; font-weight: normal; text-decoration:none'>
                 <img src='<%= Url.Contents("Images/sharepoint_task_delete.png") %>' alt="Eliminar Tarea" style="vertical-align: bottom;" />&nbsp;&nbsp;Eliminar Tarea
             </a>
         </div>

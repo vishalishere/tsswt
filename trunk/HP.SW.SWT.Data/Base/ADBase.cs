@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 
 namespace HP.SW.SWT.Data
 {
@@ -6,11 +7,11 @@ namespace HP.SW.SWT.Data
     // Context.GetCommand(query).CommandText
     public abstract class ADBase
     {
-        private static string ConnectionString
+        public static string ConnectionString
         {
             get
             {
-                return "SERVER=localhost;DATABASE=swt;UID=root;PASSWORD=root;";
+                return ConfigurationManager.ConnectionStrings["SWT"].ConnectionString;
             }
         }
 

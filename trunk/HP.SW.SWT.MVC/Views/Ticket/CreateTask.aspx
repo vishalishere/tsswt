@@ -3,7 +3,7 @@
 <%@ Import Namespace="HP.SW.SWT.Extensions" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Tickets > <%: ((Ticket)ViewData["Ticket"]).Title%> > Tareas > Nueva Tarea de <%: Model.Phase.ToReadableString() %>
+	Tickets > <%: ((Ticket)ViewData["Ticket"]).Number %> - <%: ((Ticket)ViewData["Ticket"]).Title %> > Tareas > Nueva Tarea de <%: Model.Phase.ToReadableString() %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContent" runat="server">
@@ -15,7 +15,7 @@
 
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2><%: Html.ActionLink("Tickets", "Index") %> > <%: Html.ActionLink(((Ticket)ViewData["Ticket"]).Title, "Edit", new { id = ((Ticket)ViewData["Ticket"]).Number })%> > <%: Html.ActionLink("Tareas", "Tasks", new { id = ((Ticket)ViewData["Ticket"]).Number }) %> > Nueva Tarea de <%: Model.Phase.ToReadableString() %></h2>
+    <h2><%: Html.ActionLink("Tickets", "Index") %> > <%: Html.ActionLink(((Ticket)ViewData["Ticket"]).Number + " - " + ((Ticket)ViewData["Ticket"]).Title, "Edit", new { id = ((Ticket)ViewData["Ticket"]).Number })%> > <%: Html.ActionLink("Tareas", "Tasks", new { id = ((Ticket)ViewData["Ticket"]).Number }) %> > Nueva Tarea de <%: Model.Phase.ToReadableString() %></h2>
 
     <% using (Html.BeginForm()) {%>
         <%: Html.ValidationSummary(true) %>

@@ -10,6 +10,72 @@ body
     margin: 0;
     padding: 0;
     color: #696969;
+    overflow: hidden;
+}
+
+#mainHeader
+{
+	margin: 0px;
+	height: 82px;
+}
+
+#mainHeaderTop
+{
+	background-color: #C4C4C4;
+	padding: 3px;
+	height: 16px;
+}
+
+#mainHeaderIcons
+{
+	float: left;
+}
+
+#mainHeaderUser
+{
+	text-align: right;
+	color: #666666;
+}
+
+#mainHeaderTitle .left
+{
+	text-align: left;
+	float: left;
+	width: 25%;
+	margin: 5px;
+}
+
+#mainHeaderTitle .center
+{
+	text-align: center;
+	float: left;
+	width: 50%;
+	font-size: 16pt;
+	font-family: Arial;
+	color: #666666;
+	margin-top: 20px;
+}
+
+#mainHeaderTitle .right
+{
+	text-align: right;
+}
+
+.blueSeparator
+{
+	background-color: #085DA0;
+	height: 1px;
+	width: 100%;
+	margin-bottom: 2px;
+}
+
+.lineBlue
+{
+	background-color: #085DA0;
+	height: 11px;
+	width: 100%;
+	margin-top: 2px;
+	margin-bottom: 2px;
 }
 
 a:link

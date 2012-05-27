@@ -218,8 +218,8 @@ function drawHeader(ctx) {
 	        if (now == d.getMonth() * 100 + d.getDate()) {
 
 	            ctx.beginPath();
-	            ctx.fillStyle = "blue";
-	            ctx.strokeStyle = "blue";
+	            ctx.fillStyle = "#085DA0";
+	            ctx.strokeStyle = "#085DA0";
 	            ctx.lineWidth = 2;
 
 	            ctx.strokeRect(left + 16, 6, 46, 18);
@@ -237,8 +237,8 @@ function drawHeader(ctx) {
 	        if (now == d.getMonth() * 100 + d.getDate()) {
 
 	            ctx.beginPath();
-	            ctx.fillStyle = "blue";
-	            ctx.strokeStyle = "blue";
+	            ctx.fillStyle = "#085DA0";
+	            ctx.strokeStyle = "#085DA0";
 	            ctx.lineWidth = 2;
 
 	            ctx.strokeRect(left + 16, 6, 46, 18);

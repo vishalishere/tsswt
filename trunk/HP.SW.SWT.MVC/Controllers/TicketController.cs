@@ -9,7 +9,8 @@ using HP.SW.SWT.Extensions;
 
 namespace HP.SW.SWT.MVC.Controllers
 {
-    public class TicketController : Controller
+    [HandleError]
+    public class TicketController : BaseController
     {
         #region Ticket
 
@@ -73,7 +74,7 @@ namespace HP.SW.SWT.MVC.Controllers
         {
             try
             {
-                Data.ADTicket.Insert(viewTicket, new User { ID = 1 });
+                Data.ADTicket.Insert(viewTicket, GetUser());
 
                 return RedirectToAction("Index");
             }
@@ -109,7 +110,7 @@ namespace HP.SW.SWT.MVC.Controllers
                 ticket.System = viewTicket.System;
                 ticket.RealDeliveryDate = viewTicket.RealDeliveryDate;
 
-                Data.ADTicket.Update(ticket, new User { ID = 1 });
+                Data.ADTicket.Update(ticket, GetUser());
 
                 return RedirectToAction("Index");
             }
@@ -130,7 +131,7 @@ namespace HP.SW.SWT.MVC.Controllers
         {
             try
             {
-                Data.ADTicket.Delete(id, new User { ID = 1 });
+                Data.ADTicket.Delete(id, GetUser());
 
                 return RedirectToAction("Index");
             }

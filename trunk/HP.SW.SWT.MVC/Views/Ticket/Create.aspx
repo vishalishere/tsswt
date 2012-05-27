@@ -39,7 +39,6 @@
         </td>
     </tr> 
     </table>
-
     <div id="menu">
         <div style="width:70%; float: left; text-align: left">
             &nbsp;
@@ -52,7 +51,6 @@
             </div>
         </div>
     </div>
-
     <table id="create" width="100%" border="0">
     <tr>
         <th><%: Html.LabelFor(model => model.Number) %>&nbsp;<span style="color: Red">*</span></th>
@@ -103,7 +101,6 @@
         <td><%: Html.DateBoxFor(model => model.RealDeliveryDate)%></td>
     </tr>
     </table>
-
     <table id="footer" style="width: 100%;" border="0" cellpadding="0" cellspacing="0">
     <tr>
         <td rowspan="2" style="text-align: right">

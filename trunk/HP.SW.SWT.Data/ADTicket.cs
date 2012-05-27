@@ -53,23 +53,23 @@ namespace HP.SW.SWT.Data
                                   DateCreated = t.DateCreate,
                                   UserCreated = new ENT.User
                                   {
-                                      ID = t.User.IduSer,
-                                      Logon = t.User.UserLogon,
-                                      Name = t.User.Name
+                                      ID = t.Users.PKid,
+                                      Logon = t.Users.Username,
+                                      Name = t.Users.Comment
                                   },
                                   DateLastModified = t.DateLastModified,
                                   UserLastModified = new ENT.User
                                   {
-                                      ID = t.User2.IduSer,
-                                      Logon = t.User2.UserLogon,
-                                      Name = t.User2.Name
+                                      ID = t.Users2.PKid,
+                                      Logon = t.Users2.Username,
+                                      Name = t.Users2.Comment
                                   },
                                   DateDeleted = t.DateDelete,
-                                  UserDeleted = t.User1 == null ? null : new ENT.User
+                                  UserDeleted = t.Users1 == null ? null : new ENT.User
                                   {
-                                      ID = t.User1.IduSer,
-                                      Logon = t.User1.UserLogon,
-                                      Name = t.User1.Name
+                                      ID = t.Users1.PKid,
+                                      Logon = t.Users1.Username,
+                                      Name = t.Users1.Comment
                                   },
                                   Tasks = (from ta in t.Task
                                            select new ENT.Task
@@ -88,9 +88,9 @@ namespace HP.SW.SWT.Data
                                                   Comment = tc.Comment,
                                                   User = new ENT.User
                                                   {
-                                                      ID = tc.User.IduSer,
-                                                      Logon = tc.User.UserLogon,
-                                                      Name = tc.User.Name
+                                                      ID = tc.Users.PKid,
+                                                      Logon = tc.Users.Username,
+                                                      Name = tc.Users.Comment
                                                   },
                                                   Date = tc.Date,
                                               })
@@ -139,23 +139,23 @@ namespace HP.SW.SWT.Data
                                  DateCreated = t.DateCreate,
                                  UserCreated = new ENT.User
                                  {
-                                     ID = t.User.IduSer,
-                                     Logon = t.User.UserLogon,
-                                     Name = t.User.Name
+                                     ID = t.Users.PKid,
+                                     Logon = t.Users.Username,
+                                     Name = t.Users.Comment
                                  },
                                  DateLastModified = t.DateLastModified,
                                  UserLastModified = new ENT.User
                                  {
-                                     ID = t.User2.IduSer,
-                                     Logon = t.User2.UserLogon,
-                                     Name = t.User2.Name
+                                     ID = t.Users2.PKid,
+                                     Logon = t.Users2.Username,
+                                     Name = t.Users2.Comment
                                  },
                                  DateDeleted = t.DateDelete,
-                                 UserDeleted = t.User1 == null ? null : new ENT.User
+                                 UserDeleted = t.Users1 == null ? null : new ENT.User
                                  {
-                                     ID = t.User1.IduSer,
-                                     Logon = t.User1.UserLogon,
-                                     Name = t.User1.Name
+                                     ID = t.Users1.PKid,
+                                     Logon = t.Users1.Username,
+                                     Name = t.Users1.Comment
                                  },
                                  Tasks = (from ta in t.Task
                                           select new ENT.Task
@@ -174,9 +174,9 @@ namespace HP.SW.SWT.Data
                                                  Comment = tc.Comment,
                                                  User = new ENT.User
                                                  {
-                                                     ID = tc.User.IduSer,
-                                                     Logon = tc.User.UserLogon,
-                                                     Name = tc.User.Name
+                                                     ID = tc.Users.PKid,
+                                                     Logon = tc.Users.Username,
+                                                     Name = tc.Users.Comment
                                                  },
                                                  Date = tc.Date,
                                              })
@@ -220,23 +220,23 @@ namespace HP.SW.SWT.Data
                                   DateCreated = ticket.DateCreate,
                                   UserCreated = new ENT.User
                                   {
-                                      ID = ticket.User.IduSer,
-                                      Logon = ticket.User.UserLogon,
-                                      Name = ticket.User.Name
+                                      ID = ticket.Users.PKid,
+                                      Logon = ticket.Users.Username,
+                                      Name = ticket.Users.Comment
                                   },
                                   DateLastModified = ticket.DateLastModified,
                                   UserLastModified = new ENT.User
                                   {
-                                      ID = ticket.User2.IduSer,
-                                      Logon = ticket.User2.UserLogon,
-                                      Name = ticket.User2.Name
+                                      ID = ticket.Users2.PKid,
+                                      Logon = ticket.Users2.Username,
+                                      Name = ticket.Users2.Comment
                                   },
                                   DateDeleted = ticket.DateDelete,
-                                  UserDeleted = ticket.User1 == null ? null : new ENT.User
+                                  UserDeleted = ticket.Users1 == null ? null : new ENT.User
                                   {
-                                      ID = ticket.User1.IduSer,
-                                      Logon = ticket.User1.UserLogon,
-                                      Name = ticket.User1.Name
+                                      ID = ticket.Users1.PKid,
+                                      Logon = ticket.Users1.Username,
+                                      Name = ticket.Users1.Comment
                                   },
                                   Tasks = (from ta in ticket.Task
                                            select new ENT.Task
@@ -255,9 +255,9 @@ namespace HP.SW.SWT.Data
                                                   Comment = tc.Comment,
                                                   User = new ENT.User
                                                   {
-                                                      ID = tc.User.IduSer,
-                                                      Logon = tc.User.UserLogon,
-                                                      Name = tc.User.Name
+                                                      ID = tc.Users.PKid,
+                                                      Logon = tc.Users.Username,
+                                                      Name = tc.Users.Comment
                                                   },
                                                   Date = tc.Date,
                                               })

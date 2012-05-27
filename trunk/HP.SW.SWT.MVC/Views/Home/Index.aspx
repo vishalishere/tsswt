@@ -2,7 +2,7 @@
 <%@ Import Namespace="HP.SW.SWT.Extensions" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Home Page
+    Servicio Web Tracking Tool
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContent" runat="server">
     <script language='javascript' type='text/javascript' src='<%= Url.Script("holiday.ashx") %>'></script>

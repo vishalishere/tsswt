@@ -9,6 +9,7 @@ using HP.SW.SWT.Entities;
 namespace HP.SW.SWT.MVC.Controllers
 {
     [HandleError]
+    [Authorize]
     public class HomeController : Controller
     {
         //[Authorize(Roles = "Project Manager")]
