@@ -2,7 +2,7 @@
 <%@ Import Namespace="HP.SW.SWT.Extensions" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Tickets > <%: Model.Title %> > Eliminar
+	Tickets > <%: Model.Number %> - <%: Model.Title %> > Eliminar
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContent" runat="server">
@@ -14,7 +14,7 @@
 
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2><%: Html.ActionLink("Tickets", "Index") %> > <%: Html.ActionLink(Model.Title, "Details", new { id = Model.Number })%> > Eliminar</h2>
+    <h2><%: Html.ActionLink("Tickets", "Index") %> > <%: Html.ActionLink(Model.Title + " - " + Model.Number, "Details", new { id = Model.Number })%> > Eliminar</h2>
 
     <h3>¿Está seguro de que desea eliminar este ticket?</h3>
 

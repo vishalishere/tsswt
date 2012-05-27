@@ -11,7 +11,7 @@
     </p>
 
     <% using (Html.BeginForm()) { %>
-        <%: Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.") %>
+        <%: Html.ValidationSummary(true, "Acceso inválido. Por favor corrija los errores y vuelva a intentarlo.") %>
         <div>
             <fieldset>
                 <div class="editor-label">
@@ -36,7 +36,7 @@
                 </div>
                 
                 <p>
-                    <input type="submit" value="Log On" />
+                    <input type="submit" value="Acceder" />
                 </p>
             </fieldset>
         </div>

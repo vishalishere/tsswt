@@ -9,6 +9,7 @@ using System.Web.Script.Services;
 
 namespace HP.SW.SWT.MVC.Controllers
 {
+    [HandleError]
     public class ResourceController : Controller
     {
         //

@@ -35,7 +35,7 @@
   <ItemGroup>
     <Reference Include="ISymWrapper" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="MySql.Web, Version=6.4.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Web, Version=6.5.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -67,8 +67,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppCode\DashboardOrder.cs" />
+    <Compile Include="App_Code\DashboardOrder.cs" />
+    <Content Include="App_Code\ENT.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="App_Code\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
@@ -91,6 +93,8 @@
     <Content Include="Contents\Images\arrowDown2.png" />
     <Content Include="Contents\Images\calendar.png" />
     <Content Include="Contents\Images\cancel.png" />
+    <Content Include="Contents\Images\home.png" />
+    <Content Include="Contents\Images\LogoSWT.jpg" />
     <Content Include="Contents\Images\ok.png" />
     <Content Include="Contents\Images\sharepoint_arrow_down.png" />
     <Content Include="Contents\Images\sharepoint_attach.png" />

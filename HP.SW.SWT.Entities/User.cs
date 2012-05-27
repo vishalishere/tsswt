@@ -11,15 +11,11 @@ namespace HP.SW.SWT.Entities
     {
         [DisplayName("ID")]
         [Required]
-        public int ID { get; set; }
+        public string ID { get; set; }
 
         [DisplayName("Usuario")]
         [Required]
         public string Logon { get; set; }
-
-        [DisplayName("Clave")]
-        [Required]
-        public string Password { get; set; }
 
         [DisplayName("Nombre")]
         [Required]

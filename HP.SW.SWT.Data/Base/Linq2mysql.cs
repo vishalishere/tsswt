@@ -32,7 +32,6 @@ namespace HP.SW.SWT.Data
         partial void OnCreated();
         #endregion
 
-
         public SwT(string connectionString) :
             base(new MySqlConnection(connectionString), new MySqlVendor())
         {
@@ -91,6 +90,14 @@ namespace HP.SW.SWT.Data
             }
         }
 
+        public Table<Roles> Roles
+        {
+            get
+            {
+                return this.GetTable<Roles>();
+            }
+        }
+
         public Table<Task> Task
         {
             get
@@ -115,11 +122,19 @@ namespace HP.SW.SWT.Data
             }
         }
 
-        public Table<User> User
+        public Table<Users> Users
         {
             get
             {
-                return this.GetTable<User>();
+                return this.GetTable<Users>();
+            }
+        }
+
+        public Table<UsersInRoles> UsersInRoles
+        {
+            get
+            {
+                return this.GetTable<UsersInRoles>();
             }
         }
     }
@@ -741,9 +756,6 @@ namespace HP.SW.SWT.Data
             }
         }
 
-        /// <summary>
-        /// Resource: es SCPT
-        /// </summary>
         [Association(Storage = "_resource", OtherKey = "T", ThisKey = "SCPt", Name = "fk_ExcelRow_SCPT", IsForeignKey = true)]
         [DebuggerNonUserCode()]
         public Resource Resource
@@ -810,11 +822,8 @@ namespace HP.SW.SWT.Data
             }
         }
 
-        /// <summary>
-        /// Resource1: es T
-        /// </summary>
         [Association(Storage = "_resource1", OtherKey = "T", ThisKey = "T", Name = "fk_ExcelRow_T", IsForeignKey = true)]
-        [DebuggerNonUserCode()]        
+        [DebuggerNonUserCode()]
         public Resource Resource1
         {
             get
@@ -1453,6 +1462,134 @@ namespace HP.SW.SWT.Data
         #endregion
     }
 
+    [Table(Name = "swt.roles")]
+    public partial class Roles : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+    {
+
+        private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
+
+        private string _applicationName;
+
+        private string _roleName;
+
+        private EntitySet<UsersInRoles> _usersInRoles;
+
+        #region Extensibility Method Declarations
+        partial void OnCreated();
+
+        partial void OnApplicationNameChanged();
+
+        partial void OnApplicationNameChanging(string value);
+
+        partial void OnRoleNameChanged();
+
+        partial void OnRoleNameChanging(string value);
+        #endregion
+
+
+        public Roles()
+        {
+            _usersInRoles = new EntitySet<UsersInRoles>(new Action<UsersInRoles>(this.UsersInRoles_Attach), new Action<UsersInRoles>(this.UsersInRoles_Detach));
+            this.OnCreated();
+        }
+
+        [Column(Storage = "_applicationName", Name = "ApplicationName", DbType = "varchar(255)", IsPrimaryKey = true, AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string ApplicationName
+        {
+            get
+            {
+                return this._applicationName;
+            }
+            set
+            {
+                if (((_applicationName == value)
+                            == false))
+                {
+                    this.OnApplicationNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._applicationName = value;
+                    this.SendPropertyChanged("ApplicationName");
+                    this.OnApplicationNameChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_roleName", Name = "RoleName", DbType = "varchar(255)", IsPrimaryKey = true, AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string RoleName
+        {
+            get
+            {
+                return this._roleName;
+            }
+            set
+            {
+                if (((_roleName == value)
+                            == false))
+                {
+                    this.OnRoleNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._roleName = value;
+                    this.SendPropertyChanged("RoleName");
+                    this.OnRoleNameChanged();
+                }
+            }
+        }
+
+        #region Children
+        [Association(Storage = "_usersInRoles", OtherKey = "ApplicationName,RoleName", ThisKey = "ApplicationName,RoleName", Name = "fk_UsersInRoles_roles")]
+        [DebuggerNonUserCode()]
+        public EntitySet<UsersInRoles> UsersInRoles
+        {
+            get
+            {
+                return this._usersInRoles;
+            }
+            set
+            {
+                this._usersInRoles = value;
+            }
+        }
+        #endregion
+
+        public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            System.ComponentModel.PropertyChangingEventHandler h = this.PropertyChanging;
+            if ((h != null))
+            {
+                h(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(string propertyName)
+        {
+            System.ComponentModel.PropertyChangedEventHandler h = this.PropertyChanged;
+            if ((h != null))
+            {
+                h(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #region Attachment handlers
+        private void UsersInRoles_Attach(UsersInRoles entity)
+        {
+            this.SendPropertyChanging();
+            entity.Roles = this;
+        }
+
+        private void UsersInRoles_Detach(UsersInRoles entity)
+        {
+            this.SendPropertyChanging();
+            entity.Roles = null;
+        }
+        #endregion
+    }
+
     [Table(Name = "swt.task")]
     public partial class Task : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
     {
@@ -1748,11 +1885,11 @@ namespace HP.SW.SWT.Data
 
         private int _idcLuster;
 
-        private int _iduSerCreate;
+        private string _iduSerCreate;
 
-        private System.Nullable<int> _iduSerDelete;
+        private string _iduSerDelete;
 
-        private int _iduSerLastModified;
+        private string _iduSerLastModified;
 
         private string _number;
 
@@ -1778,11 +1915,11 @@ namespace HP.SW.SWT.Data
 
         private EntityRef<Cluster> _cluster = new EntityRef<Cluster>();
 
-        private EntityRef<User> _user = new EntityRef<User>();
+        private EntityRef<Users> _users = new EntityRef<Users>();
 
-        private EntityRef<User> _user1 = new EntityRef<User>();
+        private EntityRef<Users> _users1 = new EntityRef<Users>();
 
-        private EntityRef<User> _user2 = new EntityRef<User>();
+        private EntityRef<Users> _users2 = new EntityRef<Users>();
 
         #region Extensibility Method Declarations
         partial void OnCreated();
@@ -1825,15 +1962,15 @@ namespace HP.SW.SWT.Data
 
         partial void OnIduSerCreateChanged();
 
-        partial void OnIduSerCreateChanging(int value);
+        partial void OnIduSerCreateChanging(string value);
 
         partial void OnIduSerDeleteChanged();
 
-        partial void OnIduSerDeleteChanging(System.Nullable<int> value);
+        partial void OnIduSerDeleteChanging(string value);
 
         partial void OnIduSerLastModifiedChanged();
 
-        partial void OnIduSerLastModifiedChanging(int value);
+        partial void OnIduSerLastModifiedChanging(string value);
 
         partial void OnNumberChanged();
 
@@ -2068,9 +2205,9 @@ namespace HP.SW.SWT.Data
             }
         }
 
-        [Column(Storage = "_iduSerCreate", Name = "IDUserCreate", DbType = "int", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [Column(Storage = "_iduSerCreate", Name = "IDUserCreate", DbType = "varchar(36)", AutoSync = AutoSync.Never, CanBeNull = false)]
         [DebuggerNonUserCode()]
-        public int IduSerCreate
+        public string IduSerCreate
         {
             get
             {
@@ -2078,7 +2215,8 @@ namespace HP.SW.SWT.Data
             }
             set
             {
-                if ((_iduSerCreate != value))
+                if (((_iduSerCreate == value)
+                            == false))
                 {
                     this.OnIduSerCreateChanging(value);
                     this.SendPropertyChanging();
@@ -2089,9 +2227,9 @@ namespace HP.SW.SWT.Data
             }
         }
 
-        [Column(Storage = "_iduSerDelete", Name = "IDUserDelete", DbType = "int", AutoSync = AutoSync.Never)]
+        [Column(Storage = "_iduSerDelete", Name = "IDUserDelete", DbType = "varchar(36)", AutoSync = AutoSync.Never)]
         [DebuggerNonUserCode()]
-        public System.Nullable<int> IduSerDelete
+        public string IduSerDelete
         {
             get
             {
@@ -2099,7 +2237,8 @@ namespace HP.SW.SWT.Data
             }
             set
             {
-                if ((_iduSerDelete != value))
+                if (((_iduSerDelete == value)
+                            == false))
                 {
                     this.OnIduSerDeleteChanging(value);
                     this.SendPropertyChanging();
@@ -2110,9 +2249,9 @@ namespace HP.SW.SWT.Data
             }
         }
 
-        [Column(Storage = "_iduSerLastModified", Name = "IDUserLastModified", DbType = "int", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [Column(Storage = "_iduSerLastModified", Name = "IDUserLastModified", DbType = "varchar(36)", AutoSync = AutoSync.Never, CanBeNull = false)]
         [DebuggerNonUserCode()]
-        public int IduSerLastModified
+        public string IduSerLastModified
         {
             get
             {
@@ -2120,7 +2259,8 @@ namespace HP.SW.SWT.Data
             }
             set
             {
-                if ((_iduSerLastModified != value))
+                if (((_iduSerLastModified == value)
+                            == false))
                 {
                     this.OnIduSerLastModifiedChanging(value);
                     this.SendPropertyChanging();
@@ -2392,63 +2532,63 @@ namespace HP.SW.SWT.Data
             }
         }
 
-        [Association(Storage = "_user", OtherKey = "IduSer", ThisKey = "IduSerCreate", Name = "fk_Ticket_UserCreate", IsForeignKey = true)]
+        [Association(Storage = "_users", OtherKey = "PKid", ThisKey = "IduSerCreate", Name = "fk_Ticket_UserCreate", IsForeignKey = true)]
         [DebuggerNonUserCode()]
-        public User User
+        public Users Users
         {
             get
             {
-                return this._user.Entity;
+                return this._users.Entity;
             }
             set
             {
-                if (((this._user.Entity == value)
+                if (((this._users.Entity == value)
                             == false))
                 {
-                    if ((this._user.Entity != null))
+                    if ((this._users.Entity != null))
                     {
-                        User previousUser = this._user.Entity;
-                        this._user.Entity = null;
-                        previousUser.Ticket.Remove(this);
+                        Users previousUsers = this._users.Entity;
+                        this._users.Entity = null;
+                        previousUsers.Ticket.Remove(this);
                     }
-                    this._user.Entity = value;
+                    this._users.Entity = value;
                     if ((value != null))
                     {
                         value.Ticket.Add(this);
-                        _iduSerCreate = value.IduSer;
+                        _iduSerCreate = value.PKid;
                     }
                     else
                     {
-                        _iduSerCreate = default(int);
+                        _iduSerCreate = default(string);
                     }
                 }
             }
         }
 
-        [Association(Storage = "_user1", OtherKey = "IduSer", ThisKey = "IduSerDelete", Name = "fk_Ticket_UserDelete", IsForeignKey = true)]
+        [Association(Storage = "_users1", OtherKey = "PKid", ThisKey = "IduSerDelete", Name = "fk_Ticket_UserDelete", IsForeignKey = true)]
         [DebuggerNonUserCode()]
-        public User User1
+        public Users Users1
         {
             get
             {
-                return this._user1.Entity;
+                return this._users1.Entity;
             }
             set
             {
-                if (((this._user1.Entity == value)
+                if (((this._users1.Entity == value)
                             == false))
                 {
-                    if ((this._user1.Entity != null))
+                    if ((this._users1.Entity != null))
                     {
-                        User previousUser = this._user1.Entity;
-                        this._user1.Entity = null;
-                        previousUser.Ticket1.Remove(this);
+                        Users previousUsers = this._users1.Entity;
+                        this._users1.Entity = null;
+                        previousUsers.Ticket1.Remove(this);
                     }
-                    this._user1.Entity = value;
+                    this._users1.Entity = value;
                     if ((value != null))
                     {
                         value.Ticket1.Add(this);
-                        _iduSerDelete = value.IduSer;
+                        _iduSerDelete = value.PKid;
                     }
                     else
                     {
@@ -2458,34 +2598,34 @@ namespace HP.SW.SWT.Data
             }
         }
 
-        [Association(Storage = "_user2", OtherKey = "IduSer", ThisKey = "IduSerLastModified", Name = "fk_Ticket_UserLastModified", IsForeignKey = true)]
+        [Association(Storage = "_users2", OtherKey = "PKid", ThisKey = "IduSerLastModified", Name = "fk_Ticket_UserLastModified", IsForeignKey = true)]
         [DebuggerNonUserCode()]
-        public User User2
+        public Users Users2
         {
             get
             {
-                return this._user2.Entity;
+                return this._users2.Entity;
             }
             set
             {
-                if (((this._user2.Entity == value)
+                if (((this._users2.Entity == value)
                             == false))
                 {
-                    if ((this._user2.Entity != null))
+                    if ((this._users2.Entity != null))
                     {
-                        User previousUser = this._user2.Entity;
-                        this._user2.Entity = null;
-                        previousUser.Ticket2.Remove(this);
+                        Users previousUsers = this._users2.Entity;
+                        this._users2.Entity = null;
+                        previousUsers.Ticket2.Remove(this);
                     }
-                    this._user2.Entity = value;
+                    this._users2.Entity = value;
                     if ((value != null))
                     {
                         value.Ticket2.Add(this);
-                        _iduSerLastModified = value.IduSer;
+                        _iduSerLastModified = value.PKid;
                     }
                     else
                     {
-                        _iduSerLastModified = default(int);
+                        _iduSerLastModified = default(string);
                     }
                 }
             }
@@ -2565,13 +2705,13 @@ namespace HP.SW.SWT.Data
 
         private int _idtIcketComment;
 
-        private int _iduSer;
+        private string _iduSer;
 
         private string _number;
 
         private EntityRef<Ticket> _ticket = new EntityRef<Ticket>();
 
-        private EntityRef<User> _user = new EntityRef<User>();
+        private EntityRef<Users> _users = new EntityRef<Users>();
 
         #region Extensibility Method Declarations
         partial void OnCreated();
@@ -2590,7 +2730,7 @@ namespace HP.SW.SWT.Data
 
         partial void OnIduSerChanged();
 
-        partial void OnIduSerChanging(int value);
+        partial void OnIduSerChanging(string value);
 
         partial void OnNumberChanged();
 
@@ -2667,9 +2807,9 @@ namespace HP.SW.SWT.Data
             }
         }
 
-        [Column(Storage = "_iduSer", Name = "IDUser", DbType = "int", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [Column(Storage = "_iduSer", Name = "IDUser", DbType = "varchar(36)", AutoSync = AutoSync.Never, CanBeNull = false)]
         [DebuggerNonUserCode()]
-        public int IduSer
+        public string IduSer
         {
             get
             {
@@ -2677,7 +2817,8 @@ namespace HP.SW.SWT.Data
             }
             set
             {
-                if ((_iduSer != value))
+                if (((_iduSer == value)
+                            == false))
                 {
                     this.OnIduSerChanging(value);
                     this.SendPropertyChanging();
@@ -2748,34 +2889,34 @@ namespace HP.SW.SWT.Data
             }
         }
 
-        [Association(Storage = "_user", OtherKey = "IduSer", ThisKey = "IduSer", Name = "fk_TicketComment_User", IsForeignKey = true)]
+        [Association(Storage = "_users", OtherKey = "PKid", ThisKey = "IduSer", Name = "fk_TicketComment_User", IsForeignKey = true)]
         [DebuggerNonUserCode()]
-        public User User
+        public Users Users
         {
             get
             {
-                return this._user.Entity;
+                return this._users.Entity;
             }
             set
             {
-                if (((this._user.Entity == value)
+                if (((this._users.Entity == value)
                             == false))
                 {
-                    if ((this._user.Entity != null))
+                    if ((this._users.Entity != null))
                     {
-                        User previousUser = this._user.Entity;
-                        this._user.Entity = null;
-                        previousUser.TicketComment.Remove(this);
+                        Users previousUsers = this._users.Entity;
+                        this._users.Entity = null;
+                        previousUsers.TicketComment.Remove(this);
                     }
-                    this._user.Entity = value;
+                    this._users.Entity = value;
                     if ((value != null))
                     {
                         value.TicketComment.Add(this);
-                        _iduSer = value.IduSer;
+                        _iduSer = value.PKid;
                     }
                     else
                     {
-                        _iduSer = default(int);
+                        _iduSer = default(string);
                     }
                 }
             }
@@ -2805,19 +2946,51 @@ namespace HP.SW.SWT.Data
         }
     }
 
-    [Table(Name = "swt.user")]
-    public partial class User : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+    [Table(Name = "swt.users")]
+    public partial class Users : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
     {
 
         private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
 
-        private int _iduSer;
+        private string _applicationName;
 
-        private string _name;
+        private string _comment;
+
+        private System.Nullable<System.DateTime> _creationDate;
+
+        private string _email;
+
+        private System.Nullable<int> _failedPasswordAnswerAttemptCount;
+
+        private System.Nullable<System.DateTime> _failedPasswordAnswerAttemptWindowStart;
+
+        private System.Nullable<int> _failedPasswordAttemptCount;
+
+        private System.Nullable<System.DateTime> _failedPasswordAttemptWindowStart;
+
+        private System.Nullable<sbyte> _isApproved;
+
+        private System.Nullable<sbyte> _isLockedOut;
+
+        private System.Nullable<sbyte> _isOnline;
+
+        private System.Nullable<System.DateTime> _lastActivityDate;
+
+        private System.Nullable<System.DateTime> _lastLockedOutDate;
+
+        private System.Nullable<System.DateTime> _lastLoginDate;
+
+        private System.Nullable<System.DateTime> _lastPasswordChangeDate;
 
         private string _password;
 
-        private string _userLogon;
+        private string _passwordAnswer;
+
+        private string _passwordQuestion;
+
+        private string _pkID;
+
+        private string _username;
 
         private EntitySet<TicketComment> _ticketComment;
 
@@ -2830,25 +3003,89 @@ namespace HP.SW.SWT.Data
         #region Extensibility Method Declarations
         partial void OnCreated();
 
-        partial void OnIduSerChanged();
+        partial void OnApplicationNameChanged();
 
-        partial void OnIduSerChanging(int value);
+        partial void OnApplicationNameChanging(string value);
 
-        partial void OnNameChanged();
+        partial void OnCommentChanged();
 
-        partial void OnNameChanging(string value);
+        partial void OnCommentChanging(string value);
+
+        partial void OnCreationDateChanged();
+
+        partial void OnCreationDateChanging(System.Nullable<System.DateTime> value);
+
+        partial void OnEmailChanged();
+
+        partial void OnEmailChanging(string value);
+
+        partial void OnFailedPasswordAnswerAttemptCountChanged();
+
+        partial void OnFailedPasswordAnswerAttemptCountChanging(System.Nullable<int> value);
+
+        partial void OnFailedPasswordAnswerAttemptWindowStartChanged();
+
+        partial void OnFailedPasswordAnswerAttemptWindowStartChanging(System.Nullable<System.DateTime> value);
+
+        partial void OnFailedPasswordAttemptCountChanged();
+
+        partial void OnFailedPasswordAttemptCountChanging(System.Nullable<int> value);
+
+        partial void OnFailedPasswordAttemptWindowStartChanged();
+
+        partial void OnFailedPasswordAttemptWindowStartChanging(System.Nullable<System.DateTime> value);
+
+        partial void OnIsApprovedChanged();
+
+        partial void OnIsApprovedChanging(System.Nullable<sbyte> value);
+
+        partial void OnIsLockedOutChanged();
+
+        partial void OnIsLockedOutChanging(System.Nullable<sbyte> value);
+
+        partial void OnIsOnlineChanged();
+
+        partial void OnIsOnlineChanging(System.Nullable<sbyte> value);
+
+        partial void OnLastActivityDateChanged();
+
+        partial void OnLastActivityDateChanging(System.Nullable<System.DateTime> value);
+
+        partial void OnLastLockedOutDateChanged();
+
+        partial void OnLastLockedOutDateChanging(System.Nullable<System.DateTime> value);
+
+        partial void OnLastLoginDateChanged();
+
+        partial void OnLastLoginDateChanging(System.Nullable<System.DateTime> value);
+
+        partial void OnLastPasswordChangeDateChanged();
+
+        partial void OnLastPasswordChangeDateChanging(System.Nullable<System.DateTime> value);
 
         partial void OnPasswordChanged();
 
         partial void OnPasswordChanging(string value);
 
-        partial void OnUserLogonChanged();
+        partial void OnPasswordAnswerChanged();
 
-        partial void OnUserLogonChanging(string value);
+        partial void OnPasswordAnswerChanging(string value);
+
+        partial void OnPasswordQuestionChanged();
+
+        partial void OnPasswordQuestionChanging(string value);
+
+        partial void OnPKidChanged();
+
+        partial void OnPKidChanging(string value);
+
+        partial void OnUsernameChanged();
+
+        partial void OnUsernameChanging(string value);
         #endregion
 
 
-        public User()
+        public Users()
         {
             _ticketComment = new EntitySet<TicketComment>(new Action<TicketComment>(this.TicketComment_Attach), new Action<TicketComment>(this.TicketComment_Detach));
             _ticket = new EntitySet<Ticket>(new Action<Ticket>(this.Ticket_Attach), new Action<Ticket>(this.Ticket_Detach));
@@ -2857,50 +3094,325 @@ namespace HP.SW.SWT.Data
             this.OnCreated();
         }
 
-        [Column(Storage = "_iduSer", Name = "IDUser", DbType = "int", IsPrimaryKey = true, IsDbGenerated = true, AutoSync = AutoSync.Never, CanBeNull = false)]
+        [Column(Storage = "_applicationName", Name = "ApplicationName", DbType = "varchar(100)", AutoSync = AutoSync.Never, CanBeNull = false)]
         [DebuggerNonUserCode()]
-        public int IduSer
+        public string ApplicationName
         {
             get
             {
-                return this._iduSer;
+                return this._applicationName;
             }
             set
             {
-                if ((_iduSer != value))
-                {
-                    this.OnIduSerChanging(value);
-                    this.SendPropertyChanging();
-                    this._iduSer = value;
-                    this.SendPropertyChanged("IduSer");
-                    this.OnIduSerChanged();
-                }
-            }
-        }
-
-        [Column(Storage = "_name", Name = "Name", DbType = "varchar(100)", AutoSync = AutoSync.Never, CanBeNull = false)]
-        [DebuggerNonUserCode()]
-        public string Name
-        {
-            get
-            {
-                return this._name;
-            }
-            set
-            {
-                if (((_name == value)
+                if (((_applicationName == value)
                             == false))
                 {
-                    this.OnNameChanging(value);
+                    this.OnApplicationNameChanging(value);
                     this.SendPropertyChanging();
-                    this._name = value;
-                    this.SendPropertyChanged("Name");
-                    this.OnNameChanged();
+                    this._applicationName = value;
+                    this.SendPropertyChanged("ApplicationName");
+                    this.OnApplicationNameChanged();
                 }
             }
         }
 
-        [Column(Storage = "_password", Name = "Password", DbType = "varchar(100)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [Column(Storage = "_comment", Name = "Comment", DbType = "varchar(255)", AutoSync = AutoSync.Never)]
+        [DebuggerNonUserCode()]
+        public string Comment
+        {
+            get
+            {
+                return this._comment;
+            }
+            set
+            {
+                if (((_comment == value)
+                            == false))
+                {
+                    this.OnCommentChanging(value);
+                    this.SendPropertyChanging();
+                    this._comment = value;
+                    this.SendPropertyChanged("Comment");
+                    this.OnCommentChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_creationDate", Name = "CreationDate", DbType = "datetime", AutoSync = AutoSync.Never)]
+        [DebuggerNonUserCode()]
+        public System.Nullable<System.DateTime> CreationDate
+        {
+            get
+            {
+                return this._creationDate;
+            }
+            set
+            {
+                if ((_creationDate != value))
+                {
+                    this.OnCreationDateChanging(value);
+                    this.SendPropertyChanging();
+                    this._creationDate = value;
+                    this.SendPropertyChanged("CreationDate");
+                    this.OnCreationDateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_email", Name = "Email", DbType = "varchar(100)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string Email
+        {
+            get
+            {
+                return this._email;
+            }
+            set
+            {
+                if (((_email == value)
+                            == false))
+                {
+                    this.OnEmailChanging(value);
+                    this.SendPropertyChanging();
+                    this._email = value;
+                    this.SendPropertyChanged("Email");
+                    this.OnEmailChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_failedPasswordAnswerAttemptCount", Name = "FailedPasswordAnswerAttemptCount", DbType = "int", AutoSync = AutoSync.Never)]
+        [DebuggerNonUserCode()]
+        public System.Nullable<int> FailedPasswordAnswerAttemptCount
+        {
+            get
+            {
+                return this._failedPasswordAnswerAttemptCount;
+            }
+            set
+            {
+                if ((_failedPasswordAnswerAttemptCount != value))
+                {
+                    this.OnFailedPasswordAnswerAttemptCountChanging(value);
+                    this.SendPropertyChanging();
+                    this._failedPasswordAnswerAttemptCount = value;
+                    this.SendPropertyChanged("FailedPasswordAnswerAttemptCount");
+                    this.OnFailedPasswordAnswerAttemptCountChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_failedPasswordAnswerAttemptWindowStart", Name = "FailedPasswordAnswerAttemptWindowStart", DbType = "datetime", AutoSync = AutoSync.Never)]
+        [DebuggerNonUserCode()]
+        public System.Nullable<System.DateTime> FailedPasswordAnswerAttemptWindowStart
+        {
+            get
+            {
+                return this._failedPasswordAnswerAttemptWindowStart;
+            }
+            set
+            {
+                if ((_failedPasswordAnswerAttemptWindowStart != value))
+                {
+                    this.OnFailedPasswordAnswerAttemptWindowStartChanging(value);
+                    this.SendPropertyChanging();
+                    this._failedPasswordAnswerAttemptWindowStart = value;
+                    this.SendPropertyChanged("FailedPasswordAnswerAttemptWindowStart");
+                    this.OnFailedPasswordAnswerAttemptWindowStartChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_failedPasswordAttemptCount", Name = "FailedPasswordAttemptCount", DbType = "int", AutoSync = AutoSync.Never)]
+        [DebuggerNonUserCode()]
+        public System.Nullable<int> FailedPasswordAttemptCount
+        {
+            get
+            {
+                return this._failedPasswordAttemptCount;
+            }
+            set
+            {
+                if ((_failedPasswordAttemptCount != value))
+                {
+                    this.OnFailedPasswordAttemptCountChanging(value);
+                    this.SendPropertyChanging();
+                    this._failedPasswordAttemptCount = value;
+                    this.SendPropertyChanged("FailedPasswordAttemptCount");
+                    this.OnFailedPasswordAttemptCountChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_failedPasswordAttemptWindowStart", Name = "FailedPasswordAttemptWindowStart", DbType = "datetime", AutoSync = AutoSync.Never)]
+        [DebuggerNonUserCode()]
+        public System.Nullable<System.DateTime> FailedPasswordAttemptWindowStart
+        {
+            get
+            {
+                return this._failedPasswordAttemptWindowStart;
+            }
+            set
+            {
+                if ((_failedPasswordAttemptWindowStart != value))
+                {
+                    this.OnFailedPasswordAttemptWindowStartChanging(value);
+                    this.SendPropertyChanging();
+                    this._failedPasswordAttemptWindowStart = value;
+                    this.SendPropertyChanged("FailedPasswordAttemptWindowStart");
+                    this.OnFailedPasswordAttemptWindowStartChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_isApproved", Name = "IsApproved", DbType = "tinyint(1)", AutoSync = AutoSync.Never)]
+        [DebuggerNonUserCode()]
+        public System.Nullable<sbyte> IsApproved
+        {
+            get
+            {
+                return this._isApproved;
+            }
+            set
+            {
+                if ((_isApproved != value))
+                {
+                    this.OnIsApprovedChanging(value);
+                    this.SendPropertyChanging();
+                    this._isApproved = value;
+                    this.SendPropertyChanged("IsApproved");
+                    this.OnIsApprovedChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_isLockedOut", Name = "IsLockedOut", DbType = "tinyint(1)", AutoSync = AutoSync.Never)]
+        [DebuggerNonUserCode()]
+        public System.Nullable<sbyte> IsLockedOut
+        {
+            get
+            {
+                return this._isLockedOut;
+            }
+            set
+            {
+                if ((_isLockedOut != value))
+                {
+                    this.OnIsLockedOutChanging(value);
+                    this.SendPropertyChanging();
+                    this._isLockedOut = value;
+                    this.SendPropertyChanged("IsLockedOut");
+                    this.OnIsLockedOutChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_isOnline", Name = "IsOnline", DbType = "tinyint(1)", AutoSync = AutoSync.Never)]
+        [DebuggerNonUserCode()]
+        public System.Nullable<sbyte> IsOnline
+        {
+            get
+            {
+                return this._isOnline;
+            }
+            set
+            {
+                if ((_isOnline != value))
+                {
+                    this.OnIsOnlineChanging(value);
+                    this.SendPropertyChanging();
+                    this._isOnline = value;
+                    this.SendPropertyChanged("IsOnline");
+                    this.OnIsOnlineChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_lastActivityDate", Name = "LastActivityDate", DbType = "datetime", AutoSync = AutoSync.Never)]
+        [DebuggerNonUserCode()]
+        public System.Nullable<System.DateTime> LastActivityDate
+        {
+            get
+            {
+                return this._lastActivityDate;
+            }
+            set
+            {
+                if ((_lastActivityDate != value))
+                {
+                    this.OnLastActivityDateChanging(value);
+                    this.SendPropertyChanging();
+                    this._lastActivityDate = value;
+                    this.SendPropertyChanged("LastActivityDate");
+                    this.OnLastActivityDateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_lastLockedOutDate", Name = "LastLockedOutDate", DbType = "datetime", AutoSync = AutoSync.Never)]
+        [DebuggerNonUserCode()]
+        public System.Nullable<System.DateTime> LastLockedOutDate
+        {
+            get
+            {
+                return this._lastLockedOutDate;
+            }
+            set
+            {
+                if ((_lastLockedOutDate != value))
+                {
+                    this.OnLastLockedOutDateChanging(value);
+                    this.SendPropertyChanging();
+                    this._lastLockedOutDate = value;
+                    this.SendPropertyChanged("LastLockedOutDate");
+                    this.OnLastLockedOutDateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_lastLoginDate", Name = "LastLoginDate", DbType = "datetime", AutoSync = AutoSync.Never)]
+        [DebuggerNonUserCode()]
+        public System.Nullable<System.DateTime> LastLoginDate
+        {
+            get
+            {
+                return this._lastLoginDate;
+            }
+            set
+            {
+                if ((_lastLoginDate != value))
+                {
+                    this.OnLastLoginDateChanging(value);
+                    this.SendPropertyChanging();
+                    this._lastLoginDate = value;
+                    this.SendPropertyChanged("LastLoginDate");
+                    this.OnLastLoginDateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_lastPasswordChangeDate", Name = "LastPasswordChangeDate", DbType = "datetime", AutoSync = AutoSync.Never)]
+        [DebuggerNonUserCode()]
+        public System.Nullable<System.DateTime> LastPasswordChangeDate
+        {
+            get
+            {
+                return this._lastPasswordChangeDate;
+            }
+            set
+            {
+                if ((_lastPasswordChangeDate != value))
+                {
+                    this.OnLastPasswordChangeDateChanging(value);
+                    this.SendPropertyChanging();
+                    this._lastPasswordChangeDate = value;
+                    this.SendPropertyChanged("LastPasswordChangeDate");
+                    this.OnLastPasswordChangeDateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_password", Name = "Password", DbType = "varchar(128)", AutoSync = AutoSync.Never, CanBeNull = false)]
         [DebuggerNonUserCode()]
         public string Password
         {
@@ -2922,30 +3434,96 @@ namespace HP.SW.SWT.Data
             }
         }
 
-        [Column(Storage = "_userLogon", Name = "UserLogon", DbType = "varchar(20)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [Column(Storage = "_passwordAnswer", Name = "PasswordAnswer", DbType = "varchar(255)", AutoSync = AutoSync.Never)]
         [DebuggerNonUserCode()]
-        public string UserLogon
+        public string PasswordAnswer
         {
             get
             {
-                return this._userLogon;
+                return this._passwordAnswer;
             }
             set
             {
-                if (((_userLogon == value)
+                if (((_passwordAnswer == value)
                             == false))
                 {
-                    this.OnUserLogonChanging(value);
+                    this.OnPasswordAnswerChanging(value);
                     this.SendPropertyChanging();
-                    this._userLogon = value;
-                    this.SendPropertyChanged("UserLogon");
-                    this.OnUserLogonChanged();
+                    this._passwordAnswer = value;
+                    this.SendPropertyChanged("PasswordAnswer");
+                    this.OnPasswordAnswerChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_passwordQuestion", Name = "PasswordQuestion", DbType = "varchar(255)", AutoSync = AutoSync.Never)]
+        [DebuggerNonUserCode()]
+        public string PasswordQuestion
+        {
+            get
+            {
+                return this._passwordQuestion;
+            }
+            set
+            {
+                if (((_passwordQuestion == value)
+                            == false))
+                {
+                    this.OnPasswordQuestionChanging(value);
+                    this.SendPropertyChanging();
+                    this._passwordQuestion = value;
+                    this.SendPropertyChanged("PasswordQuestion");
+                    this.OnPasswordQuestionChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_pkID", Name = "PKID", DbType = "varchar(36)", IsPrimaryKey = true, AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string PKid
+        {
+            get
+            {
+                return this._pkID;
+            }
+            set
+            {
+                if (((_pkID == value)
+                            == false))
+                {
+                    this.OnPKidChanging(value);
+                    this.SendPropertyChanging();
+                    this._pkID = value;
+                    this.SendPropertyChanged("PKid");
+                    this.OnPKidChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_username", Name = "Username", DbType = "varchar(255)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string Username
+        {
+            get
+            {
+                return this._username;
+            }
+            set
+            {
+                if (((_username == value)
+                            == false))
+                {
+                    this.OnUsernameChanging(value);
+                    this.SendPropertyChanging();
+                    this._username = value;
+                    this.SendPropertyChanged("Username");
+                    this.OnUsernameChanged();
                 }
             }
         }
 
         #region Children
-        [Association(Storage = "_ticketComment", OtherKey = "IduSer", ThisKey = "IduSer", Name = "fk_TicketComment_User")]
+        [Association(Storage = "_ticketComment", OtherKey = "IduSer", ThisKey = "PKid", Name = "fk_TicketComment_User")]
         [DebuggerNonUserCode()]
         public EntitySet<TicketComment> TicketComment
         {
@@ -2959,7 +3537,7 @@ namespace HP.SW.SWT.Data
             }
         }
 
-        [Association(Storage = "_ticket", OtherKey = "IduSerCreate", ThisKey = "IduSer", Name = "fk_Ticket_UserCreate")]
+        [Association(Storage = "_ticket", OtherKey = "IduSerCreate", ThisKey = "PKid", Name = "fk_Ticket_UserCreate")]
         [DebuggerNonUserCode()]
         public EntitySet<Ticket> Ticket
         {
@@ -2973,7 +3551,7 @@ namespace HP.SW.SWT.Data
             }
         }
 
-        [Association(Storage = "_ticket1", OtherKey = "IduSerDelete", ThisKey = "IduSer", Name = "fk_Ticket_UserDelete")]
+        [Association(Storage = "_ticket1", OtherKey = "IduSerDelete", ThisKey = "PKid", Name = "fk_Ticket_UserDelete")]
         [DebuggerNonUserCode()]
         public EntitySet<Ticket> Ticket1
         {
@@ -2987,7 +3565,7 @@ namespace HP.SW.SWT.Data
             }
         }
 
-        [Association(Storage = "_ticket2", OtherKey = "IduSerLastModified", ThisKey = "IduSer", Name = "fk_Ticket_UserLastModified")]
+        [Association(Storage = "_ticket2", OtherKey = "IduSerLastModified", ThisKey = "PKid", Name = "fk_Ticket_UserLastModified")]
         [DebuggerNonUserCode()]
         public EntitySet<Ticket> Ticket2
         {
@@ -3028,50 +3606,220 @@ namespace HP.SW.SWT.Data
         private void TicketComment_Attach(TicketComment entity)
         {
             this.SendPropertyChanging();
-            entity.User = this;
+            entity.Users = this;
         }
 
         private void TicketComment_Detach(TicketComment entity)
         {
             this.SendPropertyChanging();
-            entity.User = null;
+            entity.Users = null;
         }
 
         private void Ticket_Attach(Ticket entity)
         {
             this.SendPropertyChanging();
-            entity.User = this;
+            entity.Users = this;
         }
 
         private void Ticket_Detach(Ticket entity)
         {
             this.SendPropertyChanging();
-            entity.User = null;
+            entity.Users = null;
         }
 
         private void Ticket1_Attach(Ticket entity)
         {
             this.SendPropertyChanging();
-            entity.User1 = this;
+            entity.Users1 = this;
         }
 
         private void Ticket1_Detach(Ticket entity)
         {
             this.SendPropertyChanging();
-            entity.User1 = null;
+            entity.Users1 = null;
         }
 
         private void Ticket2_Attach(Ticket entity)
         {
             this.SendPropertyChanging();
-            entity.User2 = this;
+            entity.Users2 = this;
         }
 
         private void Ticket2_Detach(Ticket entity)
         {
             this.SendPropertyChanging();
-            entity.User2 = null;
+            entity.Users2 = null;
         }
         #endregion
+    }
+
+    [Table(Name = "swt.usersinroles")]
+    public partial class UsersInRoles : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+    {
+
+        private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
+
+        private string _applicationName;
+
+        private string _roleName;
+
+        private string _userName;
+
+        private EntityRef<Roles> _roles = new EntityRef<Roles>();
+
+        #region Extensibility Method Declarations
+        partial void OnCreated();
+
+        partial void OnApplicationNameChanged();
+
+        partial void OnApplicationNameChanging(string value);
+
+        partial void OnRoleNameChanged();
+
+        partial void OnRoleNameChanging(string value);
+
+        partial void OnUserNameChanged();
+
+        partial void OnUserNameChanging(string value);
+        #endregion
+
+
+        public UsersInRoles()
+        {
+            this.OnCreated();
+        }
+
+        [Column(Storage = "_applicationName", Name = "ApplicationName", DbType = "varchar(255)", IsPrimaryKey = true, AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string ApplicationName
+        {
+            get
+            {
+                return this._applicationName;
+            }
+            set
+            {
+                if (((_applicationName == value)
+                            == false))
+                {
+                    if (_roles.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnApplicationNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._applicationName = value;
+                    this.SendPropertyChanged("ApplicationName");
+                    this.OnApplicationNameChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_roleName", Name = "RoleName", DbType = "varchar(255)", IsPrimaryKey = true, AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string RoleName
+        {
+            get
+            {
+                return this._roleName;
+            }
+            set
+            {
+                if (((_roleName == value)
+                            == false))
+                {
+                    if (_roles.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnRoleNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._roleName = value;
+                    this.SendPropertyChanged("RoleName");
+                    this.OnRoleNameChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_userName", Name = "UserName", DbType = "varchar(255)", IsPrimaryKey = true, AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string UserName
+        {
+            get
+            {
+                return this._userName;
+            }
+            set
+            {
+                if (((_userName == value)
+                            == false))
+                {
+                    this.OnUserNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._userName = value;
+                    this.SendPropertyChanged("UserName");
+                    this.OnUserNameChanged();
+                }
+            }
+        }
+
+        #region Parents
+        [Association(Storage = "_roles", OtherKey = "ApplicationName,RoleName", ThisKey = "ApplicationName,RoleName", Name = "fk_UsersInRoles_roles", IsForeignKey = true)]
+        [DebuggerNonUserCode()]
+        public Roles Roles
+        {
+            get
+            {
+                return this._roles.Entity;
+            }
+            set
+            {
+                if (((this._roles.Entity == value)
+                            == false))
+                {
+                    if ((this._roles.Entity != null))
+                    {
+                        Roles previousRoles = this._roles.Entity;
+                        this._roles.Entity = null;
+                        previousRoles.UsersInRoles.Remove(this);
+                    }
+                    this._roles.Entity = value;
+                    if ((value != null))
+                    {
+                        value.UsersInRoles.Add(this);
+                        _applicationName = value.ApplicationName;
+                        _roleName = value.RoleName;
+                    }
+                    else
+                    {
+                        _applicationName = default(string);
+                        _roleName = default(string);
+                    }
+                }
+            }
+        }
+        #endregion
+
+        public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            System.ComponentModel.PropertyChangingEventHandler h = this.PropertyChanging;
+            if ((h != null))
+            {
+                h(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(string propertyName)
+        {
+            System.ComponentModel.PropertyChangedEventHandler h = this.PropertyChanged;
+            if ((h != null))
+            {
+                h(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
 }

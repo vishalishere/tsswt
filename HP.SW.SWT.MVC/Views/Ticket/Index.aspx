@@ -20,7 +20,7 @@
     <table style="width:100%" cellpadding="0" cellspacing="0">
     <tr>
         <th colspan="6" align="left" style="border-bottom: solid 1px #e8eef4; padding: 3px;">
-            <a href='<%= Url.RouteUrl(new { Controller= "Ticket", Action= "Create"}) %>' style='color: #696969; font-weight: normal; text-decoration:none'>
+            <a href='<%= Url.RouteUrl(new { Controller= "Ticket", Action= "Create"}) %>' style='border-style: none; color: #696969; font-weight: normal; text-decoration:none'>
                 <img src='<%= Url.Contents("Images/sharepoint_new.png") %>' alt="Nuevo Ticket" />Nuevo Ticket
             </a>
         </th>

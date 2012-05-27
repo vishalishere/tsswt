@@ -3,7 +3,7 @@
 <%@ Import Namespace="HP.SW.SWT.Extensions" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	Tickets > <%: Model.Title %> > Tareas
+	Tickets > <%: Model.Number %> - <%: Model.Title %> > Tareas
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContent" runat="server">
@@ -40,13 +40,17 @@
 
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h2><%: Html.ActionLink("Tickets", "Index") %> > <%: Html.ActionLink(Model.Title, "Edit", new { id = Model.Number })%> > Tareas</h2>
+    <h2><%: Html.ActionLink("Tickets", "Index") %> > <%: Html.ActionLink(Model.Number + " - " + Model.Title, "Edit", new { id = Model.Number })%> > Tareas</h2>
 
     <div style="width: 100%; text-align: right">
         <input type="button" value="Cerrar" onclick="window.location = '<%= Url.RouteUrl(new { Controller= "Ticket", Action= "Edit", id = Model.Number }) %>';" />
     </div>
 
     <table id="details" width="100%" border="0">
+    <tr>
+        <th><%: Html.LabelFor(model => model.Number) %></th>
+        <td><%: Model.Number %></td>
+    </tr>
     <tr>
         <th><%: Html.LabelFor(model => model.Title) %></th>
         <td><%: Model.Title %></td>
@@ -73,7 +77,7 @@
     <tr>
         <th colspan="2" align="left">
             &nbsp;
-            <a href='<%= Url.RouteUrl(new { Controller= "Ticket", Action= "CreateTask", id = Model.Number, phase = phase, number = Model.Tasks.Where(t => t.Phase == phase).Count() }) %>' style='color: #696969; font-weight: normal; text-decoration:none'>
+            <a href='<%= Url.RouteUrl(new { Controller= "Ticket", Action= "CreateTask", id = Model.Number, phase = phase, number = Model.Tasks.Where(t => t.Phase == phase).Count() }) %>' style='border-style: none; color: #696969; font-weight: normal; text-decoration:none'>
                 <img src='<%= Url.Contents("Images/sharepoint_task_new.png") %>' alt="Nueva Tarea" style="vertical-align: bottom;" />&nbsp;&nbsp;Nueva Tarea
             </a>
         </th>
