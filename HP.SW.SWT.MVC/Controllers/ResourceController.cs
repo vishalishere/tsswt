@@ -14,24 +14,28 @@ namespace HP.SW.SWT.MVC.Controllers
     {
         //
         // GET: /Resource/
+        [Authorize(Roles="Project Manager")]
         public ActionResult Index()
         {
             return View(Data.ADResource.GetAll());
         }
 
         [HttpPost]
+        [Authorize(Roles = "Project Manager")]
         public ActionResult Details(string id)
         {
             return View(Data.ADResource.Get(id.Replace("_", "\\")));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Project Manager")]
         public ActionResult Create()
         {
             return View();
         } 
 
         [HttpPost]
+        [Authorize(Roles = "Project Manager")]
         public ActionResult CreateOk(FormCollection collection)
         {
             try
@@ -47,12 +51,14 @@ namespace HP.SW.SWT.MVC.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Project Manager")]
         public ActionResult Edit(string id)
         {
             return View(Data.ADResource.Get(id.Replace("_", "\\")));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Project Manager")]
         public ActionResult EditOk(string id, FormCollection collection)
         {
             try
@@ -68,12 +74,14 @@ namespace HP.SW.SWT.MVC.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Project Manager")]
         public ActionResult Delete(string id)
         {
             return View(Data.ADResource.Get(id.Replace("_", "\\")));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Project Manager")]
         public ActionResult DeleteOk(string id, FormCollection collection)
         {
             try
@@ -89,6 +97,7 @@ namespace HP.SW.SWT.MVC.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult GetCurrentAssignments()
         {
             return Json(from er in Data.ADResource.GetCurrentAssignments()
@@ -99,6 +108,7 @@ namespace HP.SW.SWT.MVC.Controllers
                         });
         }
 
+        [Authorize(Roles = "Referente, Desarrollador")]
         public ActionResult Excel()
         {
             ViewData["Resource"] = Data.ADResource.Get("T31210");
@@ -107,6 +117,7 @@ namespace HP.SW.SWT.MVC.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Referente, Desarrollador")]
         public JsonResult UpdateExcelRow(ExcelRow excelRow, int rowIndex)
         {            
             try
@@ -129,6 +140,7 @@ namespace HP.SW.SWT.MVC.Controllers
 
         [HttpPost]
         [GenerateScriptType(typeof(Resource))]
+        [Authorize(Roles = "Referente, Desarrollador")]
         public JsonResult AddExcelRow(ExcelRow excelRow, int rowIndex)
         {
             try
@@ -150,6 +162,7 @@ namespace HP.SW.SWT.MVC.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Referente, Desarrollador")]
         public JsonResult DeleteExcelRow(ExcelRow excelRow, int rowIndex)
         {
             try

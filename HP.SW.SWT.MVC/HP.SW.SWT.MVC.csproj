@@ -89,12 +89,14 @@
   <ItemGroup>
     <Content Include="App_Data\Holiday.xml" />
     <Content Include="Contents\CRUD.css" />
+    <Content Include="Contents\Images\about.png" />
     <Content Include="Contents\Images\arrowDown.png" />
     <Content Include="Contents\Images\arrowDown2.png" />
     <Content Include="Contents\Images\calendar.png" />
     <Content Include="Contents\Images\cancel.png" />
     <Content Include="Contents\Images\home.png" />
     <Content Include="Contents\Images\LogoSWT.jpg" />
+    <Content Include="Contents\Images\menu.png" />
     <Content Include="Contents\Images\ok.png" />
     <Content Include="Contents\Images\sharepoint_arrow_down.png" />
     <Content Include="Contents\Images\sharepoint_attach.png" />
@@ -148,12 +150,14 @@
     <Content Include="Scripts\dateutil.js" />
     <Content Include="Scripts\Ticket\tasks.js" />
     <Content Include="Scripts\Ticket\Index.js" />
+    <Content Include="Views\Account\Unauthorized.aspx" />
     <Content Include="Views\Resource\Create.ascx" />
     <Content Include="Views\Resource\Delete.ascx" />
     <Content Include="Views\Resource\Details.ascx" />
     <Content Include="Views\Resource\Edit.ascx" />
     <Content Include="Views\Resource\Excel.aspx" />
     <Content Include="Views\Resource\Index.aspx" />
+    <Content Include="Views\Shared\MenuUserControl.ascx" />
     <Content Include="Views\Ticket\DeleteTask.aspx" />
     <Content Include="Views\Ticket\DetailsTask.aspx" />
     <Content Include="Views\Ticket\EditTask.aspx" />

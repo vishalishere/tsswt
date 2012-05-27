@@ -9,16 +9,15 @@ using HP.SW.SWT.Entities;
 namespace HP.SW.SWT.MVC.Controllers
 {
     [HandleError]
-    [Authorize]
     public class HomeController : Controller
     {
-        //[Authorize(Roles = "Project Manager")]
+        [Authorize(Roles = "Project Manager, Service Manager")]
         public ActionResult Index()
         {
             return View();
         }
 
-        //[Authorize(Roles = "Project Manager")]
+        [Authorize(Roles = "Project Manager, Service Manager")]
         public JsonResult GetDashboardTickets(DashboardOrder order, string cluster)
         {
             IEnumerable<Ticket> tickets = Data.ADTicket.GetWorkingTickets(cluster);

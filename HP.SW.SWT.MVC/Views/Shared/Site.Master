@@ -23,6 +23,23 @@
         $(resize);
         $("#mainHeader").ready(resize);
         $("#mainHeaderLogo").ready(resize);
+
+        function toggleMenu(img) {
+            var jMenu = $("#mainHeaderMenu");
+            if (jMenu.css("display") == "none") {
+
+                var jImg = $(img);
+                var jImgPos = jImg.position();
+                var jImgHeight = jImg.outerHeight();
+
+                jMenu.css({
+                    top: (jImgPos.top + jImgHeight + 3) + "px",
+                    left: jImgPos.left + "px"
+                }).show();
+            } else {
+                jMenu.hide();
+            }
+        }
     </script>
     <asp:ContentPlaceHolder ID="ScriptContent" runat="server" />
     <link href='../../Contents/Site.css' rel='stylesheet' type='text/css' />
@@ -34,10 +51,14 @@
         <div id="mainHeaderTop">
             <div id="mainHeaderIcons">
                 <a href='<%= Url.RouteUrl(new { Controller= "Home", Action= "Index"}) %>' style='border-style: none; color: #696969; font-weight: normal; text-decoration:none'>
-                    <img src='<%= Url.Contents("Images/Home.png") %>' alt="Inicio" />
+                    <img src='<%= Url.Contents("Images/Home.png") %>' alt="Inicio" title="Inicio" />
                 </a>
+                <img src='<%= Url.Contents("Images/Menu.png") %>' alt="Menú" title="Menú" onclick='toggleMenu(this); return false;' style='cursor: pointer' />
+                <div id="mainHeaderMenu">
+                    <% Html.RenderPartial("MenuUserControl"); %>
+                </div>
                 <a href='<%= Url.RouteUrl(new { Controller= "Home", Action= "About"}) %>' style='border-style: none; color: #696969; font-weight: normal; text-decoration:none'>
-                    <img src='<%= Url.Contents("Images/About.png") %>' alt="Acerca de" />
+                    <img src='<%= Url.Contents("Images/About.png") %>' alt="Acerca de" title="Acerca de" />
                 </a>
             </div>
             <div id="mainHeaderUser">

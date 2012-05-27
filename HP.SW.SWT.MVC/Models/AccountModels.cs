@@ -65,6 +65,10 @@ namespace HP.SW.SWT.MVC.Models
         [DataType(DataType.Password)]
         [DisplayName("Confirme su clave")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [DisplayName("Nombre y Apellido")]
+        public string FullName { get; set; }
     }
     #endregion
 
@@ -79,7 +83,7 @@ namespace HP.SW.SWT.MVC.Models
         int MinPasswordLength { get; }
 
         bool ValidateUser(string userName, string password);
-        MembershipCreateStatus CreateUser(string userName, string password, string email);
+        MembershipCreateStatus CreateUser(string userName, string password, string fullName);
         bool ChangePassword(string userName, string oldPassword, string newPassword);
     }
 
@@ -113,13 +117,17 @@ namespace HP.SW.SWT.MVC.Models
             return _provider.ValidateUser(userName, password);
         }
 
-        public MembershipCreateStatus CreateUser(string userName, string password, string email)
+        public MembershipCreateStatus CreateUser(string userName, string password, string fullName)
         {
             if (String.IsNullOrEmpty(userName)) throw new ArgumentException("El campo es obligatorio.", "Usuario");
             if (String.IsNullOrEmpty(password)) throw new ArgumentException("El campo es obligatorio.", "Clave");
+            if (String.IsNullOrEmpty(fullName)) throw new ArgumentException("El campo es obligatorio.", "Nombre y Apellido");
 
             MembershipCreateStatus status;
-            _provider.CreateUser(userName, password, email, null, null, true, null, out status);
+            MembershipUser user = _provider.CreateUser(userName, password, string.Empty, null, null, true, null, out status);
+            user.Comment = fullName;
+            _provider.UpdateUser(user);
+            
             return status;
         }
 

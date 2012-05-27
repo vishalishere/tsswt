@@ -10,6 +10,7 @@ using HP.SW.SWT.Extensions;
 namespace HP.SW.SWT.MVC.Controllers
 {
     [HandleError]
+    [Authorize]
     public class TicketController : BaseController
     {
         #region Ticket
@@ -63,6 +64,7 @@ namespace HP.SW.SWT.MVC.Controllers
                 ConvertAll<SelectListItem>(c => new SelectListItem { Value = c.ID.ToString(), Text = c.Description });
         }
 
+        [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult Create()
         {
             LoadTicketCombos();
@@ -70,6 +72,7 @@ namespace HP.SW.SWT.MVC.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult Create(Ticket viewTicket)
         {
             try
@@ -85,6 +88,7 @@ namespace HP.SW.SWT.MVC.Controllers
             }
         }
 
+        [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult Edit(string id)
         {
             LoadTicketCombos();
@@ -92,6 +96,7 @@ namespace HP.SW.SWT.MVC.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult Edit(string id, Ticket viewTicket)
         {
             try
@@ -121,12 +126,14 @@ namespace HP.SW.SWT.MVC.Controllers
             }
         }
 
+        [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult Delete(string id)
         {
             return View(Data.ADTicket.Get(id));
         }
 
         [HttpPost]
+        [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult Delete(string id, Ticket viewTicket)
         {
             try
@@ -150,6 +157,7 @@ namespace HP.SW.SWT.MVC.Controllers
             return View(Data.ADTicket.Get(id));
         }
 
+        [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult CreateTask(string id, TaskPhase phase, int number)
         {
             ViewData["Ticket"] = Data.ADTicket.Get(id);
@@ -157,6 +165,7 @@ namespace HP.SW.SWT.MVC.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult CreateTask(string id, Task task)
         {
             try
@@ -179,6 +188,7 @@ namespace HP.SW.SWT.MVC.Controllers
             return View(task);
         }
 
+        [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult EditTask(int id)
         {
             Task task = Data.ADTask.Get(id);
@@ -187,6 +197,7 @@ namespace HP.SW.SWT.MVC.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult EditTask(int id, Task task)
         {
             try
@@ -202,6 +213,7 @@ namespace HP.SW.SWT.MVC.Controllers
             }
         }
 
+        [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult UpTask(string ticketNumber, int id)
         {
             try
@@ -217,6 +229,7 @@ namespace HP.SW.SWT.MVC.Controllers
             }
         }
 
+        [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult DownTask(string ticketNumber, int id)
         {
             try
@@ -233,6 +246,7 @@ namespace HP.SW.SWT.MVC.Controllers
             }
         }
 
+        [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult DeleteTask(int id)
         {
             Task task = Data.ADTask.Get(id);
@@ -241,6 +255,7 @@ namespace HP.SW.SWT.MVC.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult DeleteTask(int id, Task task)
         {
             try

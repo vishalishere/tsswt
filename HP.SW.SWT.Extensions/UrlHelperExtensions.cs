@@ -11,17 +11,17 @@ namespace HP.SW.SWT.Extensions
         public static string BaseUri(this UrlHelper urlHelper)
         {
             HttpRequest request = HttpContext.Current.Request;
-            return string.Format("{0}://{1}{2}/", request.Url.Scheme, request.Url.Authority, request.ApplicationPath);
+            return string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, request.ApplicationPath).TrimEnd('/');
         }
 
         public static string Script(this UrlHelper urlHelper, string url)
         {
-            return urlHelper.BaseUri().TrimEnd('/') + "/Scripts/" + url;
+            return urlHelper.BaseUri() + "/Scripts/" + url;
         }
 
         public static string Contents(this UrlHelper urlHelper, string url)
         {
-            return urlHelper.BaseUri().TrimEnd('/') + "/Contents/" + url;
+            return urlHelper.BaseUri() + "/Contents/" + url;
         }
     }
 }

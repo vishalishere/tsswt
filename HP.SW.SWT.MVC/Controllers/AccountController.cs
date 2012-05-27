@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+
+using HP.SW.SWT.Extensions;
 using HP.SW.SWT.MVC.Models;
 
 namespace HP.SW.SWT.MVC.Controllers
@@ -26,10 +28,23 @@ namespace HP.SW.SWT.MVC.Controllers
         }
 
         // **************************************
+        // URL: /Account/Unauthorized
+        // **************************************
+        public ActionResult Unauthorized(string originalUrl)
+        {
+            ViewData["OriginalUrl"] = originalUrl;
+            return View();
+        }
+
+        // **************************************
         // URL: /Account/LogOn
         // **************************************
         public ActionResult LogOn()
         {
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Unauthorized", new { originalUrl = Request.QueryString["ReturnUrl"] });
+            }
             return View();
         }
 
@@ -87,7 +102,7 @@ namespace HP.SW.SWT.MVC.Controllers
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
-                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserName, model.Password, string.Empty);
+                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserName, model.Password, model.FullName);
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {

@@ -31,10 +31,38 @@ body
 	float: left;
 }
 
+#mainHeaderMenu
+{
+	background-color: White; 
+	display:none; 
+    position: absolute;
+	text-align: left;
+}
+
+#mainHeaderMenu table, #mainHeaderMenu tr
+{
+	border: 0px none White;
+	padding-left: 3px;
+	padding-right: 5px;
+}
+
+#mainHeaderMenu td
+{
+	border: 1px solid #085DA0; 
+	padding-left: 3px;
+	padding-right: 5px;
+}
+
+#mainHeaderMenu a:link, #mainHeaderMenu a:visited, #mainHeaderMenu a:hover, #mainHeaderMenu a:active
+{
+    color: #696969;
+    text-decoration: none;    
+}
+
 #mainHeaderUser
 {
 	text-align: right;
-	color: #666666;
+    color: #494949;
 }
 
 #mainHeaderTitle .left
@@ -76,6 +104,26 @@ body
 	width: 100%;
 	margin-top: 2px;
 	margin-bottom: 2px;
+}
+
+#logIn, #logOut
+{
+	background-color: White; 
+	border: solid 1px #085DA0; 
+	display:none; 
+    position: absolute;
+	text-align: right;
+}
+
+#logIn table, #logOut table, #logIn tr, #logOut tr, #logIn td, #logOut td
+{
+	border: 0px none White;
+}
+
+#logIn a:link, #logOut a:link, #logIn a:visited, #logOut a:visited, #logIn a:hover, #logOut a:hover, #logIn a:active, #logOut a:active
+{
+    color: #696969;
+    text-decoration: none;    
 }
 
 a:link
