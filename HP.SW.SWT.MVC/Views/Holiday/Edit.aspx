@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HP.SW.SWT.Entities.Holiday>" %>
-
+<%@ Import Namespace="HP.SW.SWT.Extensions" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Edit
 </asp:Content>
@@ -18,7 +18,8 @@
                 <%: Html.LabelFor(model => model.Date) %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.Date, String.Format("{0:g}", Model.Date)) %>
+                <%--<%: Html.TextBoxFor(model => model.Date, string.Format("{0:g}", Model.Date))%>--%>
+                <%: Html.DateBoxFor(model => model.Date, string.Format("{0:dd/MM/yyyy}", Model.Date))%>
                 <%: Html.ValidationMessageFor(model => model.Date) %>
             </div>
             
@@ -44,8 +45,20 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
+<script language='javascript' type='text/javascript' src='<%= Url.Script("jquery/jquery.ui.datepicker.js") %>'></script>
+    <script language='javascript' type="text/javascript">
+        $(function () {
+            $("[jType=txtDatePicker]").datepicker({
+                buttonImage: '<%= Url.Contents("Images/calendar.png")%>',
+                buttonImageOnly: true,
+                dateFormat: 'dd/mm/yy',
+                showOn: 'button'
+            });
+        });
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="StyleContent" runat="server">
+    <link href='<%= Url.Contents("Redmond.css") %>' rel='stylesheet' type='text/css' />
 </asp:Content>
 

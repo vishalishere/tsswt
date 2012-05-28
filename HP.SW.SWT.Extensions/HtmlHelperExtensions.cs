@@ -23,8 +23,20 @@ namespace HP.SW.SWT.Extensions
 
         public static MvcHtmlString DateBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
         {
-            //htmlAttributes.Add("jType", "txtDatePicker");
-            return htmlHelper.TextBoxFor<TModel, TProperty>(expression, htmlAttributes);
+            if (htmlAttributes is IDictionary<string, object>)
+            {
+                return htmlHelper.DateBoxFor<TModel, TProperty>(expression, (IDictionary<string, object>)htmlAttributes);
+            }
+            else if (htmlAttributes is string)
+            {
+                IDictionary<string, object> attributes = new Dictionary<string, object>();
+                attributes.Add("value", htmlAttributes);
+                return htmlHelper.DateBoxFor<TModel, TProperty>(expression, attributes);
+            }
+            else
+            {
+                throw new Exception("Invalid htmlAttributes Parameters");
+            }
         }
     }
 }

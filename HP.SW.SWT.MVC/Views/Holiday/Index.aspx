@@ -12,10 +12,10 @@
         <tr>
             <th></th>
             <th>
-                Date
+                <%= Html.LabelFor(model => model.First().Date) %>
             </th>
             <th>
-                Description
+                <%= Html.LabelFor(model => model.First().Description) %>
             </th>
         </tr>
 
@@ -28,7 +28,7 @@
                 <%: Html.ActionLink("Delete", "Delete", new { date=item.Date /* id=item.PrimaryKey */ })%>
             </td>
             <td>
-                <%: String.Format("{0:g}", item.Date) %>
+                <%: String.Format("{0:dd/MM/yyyy}", item.Date) %>
             </td>
             <td>
                 <%: item.Description %>

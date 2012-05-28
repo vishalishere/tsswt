@@ -23,8 +23,8 @@ namespace HP.SW.SWT.MVC
                 //new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
                 //new { controller = "Resource", action = "Excel", id = UrlParameter.Optional } // Parameter defaults
                 //new { controller = "Period", action = "Index", id = UrlParameter.Optional } // Parameter defaults
-                //new { controller = "Cluster", action = "Index", id = UrlParameter.Optional } // Parameter defaults
-                new { controller = "Holiday", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "Cluster", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+                //new { controller = "Holiday", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
 
         }
