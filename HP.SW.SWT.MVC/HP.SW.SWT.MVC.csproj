@@ -14,6 +14,7 @@
     <AssemblyName>HP.SW.SWT.MVC</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -70,8 +71,11 @@
     <Compile Include="App_Code\DashboardOrder.cs" />
     <Content Include="App_Code\ENT.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ClusterController.cs" />
+    <Compile Include="Controllers\HolidayController.cs" />
     <Compile Include="App_Code\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PeriodController.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Global.asax.cs">
@@ -150,6 +154,21 @@
     <Content Include="Scripts\dateutil.js" />
     <Content Include="Scripts\Ticket\tasks.js" />
     <Content Include="Scripts\Ticket\Index.js" />
+    <Content Include="Views\Cluster\Create.aspx" />
+    <Content Include="Views\Cluster\Delete.aspx" />
+    <Content Include="Views\Cluster\Details.aspx" />
+    <Content Include="Views\Cluster\Edit.aspx" />
+    <Content Include="Views\Cluster\Index.aspx" />
+    <Content Include="Views\Holiday\Create.aspx" />
+    <Content Include="Views\Holiday\Delete.aspx" />
+    <Content Include="Views\Holiday\Details.aspx" />
+    <Content Include="Views\Holiday\Edit.aspx" />
+    <Content Include="Views\Holiday\Index.aspx" />
+    <Content Include="Views\Period\Create.aspx" />
+    <Content Include="Views\Period\Delete.aspx" />
+    <Content Include="Views\Period\Details.aspx" />
+    <Content Include="Views\Period\Edit.aspx" />
+    <Content Include="Views\Period\Index.aspx" />
     <Content Include="Views\Account\Unauthorized.aspx" />
     <Content Include="Views\Resource\Create.ascx" />
     <Content Include="Views\Resource\Delete.ascx" />
