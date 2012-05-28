@@ -39,8 +39,7 @@ namespace HP.SW.SWT.Data
                 Data.Cluster c = new Cluster
                 {
                     Description = cluster.Description,
-                    IdcLuster = cluster.ID,
-                    ShortDescription = cluster.ShortDescription
+                    ShortDescription = cluster.ShortDescription                   
                 };
                 ctx.Cluster.InsertOnSubmit(c);
                 ctx.SubmitChanges();
@@ -51,6 +50,14 @@ namespace HP.SW.SWT.Data
         {
             using (SwT ctx = Context)
             {
+                //var res = from c in ctx.Cluster
+                //          where c.IdcLuster == cluster.ID
+                //          select c.Ticket;
+
+                //var res2 = from t in ctx.Ticket
+                //          where t.IdcLuster == cluster.ID
+                //          select t;
+
                 Cluster dataCluster = (from c in ctx.Cluster
                                        where c.IdcLuster == cluster.ID
                                        select c).FirstOrDefault();
