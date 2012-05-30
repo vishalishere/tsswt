@@ -159,12 +159,12 @@ function addRow(src) {
             Date: $(row.cells[0]).find("input").text(),
             StartHour: $(row.cells[1]).find("input").length == 0 ? row.cells[1].innerHTML : $(row.cells[1]).find("input").val(),
             EndHour: $(row.cells[2]).find("input").length == 0 ? row.cells[2].innerHTML : $(row.cells[2]).find("input").val(),
-            Ticket: $(row.cells[4]).find("input").length == 0 ? row.cells[4].innerHTML : $(row.cells[1]).find("input").val(),
-            Description: $(row.cells[5]).find("input").length == 0 ? row.cells[5].innerHTML : $(row.cells[1]).find("input").val(),
-            SCPCharged: $(row.cells[6]).find("input").length == 0 ? row.cells[6].innerHTML : $(row.cells[1]).find("input").val(),
-            SCPHours: $(row.cells[7]).find("input").length == 0 ? row.cells[7].innerHTML : $(row.cells[1]).find("input").val(),
-            SCPTicket: $(row.cells[8]).find("input").length == 0 ? row.cells[8].innerHTML : $(row.cells[1]).find("input").val(),
-            SCPT: $(row.cells[9]).find("input").length == 0 ? row.cells[9].innerHTML : $(row.cells[1]).find("input").val(),
+            Ticket: $(row.cells[4]).find("input").length == 0 ? row.cells[4].innerHTML : $(row.cells[4]).find("input").val(),
+            Description: $(row.cells[5]).find("input").length == 0 ? row.cells[5].innerHTML : $(row.cells[5]).find("input").val(),
+            SCPCharged: $(row.cells[6]).find("input").length == 0 ? row.cells[6].innerHTML : $(row.cells[6]).find("input").val(),
+            SCPHours: $(row.cells[7]).find("input").length == 0 ? row.cells[7].innerHTML : $(row.cells[7]).find("input").val(),
+            SCPTicket: $(row.cells[8]).find("input").length == 0 ? row.cells[8].innerHTML : $(row.cells[8]).find("input").val(),
+            SCPT: $(row.cells[9]).find("input").length == 0 ? row.cells[9].innerHTML : $(row.cells[9]).find("input").val(),
             Resource: { T: $("#hdnT").val() }
         }, rowIndex: row.rowIndex
         },

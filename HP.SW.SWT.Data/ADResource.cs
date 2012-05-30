@@ -48,10 +48,10 @@ namespace HP.SW.SWT.Data
                     }).FirstOrDefault();
         }
 
-        public static IEnumerable<ENT.ExcelRow> GetExcel(Entities.Resource r, ENT.Period period)
+        public static IEnumerable<ENT.ExcelRow> GetExcel(Entities.User u, ENT.Period period)//Entities.Resource r, ENT.Period period)
         {
             return (from er in Context.ExcelRow
-                    where er.T == r.T && er.Period.IdpEriod == period.ID
+                    where er.T == u.Logon && er.Period.IdpEriod == period.ID
                     select new ENT.ExcelRow
                     {
                         Id = er.IdeXcelRow,
@@ -122,7 +122,7 @@ namespace HP.SW.SWT.Data
                         ScptIcket = excelRow.Ticket,
                         SCPt = excelRow.SCPT,
                         ScpcHarged = excelRow.SCPCharged,
-                        T = "T31070", //excelRow.Resource.T
+                        T = excelRow.Resource.T,
                         Period = new Data.Period { IdpEriod = 1 }
                     }
                     );
