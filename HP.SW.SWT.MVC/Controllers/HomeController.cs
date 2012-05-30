@@ -11,7 +11,7 @@ namespace HP.SW.SWT.MVC.Controllers
     [HandleError]
     public class HomeController : Controller
     {
-        [Authorize(Roles = "Project Manager, Service Manager")]
+        [Authorize]
         public ActionResult Index()
         {
             return View();

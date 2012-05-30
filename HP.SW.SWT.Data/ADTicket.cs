@@ -51,26 +51,11 @@ namespace HP.SW.SWT.Data
                                   RealDeliveryDate = t.RealDeliveryDate,
                                   ConsumedHours = t.ConsumedHours,
                                   DateCreated = t.DateCreate,
-                                  UserCreated = new ENT.User
-                                  {
-                                      ID = t.Users.PKid,
-                                      Logon = t.Users.Username,
-                                      Name = t.Users.Comment
-                                  },
+                                  UserCreated = ADUser.Get(t.IDUserCreate),
                                   DateLastModified = t.DateLastModified,
-                                  UserLastModified = new ENT.User
-                                  {
-                                      ID = t.Users2.PKid,
-                                      Logon = t.Users2.Username,
-                                      Name = t.Users2.Comment
-                                  },
+                                  UserLastModified = ADUser.Get(t.IDUserLastModified),
                                   DateDeleted = t.DateDelete,
-                                  UserDeleted = t.Users1 == null ? null : new ENT.User
-                                  {
-                                      ID = t.Users1.PKid,
-                                      Logon = t.Users1.Username,
-                                      Name = t.Users1.Comment
-                                  },
+                                  UserDeleted = t.IDUserDelete.HasValue ? ADUser.Get(t.IDUserDelete.Value) : null,
                                   Tasks = (from ta in t.Task
                                            select new ENT.Task
                                            {
@@ -86,12 +71,7 @@ namespace HP.SW.SWT.Data
                                               select new ENT.TicketComment
                                               {
                                                   Comment = tc.Comment,
-                                                  User = new ENT.User
-                                                  {
-                                                      ID = tc.Users.PKid,
-                                                      Logon = tc.Users.Username,
-                                                      Name = tc.Users.Comment
-                                                  },
+                                                  User = ADUser.Get(tc.IDUser),
                                                   Date = tc.Date,
                                               })
                               });
@@ -137,26 +117,11 @@ namespace HP.SW.SWT.Data
                                  RealDeliveryDate = t.RealDeliveryDate,
                                  ConsumedHours = t.ConsumedHours,
                                  DateCreated = t.DateCreate,
-                                 UserCreated = new ENT.User
-                                 {
-                                     ID = t.Users.PKid,
-                                     Logon = t.Users.Username,
-                                     Name = t.Users.Comment
-                                 },
+                                 UserCreated = ADUser.Get(t.IDUserCreate),
                                  DateLastModified = t.DateLastModified,
-                                 UserLastModified = new ENT.User
-                                 {
-                                     ID = t.Users2.PKid,
-                                     Logon = t.Users2.Username,
-                                     Name = t.Users2.Comment
-                                 },
+                                 UserLastModified = ADUser.Get(t.IDUserLastModified),
                                  DateDeleted = t.DateDelete,
-                                 UserDeleted = t.Users1 == null ? null : new ENT.User
-                                 {
-                                     ID = t.Users1.PKid,
-                                     Logon = t.Users1.Username,
-                                     Name = t.Users1.Comment
-                                 },
+                                 UserDeleted = t.IDUserDelete.HasValue ? ADUser.Get(t.IDUserDelete.Value) : null,
                                  Tasks = (from ta in t.Task
                                           select new ENT.Task
                                           {
@@ -172,12 +137,7 @@ namespace HP.SW.SWT.Data
                                              select new ENT.TicketComment
                                              {
                                                  Comment = tc.Comment,
-                                                 User = new ENT.User
-                                                 {
-                                                     ID = tc.Users.PKid,
-                                                     Logon = tc.Users.Username,
-                                                     Name = tc.Users.Comment
-                                                 },
+                                                 User = ADUser.Get(tc.IDUser),
                                                  Date = tc.Date,
                                              })
                              });
@@ -218,26 +178,11 @@ namespace HP.SW.SWT.Data
                                   RealDeliveryDate = ticket.RealDeliveryDate,
                                   ConsumedHours = ticket.ConsumedHours,
                                   DateCreated = ticket.DateCreate,
-                                  UserCreated = new ENT.User
-                                  {
-                                      ID = ticket.Users.PKid,
-                                      Logon = ticket.Users.Username,
-                                      Name = ticket.Users.Comment
-                                  },
+                                  UserCreated = ADUser.Get(ticket.IDUserCreate),
                                   DateLastModified = ticket.DateLastModified,
-                                  UserLastModified = new ENT.User
-                                  {
-                                      ID = ticket.Users2.PKid,
-                                      Logon = ticket.Users2.Username,
-                                      Name = ticket.Users2.Comment
-                                  },
+                                  UserLastModified = ADUser.Get(ticket.IDUserLastModified),
                                   DateDeleted = ticket.DateDelete,
-                                  UserDeleted = ticket.Users1 == null ? null : new ENT.User
-                                  {
-                                      ID = ticket.Users1.PKid,
-                                      Logon = ticket.Users1.Username,
-                                      Name = ticket.Users1.Comment
-                                  },
+                                  UserDeleted = ticket.IDUserDelete.HasValue ? ADUser.Get(ticket.IDUserDelete.Value) : null,
                                   Tasks = (from ta in ticket.Task
                                            select new ENT.Task
                                            {
@@ -253,12 +198,7 @@ namespace HP.SW.SWT.Data
                                               select new ENT.TicketComment
                                               {
                                                   Comment = tc.Comment,
-                                                  User = new ENT.User
-                                                  {
-                                                      ID = tc.Users.PKid,
-                                                      Logon = tc.Users.Username,
-                                                      Name = tc.Users.Comment
-                                                  },
+                                                  User = ADUser.Get(tc.IDUser),
                                                   Date = tc.Date,
                                               })
                               };
@@ -282,8 +222,8 @@ namespace HP.SW.SWT.Data
                     DeliveryDate = ticket.DeliveryDate,
                     Description = ticket.Description,
                     IdcLuster = ticket.Cluster.ID,
-                    IduSerCreate = currentUser.ID,
-                    IduSerLastModified = currentUser.ID,
+                    IDUserCreate = currentUser.ID,
+                    IDUserLastModified = currentUser.ID,
                     Number = ticket.Number,
                     Priority = (int)ticket.Priority,
                     RealDeliveryDate = ticket.RealDeliveryDate,
@@ -298,7 +238,7 @@ namespace HP.SW.SWT.Data
                     dbTicket.TicketComment.Add(new TicketComment
                     {
                         Date = DateTime.Now,
-                        IduSer = currentUser.ID,
+                        IDUser = currentUser.ID,
                         Comment = ticket.NewComment
                     });
                 }
@@ -327,7 +267,7 @@ namespace HP.SW.SWT.Data
                 dbTicket.DeliveryDate = ticket.DeliveryDate;
                 dbTicket.Description = ticket.Description;
                 dbTicket.IdcLuster = ticket.Cluster.ID;
-                dbTicket.IduSerLastModified = currentUser.ID;
+                dbTicket.IDUserLastModified = currentUser.ID;
                 dbTicket.Priority = (int)ticket.Priority;
                 dbTicket.RealDeliveryDate = ticket.RealDeliveryDate;
                 dbTicket.AssignedTo = ticket.Resource.T;
@@ -341,7 +281,7 @@ namespace HP.SW.SWT.Data
                     dbTicket.TicketComment.Add(new TicketComment
                     {
                         Date = DateTime.Now,
-                        IduSer = currentUser.ID,
+                        IDUser = currentUser.ID,
                         Comment = ticket.NewComment
                     });
                 }
@@ -365,7 +305,7 @@ namespace HP.SW.SWT.Data
 
                 if (ticket != null)
                 {
-                    ticket.IduSerDelete = user.ID;
+                    ticket.IDUserDelete = user.ID;
                     ticket.DateDelete = DateTime.Now;
                 }
 

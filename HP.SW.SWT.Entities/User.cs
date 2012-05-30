@@ -11,7 +11,7 @@ namespace HP.SW.SWT.Entities
     {
         [DisplayName("ID")]
         [Required]
-        public string ID { get; set; }
+        public int ID { get; set; }
 
         [DisplayName("Usuario")]
         [Required]
