@@ -15,13 +15,6 @@
 
     <h2>Carga de Horas</h2>
 
-    <input type="hidden" id="hdnT" value="<%= ((Resource)ViewData["Resource"]).T.ToString() %>"/>
-
-    <table width="100%">
-        <tr>
-            <td align="right">Usuario: <%= ((Resource)ViewData["Resource"]).Name.ToString() %> (<%=  ((Resource)ViewData["Resource"]).T.ToString() %>)</td>
-        </tr>
-    </table>
     <p style="text-align: center">
         <img src='<%= Url.Contents("Images/ok.png") %>' id='imgOkTemplate' style='display:none' alt='ok' />
 		<img src='<%= Url.Contents("Images/cancel.png") %>' id='imgCancelTemplate' style='display:none' alt='cancel' />        

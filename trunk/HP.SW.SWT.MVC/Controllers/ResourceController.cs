@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Data = HP.SW.SWT.Data;
 using HP.SW.SWT.Entities;
 using System.Web.Script.Services;
+using System.Web.Security;
 
 namespace HP.SW.SWT.MVC.Controllers
 {
@@ -111,9 +112,8 @@ namespace HP.SW.SWT.MVC.Controllers
         [Authorize(Roles = "Referente, Desarrollador")]
         public ActionResult Excel()
         {
-            ViewData["Resource"] = Data.ADResource.Get("T31210");
-            Resource resource = (Resource)ViewData["Resource"];
-            return View(Data.ADResource.GetExcel(resource, Data.ADPeriod.GetCurrentPeriod()));
+            BaseController bc = new BaseController();
+            return View(Data.ADResource.GetExcel(bc.GetUser(), Data.ADPeriod.GetCurrentPeriod()));
         }
 
         [HttpPost]
