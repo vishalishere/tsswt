@@ -75,17 +75,9 @@ namespace HP.SW.SWT.MVC.Controllers
         [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult Create(Ticket viewTicket)
         {
-            try
-            {
-                Data.ADTicket.Insert(viewTicket, GetUser());
+            Data.ADTicket.Insert(viewTicket, GetUser());
 
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                ViewData["error"] = ex.Message;
-                return Create();
-            }
+            return RedirectToAction("Index");
         }
 
         [Authorize(Roles = "Project Manager, Referente")]
@@ -99,31 +91,23 @@ namespace HP.SW.SWT.MVC.Controllers
         [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult Edit(string id, Ticket viewTicket)
         {
-            try
-            {
-                Ticket ticket = Data.ADTicket.Get(id);
+            Ticket ticket = Data.ADTicket.Get(id);
 
-                ticket.Title = viewTicket.Title;
-                ticket.Resource = viewTicket.Resource;
-                ticket.Status = viewTicket.Status;
-                ticket.Priority = viewTicket.Priority;
-                ticket.Description = viewTicket.Description;
-                ticket.Category = viewTicket.Category;
-                ticket.NewComment = viewTicket.NewComment;
-                ticket.DeliveryDate = viewTicket.DeliveryDate;
-                ticket.Cluster = viewTicket.Cluster;
-                ticket.System = viewTicket.System;
-                ticket.RealDeliveryDate = viewTicket.RealDeliveryDate;
+            ticket.Title = viewTicket.Title;
+            ticket.Resource = viewTicket.Resource;
+            ticket.Status = viewTicket.Status;
+            ticket.Priority = viewTicket.Priority;
+            ticket.Description = viewTicket.Description;
+            ticket.Category = viewTicket.Category;
+            ticket.NewComment = viewTicket.NewComment;
+            ticket.DeliveryDate = viewTicket.DeliveryDate;
+            ticket.Cluster = viewTicket.Cluster;
+            ticket.System = viewTicket.System;
+            ticket.RealDeliveryDate = viewTicket.RealDeliveryDate;
 
-                Data.ADTicket.Update(ticket, GetUser());
+            Data.ADTicket.Update(ticket, GetUser());
 
-                return RedirectToAction("Index");
-            }
-            catch (Exception ex)
-            {
-                ViewData["error"] = ex.Message;
-                return Edit(id);
-            }
+            return RedirectToAction("Index");
         }
 
         [Authorize(Roles = "Project Manager, Referente")]
@@ -136,16 +120,9 @@ namespace HP.SW.SWT.MVC.Controllers
         [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult Delete(string id, Ticket viewTicket)
         {
-            try
-            {
-                Data.ADTicket.Delete(id, GetUser());
+            Data.ADTicket.Delete(id, GetUser());
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return Delete(id);
-            }
+            return RedirectToAction("Index");
         }
 
         #endregion
@@ -168,17 +145,9 @@ namespace HP.SW.SWT.MVC.Controllers
         [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult CreateTask(string id, Task task)
         {
-            try
-            {
-                Data.ADTask.Insert(id, task);
+            Data.ADTask.Insert(id, task);
 
-                return RedirectToAction("Tasks", new { id = id });
-            }
-            catch (Exception ex)
-            {
-                ViewData["error"] = ex.Message;
-                return Create();
-            }
+            return RedirectToAction("Tasks", new { id = id });
         }
 
         public ActionResult DetailsTask(int id)
@@ -200,50 +169,25 @@ namespace HP.SW.SWT.MVC.Controllers
         [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult EditTask(int id, Task task)
         {
-            try
-            {
-                Data.ADTask.Update(id, task);
+            Data.ADTask.Update(id, task);
 
-                return RedirectToAction("Tasks", new { id = task.TicketNumber });
-            }
-            catch (Exception ex)
-            {
-                ViewData["error"] = ex.Message;
-                return Create();
-            }
+            return RedirectToAction("Tasks", new { id = task.TicketNumber });
         }
 
         [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult UpTask(string ticketNumber, int id)
         {
-            try
-            {
-                Data.ADTask.Up(id);
+            Data.ADTask.Up(id);
 
-                return RedirectToAction("Tasks", new { id = ticketNumber });
-            }
-            catch (Exception ex)
-            {
-                ViewData["error"] = ex.Message;
-                return Create();
-            }
+            return RedirectToAction("Tasks", new { id = ticketNumber });
         }
 
         [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult DownTask(string ticketNumber, int id)
         {
-            try
-            {
-                Data.ADTask.Down(id);
+            Data.ADTask.Down(id);
 
-
-                return RedirectToAction("Tasks", new { id = ticketNumber });
-            }
-            catch (Exception ex)
-            {
-                ViewData["error"] = ex.Message;
-                return Create();
-            }
+            return RedirectToAction("Tasks", new { id = ticketNumber });
         }
 
         [Authorize(Roles = "Project Manager, Referente")]
@@ -258,19 +202,10 @@ namespace HP.SW.SWT.MVC.Controllers
         [Authorize(Roles = "Project Manager, Referente")]
         public ActionResult DeleteTask(int id, Task task)
         {
-            try
-            {
-                Data.ADTask.Delete(id);
+            Data.ADTask.Delete(id);
 
-                return RedirectToAction("Tasks", new { id = task.TicketNumber });
-            }
-            catch (Exception ex)
-            {
-                ViewData["error"] = ex.Message;
-                return Create();
-            }
+            return RedirectToAction("Tasks", new { id = task.TicketNumber });
         }
-
         #endregion
     }
 }
