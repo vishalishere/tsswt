@@ -11,57 +11,45 @@ namespace HP.SW.SWT.Data
     {
         #region Get
 
+        private static string GetName(int id)
+        {
+            return (from m in Context.MyAspNetMembership
+                    where m.UserID == id
+                    select m.Comment).FirstOrDefault();
+        }
+
         public static ENT.User Get(int id)
         {
-            return (from u in Context.MyAspNetUsers
-                    where u.ID == id
-                    select new ENT.User
-                    {
-                        ID = u.ID,
-                        Logon = u.Name,
-                        Name = (from m in Context.MyAspNetMembership
-                                where m.UserID == u.ID
-                                select m.Comment).FirstOrDefault()
-                    }).FirstOrDefault();
+            ENT.User user = (from u in Context.MyAspNetUsers
+                             where u.ID == id
+                             select new ENT.User
+                             {
+                                 ID = u.ID,
+                                 Logon = u.Name
+                             }).FirstOrDefault();
+
+            user.Name = GetName(id);
+
+            return user;
         }
 
         public static ENT.User GetByLogon(string logon)
         {
-            //var myaspnetusers = (from u in Context.MyAspNetUsers
-            //                        where u.Name == logon
-            //                        select u.ID).FirstOrDefault();
+            ENT.User user = (from u in Context.MyAspNetUsers
+                             where u.Name == logon
+                             select new ENT.User
+                             {
+                                 ID = u.ID,
+                                 Logon = u.Name//,
+                                 //Name = membership
+                             }).FirstOrDefault();
 
-            //var myaspnetmembership = (from m in Context.MyAspNetMembership
-            //                    //where m.UserID == myaspnetusers
-            //                    select m.Comment).FirstOrDefault();
+            if (user != null)
+            {
+                user.Name = GetName(user.ID);
+            }
 
-            var userAux = (from u in Context.MyAspNetUsers
-                        where u.Name == logon
-                        select new ENT.User
-                        {
-                            ID = u.ID,
-                            Logon = u.Name//,
-                            //Name = membership
-                        }).FirstOrDefault();
-
-            var userName = (from m in Context.MyAspNetMembership
-                              where m.UserID == userAux.ID
-                              select m.Comment).FirstOrDefault();
-
-            userAux.Name = userName;
-
-            //return (from u in Context.MyAspNetUsers
-            //        where u.Name == logon
-            //        select new ENT.User
-            //        {
-            //            ID = u.ID,
-            //            Logon = u.Name,
-            //            Name = (from m in Context.MyAspNetMembership
-            //                    where m.UserID == u.ID
-            //                    select m.Comment).FirstOrDefault()
-            //        }).FirstOrDefault();
-            //Context.GetCommand(cons).CommandText
-            return userAux;
+            return user;
         }
 
         #endregion

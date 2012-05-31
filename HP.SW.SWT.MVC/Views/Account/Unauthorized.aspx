@@ -9,7 +9,7 @@
     <p>
         Bienvenido a SWT. 
 
-        Ha tratado de acceder a <a href='<%: ViewData["OriginalUrl"] %>'><%: ViewData["OriginalUrl"] %></a> para la cual no está habilitado. 
+        Ha tratado de acceder a <a href='<%: ViewData["OriginalUrl"] %>'><%: ViewData["Title"] %></a> para la cual no está habilitado. 
         
         Si cree que esto es incorrecto, por favor contacte al administrador del sistema.
     </p>
