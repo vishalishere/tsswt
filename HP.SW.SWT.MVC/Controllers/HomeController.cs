@@ -11,13 +11,13 @@ namespace HP.SW.SWT.MVC.Controllers
     [HandleError]
     public class HomeController : Controller
     {
-        [Authorize]
+        [Authorize(Roles="Referente, Desarrollador, Project Manager, Service Manager, LTP, AT")]
         public ActionResult Index()
         {
             return View();
         }
 
-        [Authorize(Roles = "Project Manager, Service Manager")]
+        [Authorize(Roles = "Referente, Desarrollador, Project Manager, Service Manager, LTP, AT")]
         public JsonResult GetDashboardTickets(DashboardOrder order, string cluster)
         {
             IEnumerable<Ticket> tickets = Data.ADTicket.GetWorkingTickets(cluster);
