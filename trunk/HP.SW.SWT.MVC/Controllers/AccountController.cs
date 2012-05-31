@@ -10,6 +10,9 @@ using System.Web.Security;
 
 using HP.SW.SWT.Extensions;
 using HP.SW.SWT.MVC.Models;
+using System.Net;
+using System.IO;
+using System.Text;
 
 namespace HP.SW.SWT.MVC.Controllers
 {
@@ -32,7 +35,56 @@ namespace HP.SW.SWT.MVC.Controllers
         // **************************************
         public ActionResult Unauthorized(string originalUrl)
         {
+            WebResponse response = null;
+            string title = string.Empty;
+
+            //try
+            //{
+            //    if (string.IsNullOrEmpty(Request.ServerVariables["HTTPS"]))
+            //    {
+            //        title = "http://";
+            //    }
+            //    else
+            //    {
+            //        title = "https://";
+            //    }
+
+            //    title += Request.ServerVariables["SERVER_NAME"] + ":" + Request.ServerVariables["SERVER_PORT"] + originalUrl;
+
+            //    WebRequest request = WebRequest.Create(title);
+            //    request.Credentials = new NetworkCredential("superuser", "super_user10");
+            //    request.Timeout = Int32.MaxValue;
+
+            //    response = request.GetResponse();
+            //    Stream streamReceive = response.GetResponseStream();
+            //    Encoding encoding = System.Text.Encoding.GetEncoding("utf-8");
+            //    StreamReader streamRead = new System.IO.StreamReader(streamReceive, encoding);
+
+            //    string html = streamRead.ReadToEnd();
+            //    string[] htmlParts = html.ToLowerInvariant().Split(new string[] { "<title>", "</title>" }, StringSplitOptions.RemoveEmptyEntries);
+
+            //    if (htmlParts.Length > 1)
+            //    {
+            //        title = htmlParts[1];
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //    if (string.IsNullOrEmpty(title))
+            //    {
+                    title = originalUrl;
+            //    }
+            //}
+            //finally
+            //{
+            //    if (response != null)
+            //    {
+            //        response.Close();
+            //    }
+            //}
+
             ViewData["OriginalUrl"] = originalUrl;
+            ViewData["Title"] = title;
             return View();
         }
 
