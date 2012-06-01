@@ -13,7 +13,7 @@
         <legend>Fields</legend>
         
         <div class="display-label">Date</div>
-        <div class="display-field"><%: String.Format("{0:g}", Model.Date) %></div>
+        <div class="display-field"><%: String.Format("{0:dd/MM/yyyy}", Model.Date)%></div>
         
         <div class="display-label">Description</div>
         <div class="display-field"><%: Model.Description %></div>

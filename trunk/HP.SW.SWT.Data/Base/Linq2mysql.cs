@@ -3232,7 +3232,7 @@ namespace HP.SW.SWT.Data
             this.OnCreated();
         }
 
-        [Column(Storage = "_description", Name = "Description", DbType = "varchar(100)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [Column(Storage = "_description", Name = "Description", DbType = "varchar(400)", AutoSync = AutoSync.Never, CanBeNull = false)]
         [DebuggerNonUserCode()]
         public string Description
         {
@@ -3275,7 +3275,7 @@ namespace HP.SW.SWT.Data
             }
         }
 
-        [Column(Storage = "_estimatedHours", Name = "EstimatedHours", DbType = "decimal(2,1)", AutoSync = AutoSync.Never)]
+        [Column(Storage = "_estimatedHours", Name = "EstimatedHours", DbType = "decimal(4,1)", AutoSync = AutoSync.Never)]
         [DebuggerNonUserCode()]
         public System.Nullable<decimal> EstimatedHours
         {

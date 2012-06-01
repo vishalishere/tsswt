@@ -61,7 +61,7 @@
     <% foreach (var comment in Model.Comments.OrderByDescending(c => c.Date)) { %>
             <tr>
                 <td style="border: none 0px White">
-                    <%: comment.User.Name %> &nbsp;(<%: String.Format("{0:g}", comment.Date)%>)
+                    <%: comment.User.Name %> &nbsp;(<%: String.Format("{0:dd/MM/yyyy hh:mm:ss}", comment.Date)%>)
                 </td>
             </tr>
             <tr>

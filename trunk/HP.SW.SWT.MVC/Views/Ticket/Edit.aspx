@@ -97,7 +97,7 @@
     <% foreach (var comment in Model.Comments.OrderByDescending(c => c.Date)) { %>
             <tr>
                 <td style="border: none 0px White">
-                    <%: comment.User.Name %> &nbsp;(<%: String.Format("{0:g}", comment.Date)%>)
+                    <%: comment.User.Name %> &nbsp;(<%: String.Format("{0:dd/MM/yyyy hh:mm:ss}", comment.Date)%>)
                 </td>
             </tr>
             <tr>
@@ -138,7 +138,7 @@
     <table id="footer" style="width: 100%;" border="0" cellpadding="0" cellspacing="0">
     <tr>
         <td style="text-align: left">
-            Creado el <%: String.Format("{0:g}", Model.DateCreated) %> por <%: Model.UserCreated.Name %>
+            Creado el <%: String.Format("{0:dd/MM/yyyy hh:mm:ss}", Model.DateCreated)%> por <%: Model.UserCreated.Name %>
         </td>
         <td rowspan="2" style="text-align: right">
             <input type="submit" value="Grabar" />
@@ -147,7 +147,7 @@
     </tr> 
     <tr> 
         <td style="text-align: left">
-            Modificado por última vez el <%: String.Format("{0:g}", Model.DateLastModified) %> por <%: Model.UserLastModified.Name %>
+            Modificado por última vez el <%: String.Format("{0:dd/MM/yyyy hh:mm:ss}", Model.DateLastModified)%> por <%: Model.UserLastModified.Name %>
         </td>
     </tr> 
     </table>

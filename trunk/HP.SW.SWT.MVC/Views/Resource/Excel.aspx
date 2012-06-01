@@ -65,13 +65,13 @@
     
         <tr onclick="editRow(this);" style="vertical-align:top">
             <td>
-                <%: String.Format("{0:g}", item.Date) %><input type="hidden" value="<%: item.Id %>" />
+                <%: String.Format("{0:dd/MM/yyyy}", item.Date)%><input type="hidden" value="<%: item.Id %>" />
             </td>
             <td>
-                <%: String.Format("{0:g}", item.StartHour) %>
+                <%: String.Format("{0:hh:mm}", item.StartHour) %>
             </td>
             <td>
-                <%: String.Format("{0:g}", item.EndHour) %>
+                <%: String.Format("{0:hh:mm}", item.EndHour)%>
             </td>
             <td>
                 <%: String.Format("{0:F}", item.Hours) %>

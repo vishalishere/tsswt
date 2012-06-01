@@ -8,6 +8,7 @@ namespace HP.SW.SWT.Entities
     {
         [DisplayName("Fecha")]
         [Required]
+        [DisplayFormatAttribute(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "")]
         public DateTime Date { get; set; }
 
         [DisplayName("Descripción")]

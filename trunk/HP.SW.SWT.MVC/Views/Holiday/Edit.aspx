@@ -18,8 +18,7 @@
                 <%: Html.LabelFor(model => model.Date) %>
             </div>
             <div class="editor-field">
-                <%--<%: Html.TextBoxFor(model => model.Date, string.Format("{0:g}", Model.Date))%>--%>
-                <%: Html.DateBoxFor(model => model.Date, string.Format("{0:dd/MM/yyyy}", Model.Date))%>
+                <%: Html.DateBoxFor(model => model.Date)%>
                 <%: Html.ValidationMessageFor(model => model.Date) %>
             </div>
             

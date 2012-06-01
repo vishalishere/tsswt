@@ -52,10 +52,10 @@
                 <%: item.Description %>
             </td>
             <td>
-                <%: String.Format("{0:g}", item.StartDate) %>
+                <%: String.Format("{0:dd/MM/yyyy}", item.StartDate)%>
             </td>
             <td>
-                <%: String.Format("{0:g}", item.EndDate) %>
+                <%: String.Format("{0:dd/MM/yyyy}", item.EndDate)%>
             </td>
         </tr>
     
