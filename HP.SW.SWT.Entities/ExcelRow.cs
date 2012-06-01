@@ -12,13 +12,16 @@ namespace HP.SW.SWT.Entities
 
         [DisplayName("Fecha")]
         [Required]
+        [DisplayFormatAttribute(ApplyFormatInEditMode = true, ConvertEmptyStringToNull=true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText="")]
         public DateTime Date { get; set; }
 
         [DisplayName("Hora de inicio")]
         [Required]
+        [DisplayFormatAttribute(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:hh/mm}", NullDisplayText = "")]
         public DateTime StartHour { get; set; }
 
         [DisplayName("Hora de fin")]
+        [DisplayFormatAttribute(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:hh/mm}", NullDisplayText = "")]
         public DateTime? EndHour { get; set; }
 
         [DisplayName("Horas")]

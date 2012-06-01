@@ -69,12 +69,15 @@ namespace HP.SW.SWT.Entities
         public string System { get; set; }
 
         [DisplayName("Fecha de Inicio")]
+        [DisplayFormatAttribute(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "")]
         public DateTime? StartDate { get; set; }
 
         [DisplayName("Fecha estimada de Entrega")]
+        [DisplayFormatAttribute(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "")]
         public DateTime? DeliveryDate { get; set; }
 
         [DisplayName("Fecha real de Entrega")]
+        [DisplayFormatAttribute(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "")]
         public DateTime? RealDeliveryDate { get; set; }
 
         [DisplayName("Horas consumidas")]
@@ -120,6 +123,7 @@ namespace HP.SW.SWT.Entities
         // La fecha estimada de inicio se define como
         //      "La máxima fecha en que se puede empezar el ticket y entregarlo con un día de anticipación."
         [DisplayName("Pronóstico de fecha de inicio")]
+        [DisplayFormatAttribute(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "")]
         public DateTime? StartDateForecast
         {
             get
@@ -133,6 +137,7 @@ namespace HP.SW.SWT.Entities
         //      "La minima fecha en que se puede entregar el ticket continuandolo ahora."
         //      ¿ESTA DEFINICION NO SIRVE? --> "La minima fecha en que se puede entregar el ticket desde la fecha de inicio, sumados los desvíos en las tareas ya realizadas."
         [DisplayName("Pronóstico de fecha de entrega")]
+        [DisplayFormatAttribute(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "")]
         public DateTime DeliveryDateForecast
         {
             get
@@ -159,18 +164,21 @@ namespace HP.SW.SWT.Entities
         }
 
         [DisplayName("Fecha de Creación")]
+        [DisplayFormatAttribute(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "")]
         public DateTime DateCreated { get; set; }
 
         [DisplayName("Usuario de Creación")]
         public User UserCreated { get; set; }
 
         [DisplayName("Fecha de Última Modificación")]
+        [DisplayFormatAttribute(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "")]
         public DateTime DateLastModified { get; set; }
 
         [DisplayName("Usuario de Última Modificación")]
         public User UserLastModified { get; set; }
 
         [DisplayName("Fecha de Eliminación")]
+        [DisplayFormatAttribute(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "")]
         public DateTime? DateDeleted { get; set; }
 
         [DisplayName("Usuario de Eliminación")]

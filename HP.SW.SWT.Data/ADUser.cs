@@ -28,7 +28,10 @@ namespace HP.SW.SWT.Data
                                  Logon = u.Name
                              }).FirstOrDefault();
 
-            user.Name = GetName(id);
+            if (user != null)
+            {
+                user.Name = GetName(user.ID);
+            }
 
             return user;
         }
@@ -40,8 +43,7 @@ namespace HP.SW.SWT.Data
                              select new ENT.User
                              {
                                  ID = u.ID,
-                                 Logon = u.Name//,
-                                 //Name = membership
+                                 Logon = u.Name
                              }).FirstOrDefault();
 
             if (user != null)

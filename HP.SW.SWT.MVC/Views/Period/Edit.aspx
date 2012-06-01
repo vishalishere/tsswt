@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<HP.SW.SWT.Entities.Period>" %>
+<%@ Import Namespace="HP.SW.SWT.Extensions" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
 	Edit
@@ -42,7 +43,7 @@
                 <%: Html.LabelFor(model => model.StartDate) %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.StartDate, String.Format("{0:g}", Model.StartDate)) %>
+                <%: Html.DateBoxFor(model => model.StartDate) %>
                 <%: Html.ValidationMessageFor(model => model.StartDate) %>
             </div>
             
@@ -50,7 +51,7 @@
                 <%: Html.LabelFor(model => model.EndDate) %>
             </div>
             <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.EndDate, String.Format("{0:g}", Model.EndDate)) %>
+                <%: Html.DateBoxFor(model => model.EndDate) %>
                 <%: Html.ValidationMessageFor(model => model.EndDate) %>
             </div>
             

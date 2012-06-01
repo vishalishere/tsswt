@@ -11,7 +11,7 @@ using System.Web.Security;
 namespace HP.SW.SWT.MVC.Controllers
 {
     [HandleError]
-    public class ResourceController : Controller
+    public class ResourceController : BaseController
     {
         //
         // GET: /Resource/
@@ -109,11 +109,10 @@ namespace HP.SW.SWT.MVC.Controllers
                         });
         }
 
-        [Authorize(Roles = "Referente, Desarrollador")]
+        [Authorize(Roles = "Project Manager, Referente, Desarrollador")]
         public ActionResult Excel()
         {
-            BaseController bc = new BaseController();
-            return View(Data.ADResource.GetExcel(bc.GetUser(), Data.ADPeriod.GetCurrentPeriod()));
+            return View(Data.ADResource.GetExcel(this.GetUser(), Data.ADPeriod.GetCurrentPeriod()));
         }
 
         [HttpPost]

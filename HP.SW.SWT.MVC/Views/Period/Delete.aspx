@@ -22,10 +22,10 @@
         <div class="display-field"><%: Model.Description %></div>
         
         <div class="display-label">StartDate</div>
-        <div class="display-field"><%: String.Format("{0:g}", Model.StartDate) %></div>
+        <div class="display-field"><%: String.Format("{0:dd/MM/yyyy}", Model.StartDate)%></div>
         
         <div class="display-label">EndDate</div>
-        <div class="display-field"><%: String.Format("{0:g}", Model.EndDate) %></div>
+        <div class="display-field"><%: String.Format("{0:dd/MM/yyyy}", Model.EndDate)%></div>
         
     </fieldset>
     <% using (Html.BeginForm()) { %>
