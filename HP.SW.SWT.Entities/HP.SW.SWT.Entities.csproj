@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cluster.cs" />
+    <Compile Include="ResourceAssignmentDay.cs" />
     <Compile Include="ExcelRow.cs" />
     <Compile Include="GridUtilities\DataFilter.cs" />
     <Compile Include="GridUtilities\FilterOptions.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="GridUtilities\NumberFilter.cs" />
     <Compile Include="GridUtilities\PagingOptions.cs" />
     <Compile Include="GridUtilities\StringFilter.cs" />
+    <Compile Include="ResourceAssignment.cs" />
     <Compile Include="TicketComment.cs" />
     <Compile Include="TicketFilterOptions.cs" />
     <Compile Include="Period.cs" />
