@@ -162,6 +162,22 @@ namespace HP.SW.SWT.Data
             }
         }
 
+        public Table<ResourceAssignment> ResourceAssignment
+        {
+            get
+            {
+                return this.GetTable<ResourceAssignment>();
+            }
+        }
+
+        public Table<ResourceAssignmentException> ResourceAssignmentException
+        {
+            get
+            {
+                return this.GetTable<ResourceAssignmentException>();
+            }
+        }
+
         public Table<Task> Task
         {
             get
@@ -2703,6 +2719,8 @@ namespace HP.SW.SWT.Data
 
         private EntitySet<ExcelRow> _excelRow;
 
+        private EntitySet<ResourceAssignment> _resourceAssignment;
+
         #region Extensibility Method Declarations
         partial void OnCreated();
 
@@ -2735,6 +2753,7 @@ namespace HP.SW.SWT.Data
         public Period()
         {
             _excelRow = new EntitySet<ExcelRow>(new Action<ExcelRow>(this.ExcelRow_Attach), new Action<ExcelRow>(this.ExcelRow_Detach));
+            _resourceAssignment = new EntitySet<ResourceAssignment>(new Action<ResourceAssignment>(this.ResourceAssignment_Attach), new Action<ResourceAssignment>(this.ResourceAssignment_Detach));
             this.OnCreated();
         }
 
@@ -2879,6 +2898,20 @@ namespace HP.SW.SWT.Data
                 this._excelRow = value;
             }
         }
+
+        [Association(Storage = "_resourceAssignment", OtherKey = "IdpEriod", ThisKey = "IdpEriod", Name = "fk_ResourceAssignment_Period")]
+        [DebuggerNonUserCode()]
+        public EntitySet<ResourceAssignment> ResourceAssignment
+        {
+            get
+            {
+                return this._resourceAssignment;
+            }
+            set
+            {
+                this._resourceAssignment = value;
+            }
+        }
         #endregion
 
         public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
@@ -2915,6 +2948,18 @@ namespace HP.SW.SWT.Data
             this.SendPropertyChanging();
             entity.Period = null;
         }
+
+        private void ResourceAssignment_Attach(ResourceAssignment entity)
+        {
+            this.SendPropertyChanging();
+            entity.Period = this;
+        }
+
+        private void ResourceAssignment_Detach(ResourceAssignment entity)
+        {
+            this.SendPropertyChanging();
+            entity.Period = null;
+        }
         #endregion
     }
 
@@ -2933,6 +2978,8 @@ namespace HP.SW.SWT.Data
         private EntitySet<ExcelRow> _excelRow;
 
         private EntitySet<ExcelRow> _excelRow1;
+
+        private EntitySet<ResourceAssignment> _resourceAssignment;
 
         private EntitySet<Ticket> _ticket;
 
@@ -2959,6 +3006,7 @@ namespace HP.SW.SWT.Data
         {
             _excelRow = new EntitySet<ExcelRow>(new Action<ExcelRow>(this.ExcelRow_Attach), new Action<ExcelRow>(this.ExcelRow_Detach));
             _excelRow1 = new EntitySet<ExcelRow>(new Action<ExcelRow>(this.ExcelRow1_Attach), new Action<ExcelRow>(this.ExcelRow1_Detach));
+            _resourceAssignment = new EntitySet<ResourceAssignment>(new Action<ResourceAssignment>(this.ResourceAssignment_Attach), new Action<ResourceAssignment>(this.ResourceAssignment_Detach));
             _ticket = new EntitySet<Ticket>(new Action<Ticket>(this.Ticket_Attach), new Action<Ticket>(this.Ticket_Detach));
             this.OnCreated();
         }
@@ -3061,6 +3109,20 @@ namespace HP.SW.SWT.Data
             }
         }
 
+        [Association(Storage = "_resourceAssignment", OtherKey = "T", ThisKey = "T", Name = "fk_ResourceAssignment_Resource")]
+        [DebuggerNonUserCode()]
+        public EntitySet<ResourceAssignment> ResourceAssignment
+        {
+            get
+            {
+                return this._resourceAssignment;
+            }
+            set
+            {
+                this._resourceAssignment = value;
+            }
+        }
+
         [Association(Storage = "_ticket", OtherKey = "AssignedTo", ThisKey = "T", Name = "fk_Ticket_AssignedTo")]
         [DebuggerNonUserCode()]
         public EntitySet<Ticket> Ticket
@@ -3158,6 +3220,18 @@ namespace HP.SW.SWT.Data
             entity.Resource1 = null;
         }
 
+        private void ResourceAssignment_Attach(ResourceAssignment entity)
+        {
+            this.SendPropertyChanging();
+            entity.Resource = this;
+        }
+
+        private void ResourceAssignment_Detach(ResourceAssignment entity)
+        {
+            this.SendPropertyChanging();
+            entity.Resource = null;
+        }
+
         private void Ticket_Attach(Ticket entity)
         {
             this.SendPropertyChanging();
@@ -3170,6 +3244,447 @@ namespace HP.SW.SWT.Data
             entity.Resource = null;
         }
         #endregion
+    }
+
+    [Table(Name = "swt.resourceassignment")]
+    public partial class ResourceAssignment : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+    {
+
+        private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
+
+        private int _hoursPerDay;
+
+        private int _idpEriod;
+
+        private int _idrEsourceAssignment;
+
+        private string _t;
+
+        private EntitySet<ResourceAssignmentException> _resourceAssignmentException;
+
+        private EntityRef<Period> _period = new EntityRef<Period>();
+
+        private EntityRef<Resource> _resource = new EntityRef<Resource>();
+
+        #region Extensibility Method Declarations
+        partial void OnCreated();
+
+        partial void OnHoursPerDayChanged();
+
+        partial void OnHoursPerDayChanging(int value);
+
+        partial void OnIdpEriodChanged();
+
+        partial void OnIdpEriodChanging(int value);
+
+        partial void OnIdrEsourceAssignmentChanged();
+
+        partial void OnIdrEsourceAssignmentChanging(int value);
+
+        partial void OnTChanged();
+
+        partial void OnTChanging(string value);
+        #endregion
+
+
+        public ResourceAssignment()
+        {
+            _resourceAssignmentException = new EntitySet<ResourceAssignmentException>(new Action<ResourceAssignmentException>(this.ResourceAssignmentException_Attach), new Action<ResourceAssignmentException>(this.ResourceAssignmentException_Detach));
+            this.OnCreated();
+        }
+
+        [Column(Storage = "_hoursPerDay", Name = "HoursPerDay", DbType = "int", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public int HoursPerDay
+        {
+            get
+            {
+                return this._hoursPerDay;
+            }
+            set
+            {
+                if ((_hoursPerDay != value))
+                {
+                    this.OnHoursPerDayChanging(value);
+                    this.SendPropertyChanging();
+                    this._hoursPerDay = value;
+                    this.SendPropertyChanged("HoursPerDay");
+                    this.OnHoursPerDayChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_idpEriod", Name = "IDPeriod", DbType = "int", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public int IdpEriod
+        {
+            get
+            {
+                return this._idpEriod;
+            }
+            set
+            {
+                if ((_idpEriod != value))
+                {
+                    this.OnIdpEriodChanging(value);
+                    this.SendPropertyChanging();
+                    this._idpEriod = value;
+                    this.SendPropertyChanged("IdpEriod");
+                    this.OnIdpEriodChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_idrEsourceAssignment", Name = "IDResourceAssignment", DbType = "int", IsPrimaryKey = true, IsDbGenerated = true, AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public int IdrEsourceAssignment
+        {
+            get
+            {
+                return this._idrEsourceAssignment;
+            }
+            set
+            {
+                if ((_idrEsourceAssignment != value))
+                {
+                    this.OnIdrEsourceAssignmentChanging(value);
+                    this.SendPropertyChanging();
+                    this._idrEsourceAssignment = value;
+                    this.SendPropertyChanged("IdrEsourceAssignment");
+                    this.OnIdrEsourceAssignmentChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_t", Name = "T", DbType = "varchar(6)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string T
+        {
+            get
+            {
+                return this._t;
+            }
+            set
+            {
+                if (((_t == value)
+                            == false))
+                {
+                    if (_resource.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnTChanging(value);
+                    this.SendPropertyChanging();
+                    this._t = value;
+                    this.SendPropertyChanged("T");
+                    this.OnTChanged();
+                }
+            }
+        }
+
+        #region Children
+        [Association(Storage = "_resourceAssignmentException", OtherKey = "IdrEsourceAssignment", ThisKey = "IdrEsourceAssignment", Name = "fk_ResourceAssignmentException_ResourceAssignment1")]
+        [DebuggerNonUserCode()]
+        public EntitySet<ResourceAssignmentException> ResourceAssignmentException
+        {
+            get
+            {
+                return this._resourceAssignmentException;
+            }
+            set
+            {
+                this._resourceAssignmentException = value;
+            }
+        }
+        #endregion
+
+        #region Parents
+        [Association(Storage = "_period", OtherKey = "IdpEriod", ThisKey = "IdpEriod", Name = "fk_ResourceAssignment_Period", IsForeignKey = true)]
+        [DebuggerNonUserCode()]
+        public Period Period
+        {
+            get
+            {
+                return this._period.Entity;
+            }
+            set
+            {
+                if (((this._period.Entity == value)
+                            == false))
+                {
+                    if ((this._period.Entity != null))
+                    {
+                        Period previousPeriod = this._period.Entity;
+                        this._period.Entity = null;
+                        previousPeriod.ResourceAssignment.Remove(this);
+                    }
+                    this._period.Entity = value;
+                    if ((value != null))
+                    {
+                        value.ResourceAssignment.Add(this);
+                        _idpEriod = value.IdpEriod;
+                    }
+                    else
+                    {
+                        _idpEriod = default(int);
+                    }
+                }
+            }
+        }
+
+        [Association(Storage = "_resource", OtherKey = "T", ThisKey = "T", Name = "fk_ResourceAssignment_Resource", IsForeignKey = true)]
+        [DebuggerNonUserCode()]
+        public Resource Resource
+        {
+            get
+            {
+                return this._resource.Entity;
+            }
+            set
+            {
+                if (((this._resource.Entity == value)
+                            == false))
+                {
+                    if ((this._resource.Entity != null))
+                    {
+                        Resource previousResource = this._resource.Entity;
+                        this._resource.Entity = null;
+                        previousResource.ResourceAssignment.Remove(this);
+                    }
+                    this._resource.Entity = value;
+                    if ((value != null))
+                    {
+                        value.ResourceAssignment.Add(this);
+                        _t = value.T;
+                    }
+                    else
+                    {
+                        _t = default(string);
+                    }
+                }
+            }
+        }
+        #endregion
+
+        public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            System.ComponentModel.PropertyChangingEventHandler h = this.PropertyChanging;
+            if ((h != null))
+            {
+                h(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(string propertyName)
+        {
+            System.ComponentModel.PropertyChangedEventHandler h = this.PropertyChanged;
+            if ((h != null))
+            {
+                h(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #region Attachment handlers
+        private void ResourceAssignmentException_Attach(ResourceAssignmentException entity)
+        {
+            this.SendPropertyChanging();
+            entity.ResourceAssignment = this;
+        }
+
+        private void ResourceAssignmentException_Detach(ResourceAssignmentException entity)
+        {
+            this.SendPropertyChanging();
+            entity.ResourceAssignment = null;
+        }
+        #endregion
+    }
+
+    [Table(Name = "swt.resourceassignmentexception")]
+    public partial class ResourceAssignmentException : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+    {
+
+        private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
+
+        private System.DateTime _date;
+
+        private decimal _hoursInDay;
+
+        private int _idrEsourceAssignment;
+
+        private int _idrEsourceAssignmentException;
+
+        private EntityRef<ResourceAssignment> _resourceAssignment = new EntityRef<ResourceAssignment>();
+
+        #region Extensibility Method Declarations
+        partial void OnCreated();
+
+        partial void OnDateChanged();
+
+        partial void OnDateChanging(System.DateTime value);
+
+        partial void OnHoursInDayChanged();
+
+        partial void OnHoursInDayChanging(decimal value);
+
+        partial void OnIdrEsourceAssignmentChanged();
+
+        partial void OnIdrEsourceAssignmentChanging(int value);
+
+        partial void OnIdrEsourceAssignmentExceptionChanged();
+
+        partial void OnIdrEsourceAssignmentExceptionChanging(int value);
+        #endregion
+
+
+        public ResourceAssignmentException()
+        {
+            this.OnCreated();
+        }
+
+        [Column(Storage = "_date", Name = "Date", DbType = "datetime", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public System.DateTime Date
+        {
+            get
+            {
+                return this._date;
+            }
+            set
+            {
+                if ((_date != value))
+                {
+                    this.OnDateChanging(value);
+                    this.SendPropertyChanging();
+                    this._date = value;
+                    this.SendPropertyChanged("Date");
+                    this.OnDateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_hoursInDay", Name = "HoursInDay", DbType = "decimal(4,1)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public decimal HoursInDay
+        {
+            get
+            {
+                return this._hoursInDay;
+            }
+            set
+            {
+                if ((_hoursInDay != value))
+                {
+                    this.OnHoursInDayChanging(value);
+                    this.SendPropertyChanging();
+                    this._hoursInDay = value;
+                    this.SendPropertyChanged("HoursInDay");
+                    this.OnHoursInDayChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_idrEsourceAssignment", Name = "IDResourceAssignment", DbType = "int", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public int IdrEsourceAssignment
+        {
+            get
+            {
+                return this._idrEsourceAssignment;
+            }
+            set
+            {
+                if ((_idrEsourceAssignment != value))
+                {
+                    this.OnIdrEsourceAssignmentChanging(value);
+                    this.SendPropertyChanging();
+                    this._idrEsourceAssignment = value;
+                    this.SendPropertyChanged("IdrEsourceAssignment");
+                    this.OnIdrEsourceAssignmentChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_idrEsourceAssignmentException", Name = "IDResourceAssignmentException", DbType = "int", IsPrimaryKey = true, IsDbGenerated = true, AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public int IdrEsourceAssignmentException
+        {
+            get
+            {
+                return this._idrEsourceAssignmentException;
+            }
+            set
+            {
+                if ((_idrEsourceAssignmentException != value))
+                {
+                    this.OnIdrEsourceAssignmentExceptionChanging(value);
+                    this.SendPropertyChanging();
+                    this._idrEsourceAssignmentException = value;
+                    this.SendPropertyChanged("IdrEsourceAssignmentException");
+                    this.OnIdrEsourceAssignmentExceptionChanged();
+                }
+            }
+        }
+
+        #region Parents
+        [Association(Storage = "_resourceAssignment", OtherKey = "IdrEsourceAssignment", ThisKey = "IdrEsourceAssignment", Name = "fk_ResourceAssignmentException_ResourceAssignment1", IsForeignKey = true)]
+        [DebuggerNonUserCode()]
+        public ResourceAssignment ResourceAssignment
+        {
+            get
+            {
+                return this._resourceAssignment.Entity;
+            }
+            set
+            {
+                if (((this._resourceAssignment.Entity == value)
+                            == false))
+                {
+                    if ((this._resourceAssignment.Entity != null))
+                    {
+                        ResourceAssignment previousResourceAssignment = this._resourceAssignment.Entity;
+                        this._resourceAssignment.Entity = null;
+                        previousResourceAssignment.ResourceAssignmentException.Remove(this);
+                    }
+                    this._resourceAssignment.Entity = value;
+                    if ((value != null))
+                    {
+                        value.ResourceAssignmentException.Add(this);
+                        _idrEsourceAssignment = value.IdrEsourceAssignment;
+                    }
+                    else
+                    {
+                        _idrEsourceAssignment = default(int);
+                    }
+                }
+            }
+        }
+        #endregion
+
+        public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            System.ComponentModel.PropertyChangingEventHandler h = this.PropertyChanging;
+            if ((h != null))
+            {
+                h(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(string propertyName)
+        {
+            System.ComponentModel.PropertyChangedEventHandler h = this.PropertyChanged;
+            if ((h != null))
+            {
+                h(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
 
     [Table(Name = "swt.task")]

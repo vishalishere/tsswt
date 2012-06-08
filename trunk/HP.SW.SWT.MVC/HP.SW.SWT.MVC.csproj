@@ -81,6 +81,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\PeriodModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\holiday.ashx.cs">
       <DependentUpon>holiday.ashx</DependentUpon>
@@ -169,6 +170,7 @@
     <Content Include="Views\Period\Edit.aspx" />
     <Content Include="Views\Period\Index.aspx" />
     <Content Include="Views\Account\Unauthorized.aspx" />
+    <Content Include="Views\Period\MonthlyHours.aspx" />
     <Content Include="Views\Resource\Create.ascx" />
     <Content Include="Views\Resource\Delete.ascx" />
     <Content Include="Views\Resource\Details.ascx" />

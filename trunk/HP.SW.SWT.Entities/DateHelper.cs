@@ -63,7 +63,7 @@ namespace HP.SW.SWT.Entities
         }
 
         public static XDocument holidays = XDocument.Load(HttpContext.Current.Server.MapPath("~/App_Data/Holiday.xml"));
-        private static bool IsWorkingDay(DateTime date)
+        public static bool IsWorkingDay(DateTime date)
         {
             if (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday)
             {
