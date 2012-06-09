@@ -97,32 +97,47 @@ namespace HP.SW.SWT.MVC.Controllers
             }
         }
 
-        public ActionResult MonthlyHours(int? id)
+        public ActionResult MonthlyHours(MonthlyHoursModel model)
         {
-            Period period ;
-            if (id.HasValue)
+            ViewData["Periods"] = (from p in Data.ADPeriod.GetAll()
+                                   orderby p.StartDate descending
+                                   select new SelectListItem { Text = p.Description, Value = p.ID.ToString() });
+
+            if (model == null)
             {
-                period = Data.ADPeriod.Get(id.Value);
+                model = new MonthlyHoursModel();
+            }
+
+            if (model.Period != null)
+            {
+                model.Period = Data.ADPeriod.Get(model.Period.ID);
             }
             else
             {
-                period = Data.ADPeriod.GetCurrentPeriod();
+                model.Period = Data.ADPeriod.GetCurrentPeriod();
             }
             List<ResourceMonthlyHoursModel> monthlyHoursEstimated = new List<ResourceMonthlyHoursModel>();
             List<ResourceMonthlyHoursModel> monthlyHoursReal = new List<ResourceMonthlyHoursModel>();
 
+            IEnumerable<ResourceAssignmentDay> radEstimated;
+            IEnumerable<ResourceAssignmentDay> radReal;
             foreach (Resource resource in Data.ADResource.GetAll())
             {
-                monthlyHoursEstimated.Add(new ResourceMonthlyHoursModel { Resource = resource, HoursByDay = Data.ADResourceAssignment.GetMonthlyHoursEstimated(resource, period) });
-                monthlyHoursReal.Add(new ResourceMonthlyHoursModel { Resource = resource, HoursByDay = Data.ADResourceAssignment.GetMonthlyHoursReal(resource, period) });
+                radEstimated = Data.ADResourceAssignment.GetMonthlyHoursEstimated(resource, model.Period);
+                if (radEstimated != null)
+                {
+                    monthlyHoursEstimated.Add(new ResourceMonthlyHoursModel { Resource = resource, HoursByDay = radEstimated });
+                }
+
+                radReal = Data.ADResourceAssignment.GetMonthlyHoursReal(resource, model.Period);
+                if (radReal != null)
+                {
+                    monthlyHoursReal.Add(new ResourceMonthlyHoursModel { Resource = resource, HoursByDay = radReal });
+                }
             }
 
-            MonthlyHoursModel model = new MonthlyHoursModel
-            {
-                Period = period,
-                MonthlyHoursEstimated = monthlyHoursEstimated,
-                MonthlyHoursReal = monthlyHoursReal
-            };
+            model.MonthlyHoursEstimated = monthlyHoursEstimated;
+            model.MonthlyHoursReal = monthlyHoursReal;
 
             return View(model);
         }
