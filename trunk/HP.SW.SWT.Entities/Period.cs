@@ -30,5 +30,26 @@ namespace HP.SW.SWT.Entities
         [DisplayName("Fecha de Fin")]
         [DisplayFormatAttribute(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:dd/MM/yyyy}", NullDisplayText = "")]
         public DateTime? EndDate { get; set; }
+
+        [DisplayName("Días laborales")]
+        [DisplayFormatAttribute(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:F1}", NullDisplayText = "")]
+        public decimal BusinessDays 
+        {
+            get
+            {
+                int res = 0;
+                if (this.EndDate.HasValue)
+                {
+                    for (DateTime d = this.StartDate.Date; d <= this.EndDate.Value.Date; d = d.AddDays(1))
+                    {
+                        if (DateHelper.IsWorkingDay(d))
+                        {
+                            res++;
+                        }
+                    }
+                }
+                return res;
+            }
+        }
     }
 }

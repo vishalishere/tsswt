@@ -3252,7 +3252,7 @@ namespace HP.SW.SWT.Data
 
         private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
 
-        private int _hoursPerDay;
+        private decimal _hoursPerDay;
 
         private int _idpEriod;
 
@@ -3271,7 +3271,7 @@ namespace HP.SW.SWT.Data
 
         partial void OnHoursPerDayChanged();
 
-        partial void OnHoursPerDayChanging(int value);
+        partial void OnHoursPerDayChanging(decimal value);
 
         partial void OnIdpEriodChanged();
 
@@ -3293,9 +3293,9 @@ namespace HP.SW.SWT.Data
             this.OnCreated();
         }
 
-        [Column(Storage = "_hoursPerDay", Name = "HoursPerDay", DbType = "int", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [Column(Storage = "_hoursPerDay", Name = "HoursPerDay", DbType = "decimal(4,1)", AutoSync = AutoSync.Never, CanBeNull = false)]
         [DebuggerNonUserCode()]
-        public int HoursPerDay
+        public decimal HoursPerDay
         {
             get
             {
@@ -3517,6 +3517,8 @@ namespace HP.SW.SWT.Data
 
         private int _idrEsourceAssignmentException;
 
+        private string _reason;
+
         private EntityRef<ResourceAssignment> _resourceAssignment = new EntityRef<ResourceAssignment>();
 
         #region Extensibility Method Declarations
@@ -3537,6 +3539,10 @@ namespace HP.SW.SWT.Data
         partial void OnIdrEsourceAssignmentExceptionChanged();
 
         partial void OnIdrEsourceAssignmentExceptionChanging(int value);
+
+        partial void OnReasonChanged();
+
+        partial void OnReasonChanging(string value);
         #endregion
 
 
@@ -3625,6 +3631,28 @@ namespace HP.SW.SWT.Data
                     this._idrEsourceAssignmentException = value;
                     this.SendPropertyChanged("IdrEsourceAssignmentException");
                     this.OnIdrEsourceAssignmentExceptionChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_reason", Name = "Reason", DbType = "varchar(500)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string Reason
+        {
+            get
+            {
+                return this._reason;
+            }
+            set
+            {
+                if (((_reason == value)
+                            == false))
+                {
+                    this.OnReasonChanging(value);
+                    this.SendPropertyChanging();
+                    this._reason = value;
+                    this.SendPropertyChanged("Reason");
+                    this.OnReasonChanged();
                 }
             }
         }

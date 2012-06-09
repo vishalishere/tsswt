@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cluster.cs" />
+    <Compile Include="ResourceRealDay.cs" />
     <Compile Include="ResourceAssignmentDay.cs" />
     <Compile Include="ExcelRow.cs" />
     <Compile Include="GridUtilities\DataFilter.cs" />

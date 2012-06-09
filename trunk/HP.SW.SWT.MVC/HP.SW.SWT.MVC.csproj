@@ -101,6 +101,7 @@
     <Content Include="Contents\Images\home.png" />
     <Content Include="Contents\Images\LogoSWT.jpg" />
     <Content Include="Contents\Images\menu.png" />
+    <Content Include="Contents\Images\MonthlyHoursDashboardReport.png" />
     <Content Include="Contents\Images\ok.png" />
     <Content Include="Contents\Images\sharepoint_arrow_down.png" />
     <Content Include="Contents\Images\sharepoint_attach.png" />
@@ -150,6 +151,7 @@
     <Content Include="Scripts\jquery\jquery.ui.slider.js" />
     <Content Include="Scripts\jquery\jquery.ui.widget.js" />
     <Content Include="Scripts\Home\Index.js" />
+    <Content Include="Scripts\Period\MonthlyHours.js" />
     <Content Include="Scripts\Resource\excel.js" />
     <Content Include="Scripts\dateutil.js" />
     <Content Include="Scripts\Ticket\tasks.js" />
@@ -165,6 +167,7 @@
     <Content Include="Views\Holiday\Edit.aspx" />
     <Content Include="Views\Holiday\Index.aspx" />
     <Content Include="Views\Period\Create.aspx" />
+    <Content Include="Views\Period\DashboardReport.ascx" />
     <Content Include="Views\Period\Delete.aspx" />
     <Content Include="Views\Period\Details.aspx" />
     <Content Include="Views\Period\Edit.aspx" />
@@ -176,6 +179,7 @@
     <Content Include="Views\Resource\Details.ascx" />
     <Content Include="Views\Resource\Edit.ascx" />
     <Content Include="Views\Resource\Excel.aspx" />
+    <Content Include="Views\Resource\ExcelView.ascx" />
     <Content Include="Views\Resource\Index.aspx" />
     <Content Include="Views\Shared\MenuUserControl.ascx" />
     <Content Include="Views\Ticket\DeleteTask.aspx" />

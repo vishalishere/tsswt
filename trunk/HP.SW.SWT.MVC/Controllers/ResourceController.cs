@@ -13,9 +13,10 @@ namespace HP.SW.SWT.MVC.Controllers
     [HandleError]
     public class ResourceController : BaseController
     {
+        #region CRUD
         //
         // GET: /Resource/
-        [Authorize(Roles="Project Manager")]
+        [Authorize(Roles = "Project Manager")]
         public ActionResult Index()
         {
             return View(Data.ADResource.GetAll());
@@ -33,7 +34,7 @@ namespace HP.SW.SWT.MVC.Controllers
         public ActionResult Create()
         {
             return View();
-        } 
+        }
 
         [HttpPost]
         [Authorize(Roles = "Project Manager")]
@@ -65,7 +66,7 @@ namespace HP.SW.SWT.MVC.Controllers
             try
             {
                 // TODO: Add update logic here
- 
+
                 return RedirectToAction("Index");
             }
             catch
@@ -88,7 +89,7 @@ namespace HP.SW.SWT.MVC.Controllers
             try
             {
                 // TODO: Add delete logic here
- 
+
                 return RedirectToAction("Index");
             }
             catch
@@ -96,12 +97,14 @@ namespace HP.SW.SWT.MVC.Controllers
                 return View();
             }
         }
+        
+        #endregion
 
         [HttpPost]
         [Authorize]
         public JsonResult GetCurrentAssignments()
         {
-            return Json(from er in Data.ADResource.GetCurrentAssignments()
+            return Json(from er in Data.ADExcelRow.GetCurrentAssignments()
                         select new 
                         { 
                             Resource = er.Resource.Name,
@@ -109,16 +112,38 @@ namespace HP.SW.SWT.MVC.Controllers
                         });
         }
 
+        #region Excel
+
         [Authorize(Roles = "Project Manager, Referente, Desarrollador")]
         public ActionResult Excel()
         {
-            return View(Data.ADResource.GetExcel(this.GetUser(), Data.ADPeriod.GetCurrentPeriod()));
+            return View(Data.ADExcelRow.Get(this.GetUser(), Data.ADPeriod.GetCurrentPeriod()));
+        }
+
+        [Authorize(Roles = "Project Manager")]
+        public ActionResult ExcelView(string t, DateTime? date)
+        {
+            Resource resource = Data.ADResource.Get(t);
+            ViewData["Resource"] = resource;
+            IEnumerable<ExcelRow> excelRows;
+            if (date.HasValue)
+            {
+                ViewData["Date"] = date;
+                excelRows = Data.ADExcelRow.Get(Data.ADResource.Get(t), date.Value);
+            }
+            else
+            {
+                Period period = Data.ADPeriod.GetCurrentPeriod();
+                ViewData["Period"] = period;
+                excelRows = Data.ADExcelRow.Get(resource, period);
+            }
+            return View(excelRows);
         }
 
         [HttpPost]
         [Authorize(Roles = "Referente, Desarrollador")]
         public JsonResult UpdateExcelRow(ExcelRow excelRow, int rowIndex)
-        {            
+        {
             try
             {
                 return Json(new
@@ -127,7 +152,7 @@ namespace HP.SW.SWT.MVC.Controllers
                     Data = new
                     {
                         RowIndex = rowIndex,
-                        Id = Data.ADResource.UpdateExcelRow(excelRow)
+                        Id = Data.ADExcelRow.Update(excelRow)
                     }
                 });
             }
@@ -150,7 +175,7 @@ namespace HP.SW.SWT.MVC.Controllers
                     Data = new
                     {
                         RowIndex = rowIndex,
-                        Id = Data.ADResource.AddExcelRow(excelRow)
+                        Id = Data.ADExcelRow.Insert(excelRow)
                     }
                 });
             }
@@ -172,7 +197,7 @@ namespace HP.SW.SWT.MVC.Controllers
                     Data = new
                     {
                         RowIndex = rowIndex,
-                        Id = Data.ADResource.DeleteExcelRow(excelRow)
+                        Id = Data.ADExcelRow.Delete(excelRow)
                     }
                 });
             }
@@ -180,6 +205,8 @@ namespace HP.SW.SWT.MVC.Controllers
             {
                 return Json(new { Result = "Error", Message = ex.Message });
             }
-        }
+        } 
+
+        #endregion
     }
 }
