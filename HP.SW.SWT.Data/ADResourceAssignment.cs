@@ -24,15 +24,23 @@ namespace HP.SW.SWT.Data
 
         public static ENT.ResourceAssignment Get(ENT.Resource resource, ENT.Period period)
         {
-            return (from ra in Context.ResourceAssignment
-                    where ra.T == resource.T && ra.IdpEriod == period.ID
-                    select new ENT.ResourceAssignment
-                    {
-                        ID = ra.IdrEsourceAssignment,
-                        Resource = resource,
-                        Period = period,
-                        HoursPerDay = ra.HoursPerDay
-                    }).FirstOrDefault();
+            ENT.ResourceAssignment resourceAssignment = (from ra in Context.ResourceAssignment
+                                                         where ra.T == resource.T && ra.IdpEriod == period.ID
+                                                         select new ENT.ResourceAssignment
+                                                         {
+                                                             ID = ra.IdrEsourceAssignment,
+                                                             //Resource = resource,
+                                                             //Period = period,
+                                                             HoursPerDay = ra.HoursPerDay
+                                                         }).FirstOrDefault();
+
+            if (resourceAssignment != null)
+            {
+                resourceAssignment.Resource = resource;
+                resourceAssignment.Period = period;
+            }
+
+            return resourceAssignment;
         }
 
         private static IEnumerable<ENT.ResourceAssignmentDay> GetMonthlyHoursEstimated(ENT.Resource resource, ENT.Period period, ENT.ResourceAssignment ra)
@@ -43,7 +51,7 @@ namespace HP.SW.SWT.Data
             }
 
             List<ENT.ResourceAssignmentDay> res = new List<ENT.ResourceAssignmentDay>();
-            for (DateTime d = period.StartDate.Date; d <= period.EndDate.Value.Date; d.AddDays(1))
+            for (DateTime d = period.StartDate.Date; d <= period.EndDate.Value.Date; d = d.AddDays(1))
             {
                 if (ENT.DateHelper.IsWorkingDay(d))
                 {
@@ -59,18 +67,29 @@ namespace HP.SW.SWT.Data
 
         public static IEnumerable<ENT.ResourceAssignmentDay> GetMonthlyHoursEstimated(ENT.Resource resource, ENT.Period period)
         {
-            return GetMonthlyHoursEstimated(resource, period, Data.ADResourceAssignment.Get(resource, period));
+            ENT.ResourceAssignment ra = Data.ADResourceAssignment.Get(resource, period);
+
+            if (ra == null)
+            {
+                return null;
+            }
+
+            return GetMonthlyHoursEstimated(resource, period, ra);
         }
 
         public static IEnumerable<ENT.ResourceAssignmentDay> GetMonthlyHoursReal(ENT.Resource resource, ENT.Period period)
         {
             ENT.ResourceAssignment ra = Data.ADResourceAssignment.Get(resource, period);
+
+            if (ra == null)
+            {
+                return null;
+            }
             IEnumerable<ENT.ResourceAssignmentDay> res = Data.ADResourceAssignment.GetMonthlyHoursEstimated(resource, period, ra);
             IEnumerable<Data.ResourceAssignmentException> exceptions = (from rae in Context.ResourceAssignmentException
                                                                         where rae.IdrEsourceAssignment == ra.ID
                                                                         select rae);
 
-            int i = 0;
             Data.ResourceAssignmentException exception;
             foreach (ENT.ResourceAssignmentDay day in res)
             {
