@@ -4,13 +4,13 @@
 	Recursos
 </asp:Content>
 
-<asp:Content ID="Content3" ContentPlaceHolderID="ScriptContent" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ScriptContent" runat="server">
 </asp:Content>
 
-<asp:Content ID="Content4" ContentPlaceHolderID="StyleContent" runat="server">
+<asp:Content ID="Content3" ContentPlaceHolderID="StyleContent" runat="server">
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2>Recursos</h2>
 

@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ADCluster.cs" />
+    <Compile Include="ADExcelRow.cs" />
     <Compile Include="ADHoliday.cs" />
     <Compile Include="ADResource.cs" />
     <Compile Include="ADResourceAssignment.cs" />

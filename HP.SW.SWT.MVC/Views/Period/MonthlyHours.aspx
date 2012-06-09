@@ -8,16 +8,21 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ScriptContent" runat="server">
+    <script language='javascript' type='text/javascript' src='<%= Url.Script("Period/MonthlyHours.js") %>'></script>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="StyleContent" runat="server">
+    <link href='<%= Url.Contents("Redmond.css") %>' rel='stylesheet' type='text/css' />
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
 
 <%  using (Html.BeginForm()) 
     { %>
-    <h2>Horas Mensuales de <%: Html.DropDownListFor(model => model.Period.ID, (IEnumerable<SelectListItem>)ViewData["Periods"], new { onchange = "this.form.submit();" })%></h2>
+    <h2>
+        Horas Mensuales de <%: Html.DropDownListFor(model => model.Period.ID, (IEnumerable<SelectListItem>)ViewData["Periods"], new { onchange = "this.form.submit();" })%>
+        <img src='<%= Url.Contents("Images/MonthlyHoursDashboardReport.png") %>' alt='Informe para Dashboard' onclick='showDashboardReport("<%: "Informe para Dashboard de " +  Model.Period.Description %>", "<%: Url.Action("DashboardReport", new { id = Model.Period.ID })%>"); return false;' style="cursor: pointer; margin-bottom: -5px;" />
+    </h2>
 <%  } %>
 
     <table width="100%">
@@ -52,7 +57,7 @@
         </th>
 <%  } %>
     </tr>
-<%  foreach (ResourceMonthlyHoursModel r in Model.MonthlyHoursEstimated) 
+<%  foreach (MonthlyHoursModelEstimated r in Model.MonthlyHoursEstimated) 
     { %>
     <tr align="right">
         <th align="left">
@@ -68,11 +73,11 @@
             { %> 
         <td style='background-color: #C9C9C9'>
         <%  } %> 
-            &nbsp;<%: string.Format("{0:F1}", rae.HoursPerDay) %>&nbsp;
+            &nbsp;<%: string.Format("{0:F1}", rae.Hours) %>&nbsp;
         </td>
     <%  } %>
         <th>
-            &nbsp;<%: string.Format("{0:F1}", r.HoursByDay.Sum(rae => rae.HoursPerDay)) %>&nbsp;
+            &nbsp;<%: string.Format("{0:F1}", r.HoursByDay.Sum(rae => rae.Hours)) %>&nbsp;
         </th>
     </tr>
 <%  } %>
@@ -88,11 +93,11 @@
             { %> 
         <th style='background-color: #C9C9C9'>
         <%  } %> 
-            &nbsp;<%: string.Format("{0:F1}", Model.MonthlyHoursEstimated.Sum(rmhm => rmhm.HoursByDay.Where(rae => rae.Date == d).Sum(rae => rae.HoursPerDay))) %>&nbsp;
+            &nbsp;<%: string.Format("{0:F1}", Model.MonthlyHoursEstimated.Sum(rmhm => rmhm.HoursByDay.Where(rae => rae.Date == d).Sum(rae => rae.Hours))) %>&nbsp;
         </th>
     <%  } %>
         <th>
-            &nbsp;<%: string.Format("{0:F1}", Model.MonthlyHoursEstimated.Sum(rmhm => rmhm.HoursByDay.Sum(rae => rae.HoursPerDay))) %>&nbsp;
+            &nbsp;<%: string.Format("{0:F1}", Model.MonthlyHoursEstimated.Sum(rmhm => rmhm.HoursByDay.Sum(rae => rae.Hours))) %>&nbsp;
         </th>
     </tr>
     <tr><td colspan="<%: firstMonthDays + Model.Period.EndDate.Value.Day + 2 %>">&nbsp;</td></tr>
@@ -123,13 +128,13 @@
         </th>
 <%  } %>
     </tr>
-<%  foreach (ResourceMonthlyHoursModel r in Model.MonthlyHoursReal) 
+<%  foreach (MonthlyHoursModelReal r in Model.MonthlyHoursReal) 
     { %>
     <tr align="right">
         <th align="left">
             <%: r.Resource.Name %>
         </th>
-    <%  foreach (ResourceAssignmentDay rae in r.HoursByDay) 
+    <%  foreach (ResourceRealDay rae in r.HoursByDay) 
         { 
             if (DateHelper.IsWorkingDay(rae.Date))
             { %>
@@ -138,12 +143,19 @@
             else 
             { %> 
         <td style='background-color: #C9C9C9'>
+        <%  }
+            if (rae.IsReal)
+            { %> 
+            &nbsp;<a href='#' onclick='showExcelView("<%: "Horas de " + r.Resource.Name + " el día " + string.Format("{0:dd/MM/yyyy}", rae.Date) %>", "<%: Url.Action("ExcelView", "Resource", new { t = r.Resource.T, date = rae.Date })%>"); return false;'><%: string.Format("{0:F1}", rae.HoursInDay) %></a>&nbsp;
+        <%  } 
+            else 
+            { %> 
+            &nbsp;<%: string.Format("{0:F1}", rae.HoursInDay) %>&nbsp;
         <%  } %> 
-            &nbsp;<%: Html.ActionLink(string.Format("{0:F1}", rae.HoursPerDay), "MonthlyHoursEdit", new { id = rae.ID, T = rae.Resource.T, Date = rae.Date }) %>&nbsp;
         </td>
     <%  } %>
         <th>
-            &nbsp;<%: string.Format("{0:F1}", r.HoursByDay.Sum(rae => rae.HoursPerDay)) %>&nbsp;
+            &nbsp;<%: string.Format("{0:F1}", r.HoursByDay.Sum(rae => rae.HoursInDay)) %>&nbsp;
         </th>
     </tr>
 <%  } %>
@@ -159,13 +171,14 @@
             { %> 
         <th style='background-color: #C9C9C9'>
         <%  } %> 
-            &nbsp;<%: string.Format("{0:F1}", Model.MonthlyHoursReal.Sum(rmhm => rmhm.HoursByDay.Where(rae => rae.Date == d).Sum(rae => rae.HoursPerDay))) %>&nbsp;
+            &nbsp;<%: string.Format("{0:F1}", Model.MonthlyHoursReal.Sum(rmhm => rmhm.HoursByDay.Where(rae => rae.Date == d).Sum(rae => rae.HoursInDay))) %>&nbsp;
         </th>
     <%  } %>
         <th>
-            &nbsp;<%: string.Format("{0:F1}", Model.MonthlyHoursReal.Sum(rmhm => rmhm.HoursByDay.Sum(rae => rae.HoursPerDay))) %>&nbsp;
+            &nbsp;<%: string.Format("{0:F1}", Model.MonthlyHoursReal.Sum(rmhm => rmhm.HoursByDay.Sum(rae => rae.HoursInDay))) %>&nbsp;
         </th>
     </tr>
     </table>
-
+    <div id="dashboardReport" style="display:none;"></div>
+    <div id="excelView" style="display:none;"></div>
 </asp:Content>

@@ -11,8 +11,10 @@ namespace HP.SW.SWT.MVC.Controllers
 {
     public class PeriodController : Controller
     {
+        #region CRUD
         //
         // GET: /Period/
+        [Authorize(Roles = "Project Manager, Administrador")]
         public ActionResult Index()
         {
             return View(Data.ADPeriod.GetAll());
@@ -20,6 +22,7 @@ namespace HP.SW.SWT.MVC.Controllers
 
         //
         // GET: /Period/Details/5
+        [Authorize(Roles = "Project Manager, Administrador")]
         public ActionResult Details(int id)
         {
             return View(Data.ADPeriod.Get(id));
@@ -27,6 +30,7 @@ namespace HP.SW.SWT.MVC.Controllers
 
         //
         // GET: /Period/Create
+        [Authorize(Roles = "Project Manager, Administrador")]
         public ActionResult Create()
         {
             return View();
@@ -35,6 +39,7 @@ namespace HP.SW.SWT.MVC.Controllers
         //
         // POST: /Period/Create
         [HttpPost]
+        [Authorize(Roles = "Project Manager, Administrador")]
         public ActionResult Create(Period period) //FormCollection collection)
         {
             try
@@ -51,6 +56,7 @@ namespace HP.SW.SWT.MVC.Controllers
 
         //
         // GET: /Period/Edit/5
+        [Authorize(Roles = "Project Manager, Administrador")]
         public ActionResult Edit(int id)
         {
             return View(Data.ADPeriod.Get(id));
@@ -59,6 +65,7 @@ namespace HP.SW.SWT.MVC.Controllers
         //
         // POST: /Period/Edit/5
         [HttpPost]
+        [Authorize(Roles = "Project Manager, Administrador")]
         public ActionResult Edit(int id, Period period)
         {
             try
@@ -75,6 +82,7 @@ namespace HP.SW.SWT.MVC.Controllers
 
         //
         // GET: /Period/Delete/5
+        [Authorize(Roles = "Project Manager, Administrador")]
         public ActionResult Delete(int id)
         {
             return View(Data.ADPeriod.Get(id));
@@ -83,6 +91,7 @@ namespace HP.SW.SWT.MVC.Controllers
         //
         // POST: /Period/Delete/5
         [HttpPost]
+        [Authorize(Roles = "Project Manager, Administrador")]
         public ActionResult Delete(int id, Period period)
         {
             try
@@ -97,6 +106,9 @@ namespace HP.SW.SWT.MVC.Controllers
             }
         }
 
+        #endregion
+
+        [Authorize(Roles = "Project Manager")]
         public ActionResult MonthlyHours(MonthlyHoursModel model)
         {
             ViewData["Periods"] = (from p in Data.ADPeriod.GetAll()
@@ -116,23 +128,23 @@ namespace HP.SW.SWT.MVC.Controllers
             {
                 model.Period = Data.ADPeriod.GetCurrentPeriod();
             }
-            List<ResourceMonthlyHoursModel> monthlyHoursEstimated = new List<ResourceMonthlyHoursModel>();
-            List<ResourceMonthlyHoursModel> monthlyHoursReal = new List<ResourceMonthlyHoursModel>();
+            List<MonthlyHoursModelEstimated> monthlyHoursEstimated = new List<MonthlyHoursModelEstimated>();
+            List<MonthlyHoursModelReal> monthlyHoursReal = new List<MonthlyHoursModelReal>();
 
-            IEnumerable<ResourceAssignmentDay> radEstimated;
-            IEnumerable<ResourceAssignmentDay> radReal;
+            ResourceAssignment radEstimated;
+            IEnumerable<ResourceRealDay> radReal;
             foreach (Resource resource in Data.ADResource.GetAll())
             {
-                radEstimated = Data.ADResourceAssignment.GetMonthlyHoursEstimated(resource, model.Period);
+                radEstimated = Data.ADResourceAssignment.Get(resource, model.Period);
                 if (radEstimated != null)
                 {
-                    monthlyHoursEstimated.Add(new ResourceMonthlyHoursModel { Resource = resource, HoursByDay = radEstimated });
+                    monthlyHoursEstimated.Add(new MonthlyHoursModelEstimated { Resource = resource, HoursByDay = radEstimated.Days });
                 }
 
-                radReal = Data.ADResourceAssignment.GetMonthlyHoursReal(resource, model.Period);
+                radReal = Data.ADExcelRow.GetMonthlyHoursReal(resource, model.Period);
                 if (radReal != null)
                 {
-                    monthlyHoursReal.Add(new ResourceMonthlyHoursModel { Resource = resource, HoursByDay = radReal });
+                    monthlyHoursReal.Add(new MonthlyHoursModelReal { Resource = resource, HoursByDay = radReal });
                 }
             }
 
@@ -140,6 +152,21 @@ namespace HP.SW.SWT.MVC.Controllers
             model.MonthlyHoursReal = monthlyHoursReal;
 
             return View(model);
+        }
+
+        [Authorize(Roles = "Project Manager")]
+        public ActionResult DashboardReport(int id)
+        {
+            Period period = Data.ADPeriod.Get(id);
+            return View(new DashboardReportModel
+            {
+                Initial = Data.ADResourceAssignment.GetMonthlyHoursInitial(period),
+                ScheduledAbsences = 0,
+                NonScheduledAbsences = 0,
+                Rework = 0,
+                NonCertifiable = 0,
+                Leverage = 0
+            });
         }
     }
 }

@@ -6,11 +6,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HP.SW.SWT.Entities
 {
-    public class ResourceAssignmentDay
+    public class ResourceRealDay
     {
         public DateTime Date { get; set; }
 
+        public bool IsReal { get; set; }
+
         [DisplayFormatAttribute(DataFormatString="{0:F1}")]
-        public decimal Hours { get; set; }
+        public decimal HoursInDay { get; set; }
     }
 }
