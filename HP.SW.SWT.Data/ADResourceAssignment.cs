@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using ENT = HP.SW.SWT.Entities;
+using HP.SW.SWT.Extensions;
 
 namespace HP.SW.SWT.Data
 {
@@ -85,7 +86,32 @@ namespace HP.SW.SWT.Data
 
         public static decimal GetMonthlyHoursInitial(ENT.Period period)
         {
-            return Get(period).Sum(ra => ra.Days.Sum(rad => rad.Hours));
+            var assignments = (from ra in Context.ResourceAssignment
+                               where ra.IdpEriod == period.ID
+                               select ra.HoursPerDay);
+
+            if (assignments.Count() == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return assignments.Sum() * period.BusinessDays;
+            }
+        }
+
+        public static decimal GetScheduledAbsences(ENT.Period period)
+        {
+            decimal res = 0;
+            foreach (ResourceAssignment resourceAssignment in (from ra in Context.ResourceAssignment
+                                                               where ra.IdpEriod == period.ID
+                                                               select ra))
+            {
+                res += (from rae in Context.ResourceAssignmentException
+                        where rae.IdrEsourceAssignment == resourceAssignment.IdrEsourceAssignment && resourceAssignment.HoursPerDay > rae.HoursInDay
+                        select resourceAssignment.HoursPerDay - rae.HoursInDay).SumOrZero();
+            }
+            return res;
         }
     }
 }

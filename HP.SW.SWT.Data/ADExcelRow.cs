@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using ENT = HP.SW.SWT.Entities;
+using HP.SW.SWT.Extensions;
 
 namespace HP.SW.SWT.Data
 {
@@ -85,7 +86,7 @@ namespace HP.SW.SWT.Data
                             T = er.Resource1.T
                         }
                     });
-        } 
+        }
         #endregion
 
         public static int Insert(ENT.ExcelRow excelRow)
@@ -217,20 +218,24 @@ namespace HP.SW.SWT.Data
         {
             ENT.ResourceAssignment resourceAssignment = Data.ADResourceAssignment.Get(resource, period);
 
-            IEnumerable<ExcelRow> dbMonthlyHoursReal = (from er in Context.ExcelRow
-                                                        where er.IdpEriod == period.ID && er.SCPt == resource.T
-                                                        select er).ToList();
+            var dbMonthlyHoursReal = (from er in Context.ExcelRow
+                                      where er.IdpEriod == period.ID && er.SCPt == resource.T
+                                      select er);
 
-            IEnumerable<ENT.ResourceAssignmentDay> monthlyHoursReal = dbMonthlyHoursReal.GroupBy(er => er.Date).OrderBy(g=> g.Key).ToList().ConvertAll<ENT.ResourceAssignmentDay>
-                                                                       (g => new ENT.ResourceAssignmentDay
-                                                                       {
-                                                                           Date = g.Key,
-                                                                           Hours = g.Sum(d => d.ScphOurs ?? 0)
-                                                                       });
-
-            if (resourceAssignment == null && monthlyHoursReal.Count() == 0)
+            if (resourceAssignment == null && dbMonthlyHoursReal.Count() == 0)
             {
                 return null;
+            }
+
+            IEnumerable<ENT.ResourceAssignmentDay> monthlyHoursReal = new List<ENT.ResourceAssignmentDay>();
+            if (dbMonthlyHoursReal.Count() > 0)
+            {
+                monthlyHoursReal = dbMonthlyHoursReal.ToList().GroupBy(er => er.Date.Date).OrderBy(g => g.Key).ToList().ConvertAll<ENT.ResourceAssignmentDay>
+                                                                                (g => new ENT.ResourceAssignmentDay
+                                                                                      {
+                                                                                          Date = g.Key.Date,
+                                                                                          Hours = g.Sum(h => h.ScphOurs ?? 0)
+                                                                                      });
             }
 
             List<ENT.ResourceRealDay> res = new List<ENT.ResourceRealDay>();
@@ -243,8 +248,7 @@ namespace HP.SW.SWT.Data
 
                     if (rad == null)
                     {
-                        rad = resourceAssignment.Days.Where(r => r.Date == d).First();
-                        res.Add(new ENT.ResourceRealDay { Date = d, IsReal = false, HoursInDay = rad.Hours });
+                        res.Add(new ENT.ResourceRealDay { Date = d, IsReal = false, HoursInDay = 0 });
                     }
                     else
                     {
@@ -258,6 +262,60 @@ namespace HP.SW.SWT.Data
                 }
             }
             return res;
+        }
+
+        public static decimal GetRework(ENT.Period period)
+        {
+            decimal res = 0;
+            foreach (var ticket in (from t in Context.Ticket
+                                    where t.IsRework == 1
+                                    select t))
+            {
+                res += (from er in Context.ExcelRow
+                        where er.IdpEriod == period.ID && er.ScptIcket == ticket.Number && er.ScphOurs.HasValue
+                        select er.ScphOurs).SumOrZero();
+            }
+            return res;
+        }
+
+        public static decimal GetNonCertifiable(ENT.Period period)
+        {
+            decimal res = 0;
+            foreach (var ticket in (from t in Context.Ticket
+                                    where t.IsCertifiable == 0
+                                    select t))
+            {
+                res += (from er in Context.ExcelRow
+                        where er.IdpEriod == period.ID && er.ScptIcket == ticket.Number && er.ScphOurs.HasValue
+                        select er.ScphOurs).SumOrZero();
+            }
+            return res;
+        }
+
+        public static void GetNonScheduledAbsencesAndLeverage(ENT.Period period, out decimal nonScheduledAbsences, out decimal leverage)
+        {
+            nonScheduledAbsences = 0;
+            leverage = 0;
+
+            decimal realHours;
+            foreach (ENT.ResourceAssignment resourceAssignment in ADResourceAssignment.Get(period))
+            {
+                foreach (ENT.ResourceAssignmentDay day in resourceAssignment.Days.Where(d => d.Date < DateTime.Now.Date))
+                {
+                    realHours = (from er in Context.ExcelRow
+                                 where er.SCPt == resourceAssignment.Resource.T && er.Date == day.Date && er.ScphOurs.HasValue
+                                 select er.ScphOurs).SumOrZero();
+
+                    if (realHours < day.Hours)
+                    {
+                        nonScheduledAbsences += day.Hours - realHours;
+                    }
+                    else if (realHours > day.Hours)
+                    {
+                        leverage += realHours - day.Hours;
+                    }
+                }
+            }
         }
     }
 }
