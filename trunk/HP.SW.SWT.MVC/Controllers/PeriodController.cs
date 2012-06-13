@@ -108,6 +108,8 @@ namespace HP.SW.SWT.MVC.Controllers
 
         #endregion
 
+        #region MonthlyHours
+
         [Authorize(Roles = "Project Manager")]
         public ActionResult MonthlyHours(MonthlyHoursModel model)
         {
@@ -157,16 +159,31 @@ namespace HP.SW.SWT.MVC.Controllers
         [Authorize(Roles = "Project Manager")]
         public ActionResult DashboardReport(int id)
         {
-            Period period = Data.ADPeriod.Get(id);
-            return View(new DashboardReportModel
+            try
             {
-                Initial = Data.ADResourceAssignment.GetMonthlyHoursInitial(period),
-                ScheduledAbsences = 0,
-                NonScheduledAbsences = 0,
-                Rework = 0,
-                NonCertifiable = 0,
-                Leverage = 0
-            });
+                Period period = Data.ADPeriod.Get(id);
+
+                decimal nonScheduledAbsences = 0;
+                decimal leverage = 0;
+                Data.ADExcelRow.GetNonScheduledAbsencesAndLeverage(period, out nonScheduledAbsences, out leverage);
+                return View(new DashboardReportModel
+                {
+                    Initial = Data.ADResourceAssignment.GetMonthlyHoursInitial(period),
+                    ScheduledAbsences = Data.ADResourceAssignment.GetScheduledAbsences(period),
+                    NonScheduledAbsences = nonScheduledAbsences,
+                    Rework = Data.ADExcelRow.GetRework(period),
+                    NonCertifiable = Data.ADExcelRow.GetNonCertifiable(period),
+                    Leverage = leverage
+                });
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
+
+        #endregion
     }
 }

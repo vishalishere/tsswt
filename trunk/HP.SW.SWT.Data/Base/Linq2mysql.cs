@@ -4016,6 +4016,10 @@ namespace HP.SW.SWT.Data
 
         private int _iduSerLastModified;
 
+        private sbyte _isCertifiable;
+
+        private sbyte _isRework;
+
         private string _number;
 
         private int _priority;
@@ -4090,6 +4094,14 @@ namespace HP.SW.SWT.Data
         partial void OnIDUserLastModifiedChanged();
 
         partial void OnIDUserLastModifiedChanging(int value);
+
+        partial void OnIsCertifiableChanged();
+
+        partial void OnIsCertifiableChanging(sbyte value);
+
+        partial void OnIsReworkChanged();
+
+        partial void OnIsReworkChanging(sbyte value);
 
         partial void OnNumberChanged();
 
@@ -4383,6 +4395,48 @@ namespace HP.SW.SWT.Data
                     this._iduSerLastModified = value;
                     this.SendPropertyChanged("IDUserLastModified");
                     this.OnIDUserLastModifiedChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_isCertifiable", Name = "IsCertifiable", DbType = "tinyint(1)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public sbyte IsCertifiable
+        {
+            get
+            {
+                return this._isCertifiable;
+            }
+            set
+            {
+                if ((_isCertifiable != value))
+                {
+                    this.OnIsCertifiableChanging(value);
+                    this.SendPropertyChanging();
+                    this._isCertifiable = value;
+                    this.SendPropertyChanged("IsCertifiable");
+                    this.OnIsCertifiableChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_isRework", Name = "IsRework", DbType = "tinyint(1)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public sbyte IsRework
+        {
+            get
+            {
+                return this._isRework;
+            }
+            set
+            {
+                if ((_isRework != value))
+                {
+                    this.OnIsReworkChanging(value);
+                    this.SendPropertyChanging();
+                    this._isRework = value;
+                    this.SendPropertyChanged("IsRework");
+                    this.OnIsReworkChanged();
                 }
             }
         }

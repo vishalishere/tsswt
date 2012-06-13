@@ -42,4 +42,8 @@
     <th><%: Html.LabelFor(model => model.Leverage) %></th>
     <td><%: Html.DisplayFor(model => model.Leverage) %></td>
 </tr>
+<tr>        
+    <th><%: Html.LabelFor(model => model.Total) %></th>
+    <td><%: Html.DisplayFor(model => model.Total)%></td>
+</tr>
 </table>

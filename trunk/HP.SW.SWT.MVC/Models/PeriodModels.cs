@@ -51,5 +51,15 @@ namespace HP.SW.SWT.MVC.Models
         [DisplayName("Leverage")]
         [DisplayFormatAttribute(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:F1}", NullDisplayText = "")]
         public decimal Leverage { get; set; }
+
+        [DisplayName("Total")]
+        [DisplayFormatAttribute(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "{0:F1}", NullDisplayText = "")]
+        public decimal Total
+        {
+            get 
+            {
+                return this.Initial - this.ScheduledAbsences - this.NonScheduledAbsences - this.Rework - this.NonCertifiable + this.Leverage;
+            }
+        }
     }
 }
