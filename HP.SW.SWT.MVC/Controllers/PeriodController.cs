@@ -113,9 +113,7 @@ namespace HP.SW.SWT.MVC.Controllers
         [Authorize(Roles = "Project Manager")]
         public ActionResult MonthlyHours(MonthlyHoursModel model)
         {
-            ViewData["Periods"] = (from p in Data.ADPeriod.GetAll()
-                                   orderby p.StartDate descending
-                                   select new SelectListItem { Text = p.Description, Value = p.ID.ToString() });
+            ViewData["Periods"] = DropDownListHelper.GetPeriods();
 
             if (model == null)
             {

@@ -54,6 +54,23 @@ namespace HP.SW.SWT.Data
             return user;
         }
 
+        public static IEnumerable<ENT.User> GetAll()
+        {
+            IEnumerable<ENT.User> users = (from u in Context.MyAspNetUsers
+                                           select new ENT.User
+                                           {
+                                               ID = u.ID,
+                                               Logon = u.Name
+                                           });
+
+            foreach (ENT.User user in users)
+            {
+                user.Name = GetName(user.ID);
+            }
+
+            return users;
+        }
+
         #endregion
     }
 }

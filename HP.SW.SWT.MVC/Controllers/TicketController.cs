@@ -51,17 +51,11 @@ namespace HP.SW.SWT.MVC.Controllers
 
         private void LoadTicketCombos()
         {
-            ViewData["Resources"] = Data.ADResource.GetAll().OrderBy(r => r.Name).ToList().
-                ConvertAll<SelectListItem>(r => new SelectListItem { Value = r.T, Text = r.Name + " (" + r.T + ")" });
-
-            ViewData["Statuses"] = Enums.Get<TicketStatus>().ConvertAll<SelectListItem>(e => new SelectListItem { Text = e.ToReadableString(), Value = e.ToString() });
-
-            ViewData["Priorities"] = Enums.Get<TicketPriority>().ConvertAll<SelectListItem>(e => new SelectListItem { Text = e.ToReadableString(), Value = e.ToString() });
-
-            ViewData["Categories"] = Enums.Get<TicketCategory>().ConvertAll<SelectListItem>(e => new SelectListItem { Text = e.ToReadableString(), Value = e.ToString() });
-
-            ViewData["Clusters"] = Data.ADCluster.GetAll().OrderBy(r => r.Description).ToList().
-                ConvertAll<SelectListItem>(c => new SelectListItem { Value = c.ID.ToString(), Text = c.Description });
+            ViewData["Resources"] = DropDownListHelper.GetResources();
+            ViewData["Statuses"] = DropDownListHelper.GetStatuses();
+            ViewData["Priorities"] = DropDownListHelper.GetPriorities();
+            ViewData["Categories"] = DropDownListHelper.GetCategories();
+            ViewData["Clusters"] = DropDownListHelper.GetClusters();
         }
 
         [Authorize(Roles = "Project Manager, Referente")]

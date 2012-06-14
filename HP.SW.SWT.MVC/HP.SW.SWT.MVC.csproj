@@ -91,6 +91,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\DropDownListHelper.cs" />
     <Content Include="App_Data\Holiday.xml" />
     <Content Include="Contents\CRUD.css" />
     <Content Include="Contents\Images\about.png" />
@@ -180,6 +181,7 @@
     <Content Include="Views\Resource\Edit.ascx" />
     <Content Include="Views\Resource\Excel.aspx" />
     <Content Include="Views\Resource\ExcelView.ascx" />
+    <Content Include="Views\Resource\Import.aspx" />
     <Content Include="Views\Resource\Index.aspx" />
     <Content Include="Views\Shared\MenuUserControl.ascx" />
     <Content Include="Views\Ticket\DeleteTask.aspx" />

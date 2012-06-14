@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
 using ENT = HP.SW.SWT.Entities;
 using HP.SW.SWT.Extensions;
+using Excel;
+using System.Data;
 
 namespace HP.SW.SWT.Data
 {
@@ -315,6 +318,34 @@ namespace HP.SW.SWT.Data
                         leverage += realHours - day.Hours;
                     }
                 }
+            }
+        }
+
+        public static void Import(ENT.Period period, ENT.Resource resource, Stream stream)
+        {
+            DateTime date;
+            using (SwT swt = Context)
+            {
+                swt.ExcelRow.DeleteAllOnSubmit(from er in swt.ExcelRow where er.IdpEriod == period.ID && er.T == resource.T select er);
+                using (IExcelDataReader excelReader = ExcelReaderFactory.CreateBinaryReader(stream))
+                {
+                    foreach (DataRow row in excelReader.AsDataSet().Tables[0].Rows)
+                    {
+                        if (!row.IsNull(1) && row[1].ToString().ToUpperInvariant().IndexOf("FECHA") < 0)
+                        {
+                            date = new DateTime(1900, 1, 1).AddDays(Int64.Parse(row[1].ToString()) - 2);
+                            swt.ExcelRow.InsertOnSubmit(new ExcelRow
+                            {
+                                Date = date,
+                                StartHour = date.AddSeconds(double.Parse(row[2].ToString()) * 60 * 60 * 24),
+                                EndHour = row.IsNull(3) ? (DateTime?)null : date.AddSeconds(double.Parse(row[3].ToString()) * 60 * 60 * 24),
+                            });
+                        }
+                    }
+
+                    excelReader.Close();
+                }
+                swt.SubmitChanges();
             }
         }
     }
