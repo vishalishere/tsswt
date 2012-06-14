@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-
-using Data = HP.SW.SWT.Data;
-using HP.SW.SWT.Entities;
 using System.Web.Script.Services;
-using System.Web.Security;
+
+using HP.SW.SWT.Entities;
+using System.Web;
 
 namespace HP.SW.SWT.MVC.Controllers
 {
@@ -118,6 +117,54 @@ namespace HP.SW.SWT.MVC.Controllers
         public ActionResult Excel()
         {
             return View(Data.ADExcelRow.Get(this.GetUser(), Data.ADPeriod.GetCurrentPeriod()));
+        }
+
+        [Authorize(Roles = "Project Manager")]
+        public ActionResult Import()
+        {
+            ViewData["Periods"] = DropDownListHelper.GetPeriods();
+            ViewData["Resources"] = DropDownListHelper.GetResources();
+            return View();
+        }
+
+        [Authorize(Roles = "Project Manager")]
+        [HttpPost]
+        public ActionResult Import(int? periodId, string T, HttpPostedFileBase file)
+        {
+            try
+            {
+                if (!periodId.HasValue)
+                {
+                    throw new Exception("Seleccione un período.");
+                }
+
+                if (string.IsNullOrEmpty(T))
+                {
+                    throw new Exception("Seleccione un recurso.");
+                }
+
+                if (file == null)
+                {
+                    throw new Exception("Seleccione un archivo.");
+                }
+
+                if (file.ContentLength == 0)
+                {
+                    throw new Exception("Seleccione un archivo no vacío.");
+                }
+
+                Data.ADExcelRow.Import(Data.ADPeriod.Get(periodId.Value), Data.ADResource.Get(T), file.InputStream);
+
+                ViewData["resultColor"] = "Blue";
+                ViewData["result"] = "Los datos se incorporaron correctamente.";
+            }
+            catch (Exception ex)
+            {
+                ViewData["resultColor"] = "Red";
+                ViewData["result"] = string.Format("Hubo un error al incorporar los datos ({0}).", ex.Message);
+            }
+
+            return Import();
         }
 
         [Authorize(Roles = "Project Manager")]
