@@ -65,7 +65,7 @@
     
         <tr onclick="editRow(this);" style="vertical-align:top">
             <td>
-                <%: String.Format("{0:dd/MM/yyyy}", item.Date)%><input type="hidden" value="<%: item.Id %>" />
+                <label><%: String.Format("{0:dd/MM/yyyy}", item.Date) %></label><input type="hidden" value="<%: item.Id %>" />
             </td>
             <td>
                 <%: String.Format("{0:hh:mm}", item.StartHour) %>
@@ -109,4 +109,49 @@
     <% } %>
 
     </table>
+    <div style="display: none">
+     <% using (Html.BeginForm("", "", FormMethod.Post, new { @id="form1"}))
+        {%>        
+        <fieldset>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.FirstOrDefault().Id)%>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.FirstOrDefault().Date)%>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.FirstOrDefault().StartHour)%>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.FirstOrDefault().EndHour)%>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.FirstOrDefault().Ticket)%>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.FirstOrDefault().Description)%>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.FirstOrDefault().Cluster)%>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.FirstOrDefault().SCPCharged)%>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.FirstOrDefault().SCPHours)%>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.FirstOrDefault().SCPTicket)%>
+            </div>
+            <div class="editor-field">
+                <%: Html.TextBoxFor(model => model.FirstOrDefault().SCPT)%>
+            </div>
+            
+            <p>
+                <input type="submit" value="Save" />
+            </p>
+        </fieldset>
+
+    <% } %>
+    </div>
 </asp:Content>

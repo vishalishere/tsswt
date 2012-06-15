@@ -212,10 +212,12 @@ namespace HP.SW.SWT.MVC.Controllers
         [HttpPost]
         [GenerateScriptType(typeof(Resource))]
         [Authorize(Roles = "Referente, Desarrollador")]
-        public JsonResult AddExcelRow(ExcelRow excelRow, int rowIndex)
+        //public JsonResult AddExcelRow(ExcelRow excelRow, int rowIndex)
+        public JsonResult AddExcelRow(ExcelRow excelRow, int? rowIndex)
         {
             try
             {
+                excelRow.Resource = new Resource { T = GetUser().Logon };
                 return Json(new
                 {
                     Result = "Ok",
