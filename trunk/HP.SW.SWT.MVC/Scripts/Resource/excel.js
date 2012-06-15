@@ -17,7 +17,9 @@ function newTask() {
         row.insertCell(i);
     }
 
-    row.cells[0].innerHTML = getDayString(now) + '<input type="hidden" value="-1"></input>';
+    //row.cells[0].innerHTML = getDayString(now) + '<input type="hidden" value="-1"></input>';
+    row.cells[0].innerHTML = '<label>' + getDayString(now) + '</label><input type="hidden" value="-1" />';
+    
     row.cells[1].innerHTML = getHourString(now);
     row.cells[7].innerHTML = 'No'
     row.cells[11].style.display = 'none';    
@@ -126,20 +128,33 @@ function okRow(src) {
     if (row.nodeName == 'IMG') {
         row = $(row).closest('tr')[0];
     }
+
+    $('#Id').val($(row.cells[0]).find("input").val());
+    $('#Date').val($(row.cells[0]).find("label").text() + '/' + new Date().getFullYear());
+    $('#StartHour').val($(row.cells[1]).find("input").length == 0 ? row.cells[1].innerHTML : $(row.cells[1]).find("input").val());
+    $('#EndHour').val($(row.cells[2]).find("input").length == 0 ? row.cells[2].innerHTML : $(row.cells[2]).find("input").val());
+    $('#Ticket').val($(row.cells[4]).find("input").length == 0 ? row.cells[4].innerHTML : $(row.cells[4]).find("input").val());
+    $('#Description').val($(row.cells[5]).find("input").length == 0 ? row.cells[5].innerHTML : $(row.cells[5]).find("input").val());
+    $('#SCPCharged').val($(row.cells[6]).find("input").length == 0 ? row.cells[6].innerHTML : $(row.cells[6]).find("input").val());
+    $('#SCPHours').val($(row.cells[7]).find("input").length == 0 ? row.cells[7].innerHTML : $(row.cells[7]).find("input").val());
+    $('#SCPTicket').val($(row.cells[8]).find("input").length == 0 ? row.cells[8].innerHTML : $(row.cells[8]).find("input").val());
+    $('#SCPT').val($(row.cells[9]).find("input").length == 0 ? row.cells[9].innerHTML : $(row.cells[9]).find("input").val());
+
     $.post(root('/Resource/UpdateExcelRow'),
-        { excelRow: { Id: $(row.cells[0]).find("input").val(),
-            Date: $(row.cells[0]).find("input").text(),
-            StartHour: $(row.cells[1]).find("input").length == 0 ? row.cells[1].innerHTML : $(row.cells[1]).find("input").val(),
-            EndHour: $(row.cells[2]).find("input").length == 0 ? row.cells[2].innerHTML : $(row.cells[2]).find("input").val(),
-            Ticket: $(row.cells[4]).find("input").length == 0 ? row.cells[4].innerHTML : $(row.cells[4]).find("input").val(),
-            Description: $(row.cells[5]).find("textarea").length == 0 ? row.cells[5].innerHTML : $(row.cells[5]).find("textarea").val(),
-            SCPCharged: $(row.cells[6]).find("input").length == 0 ? row.cells[6].innerHTML : $(row.cells[6]).find("input").val(),
-            SCPHours: $(row.cells[7]).find("input").length == 0 ? row.cells[7].innerHTML : $(row.cells[7]).find("input").val(),
-            SCPTicket: $(row.cells[8]).find("input").length == 0 ? row.cells[8].innerHTML : $(row.cells[8]).find("input").val(),
-            SCPT: $(row.cells[9]).find("input").length == 0 ? row.cells[9].innerHTML : $(row.cells[9]).find("input").val(),
-            Resource: { T: $("#hdnT").val() }
-        }, rowIndex: row.rowIndex
-        },
+            $('#form1').serialize(),
+//        { excelRow: { Id: $(row.cells[0]).find("input").val(),
+//            Date: $(row.cells[0]).find("input").text(),
+//            StartHour: $(row.cells[1]).find("input").length == 0 ? row.cells[1].innerHTML : $(row.cells[1]).find("input").val(),
+//            EndHour: $(row.cells[2]).find("input").length == 0 ? row.cells[2].innerHTML : $(row.cells[2]).find("input").val(),
+//            Ticket: $(row.cells[4]).find("input").length == 0 ? row.cells[4].innerHTML : $(row.cells[4]).find("input").val(),
+//            Description: $(row.cells[5]).find("textarea").length == 0 ? row.cells[5].innerHTML : $(row.cells[5]).find("textarea").val(),
+//            SCPCharged: $(row.cells[6]).find("input").length == 0 ? row.cells[6].innerHTML : $(row.cells[6]).find("input").val(),
+//            SCPHours: $(row.cells[7]).find("input").length == 0 ? row.cells[7].innerHTML : $(row.cells[7]).find("input").val(),
+//            SCPTicket: $(row.cells[8]).find("input").length == 0 ? row.cells[8].innerHTML : $(row.cells[8]).find("input").val(),
+//            SCPT: $(row.cells[9]).find("input").length == 0 ? row.cells[9].innerHTML : $(row.cells[9]).find("input").val(),
+//            Resource: { T: $("#hdnT").val() }
+//        }, rowIndex: row.rowIndex
+//        },
         onOkRow,
         'json');   
 }
@@ -154,22 +169,37 @@ function addRow(src) {
     if (row.nodeName == 'IMG') {
         row = $(row).closest('tr')[0];
     }
+
+    $('#Id').val($(row.cells[0]).find("input").val());
+    $('#Date').val($(row.cells[0]).find("label").text() + '/' + new Date().getFullYear());
+    $('#StartHour').val($(row.cells[1]).find("input").length == 0 ? row.cells[1].innerHTML : $(row.cells[1]).find("input").val());
+    $('#EndHour').val($(row.cells[2]).find("input").length == 0 ? row.cells[2].innerHTML : $(row.cells[2]).find("input").val());
+    $('#Ticket').val($(row.cells[4]).find("input").length == 0 ? row.cells[4].innerHTML : $(row.cells[4]).find("input").val());
+    $('#Description').val($(row.cells[5]).find("input").length == 0 ? row.cells[5].innerHTML : $(row.cells[5]).find("input").val());
+    $('#SCPCharged').val($(row.cells[6]).find("input").length == 0 ? row.cells[6].innerHTML : $(row.cells[6]).find("input").val());
+    $('#SCPHours').val($(row.cells[7]).find("input").length == 0 ? row.cells[7].innerHTML : $(row.cells[7]).find("input").val());
+    $('#SCPTicket').val($(row.cells[8]).find("input").length == 0 ? row.cells[8].innerHTML : $(row.cells[8]).find("input").val());
+    $('#SCPT').val($(row.cells[9]).find("input").length == 0 ? row.cells[9].innerHTML : $(row.cells[9]).find("input").val());
+
     $.post(root('/Resource/AddExcelRow'),
-        { excelRow: { Id: $(row.cells[0]).find("input").val(),
-            Date: $(row.cells[0]).find("input").text(),
-            StartHour: $(row.cells[1]).find("input").length == 0 ? row.cells[1].innerHTML : $(row.cells[1]).find("input").val(),
-            EndHour: $(row.cells[2]).find("input").length == 0 ? row.cells[2].innerHTML : $(row.cells[2]).find("input").val(),
-            Ticket: $(row.cells[4]).find("input").length == 0 ? row.cells[4].innerHTML : $(row.cells[4]).find("input").val(),
-            Description: $(row.cells[5]).find("input").length == 0 ? row.cells[5].innerHTML : $(row.cells[5]).find("input").val(),
-            SCPCharged: $(row.cells[6]).find("input").length == 0 ? row.cells[6].innerHTML : $(row.cells[6]).find("input").val(),
-            SCPHours: $(row.cells[7]).find("input").length == 0 ? row.cells[7].innerHTML : $(row.cells[7]).find("input").val(),
-            SCPTicket: $(row.cells[8]).find("input").length == 0 ? row.cells[8].innerHTML : $(row.cells[8]).find("input").val(),
-            SCPT: $(row.cells[9]).find("input").length == 0 ? row.cells[9].innerHTML : $(row.cells[9]).find("input").val(),
-            Resource: { T: $("#hdnT").val() }
-        }, rowIndex: row.rowIndex
-        },
+        $('#form1').serialize(),
+//        { excelRow: {
+//            Id: 11, //$(row.cells[0]).find("input").val(),
+//            Date: new Date(), //$(row.cells[0]).find("input").text(),
+//            StartHour: new Date(), //$(row.cells[1]).find("input").length == 0 ? row.cells[1].innerHTML : $(row.cells[1]).find("input").val(),
+//            EndHour: new Date(), //$(row.cells[2]).find("input").length == 0 ? row.cells[2].innerHTML : $(row.cells[2]).find("input").val(),
+//            Ticket: 'titit', //$(row.cells[4]).find("input").length == 0 ? row.cells[4].innerHTML : $(row.cells[4]).find("input").val(),
+//            Description: 'descrip', //$(row.cells[5]).find("input").length == 0 ? row.cells[5].innerHTML : $(row.cells[5]).find("input").val(),
+//            SCPCharged: 0, //$(row.cells[6]).find("input").length == 0 ? row.cells[6].innerHTML : $(row.cells[6]).find("input").val(),
+//            SCPHours: 0, //$(row.cells[7]).find("input").length == 0 ? row.cells[7].innerHTML : $(row.cells[7]).find("input").val(),
+//            SCPTicket: 'ITTEN', //$(row.cells[8]).find("input").length == 0 ? row.cells[8].innerHTML : $(row.cells[8]).find("input").val(),
+//            SCPT: 'T31070000' //$(row.cells[9]).find("input").length == 0 ? row.cells[9].innerHTML : $(row.cells[9]).find("input").val(),
+//            //Resource: { T: $("#hdnT").val() }
+//        }, rowIndex: row.rowIndex
+//        },
+
         onAddRow,
-        'json');
+            'json');    
 }
 
 function cancelRow(src) {
