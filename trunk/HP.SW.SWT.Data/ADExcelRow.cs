@@ -113,7 +113,7 @@ namespace HP.SW.SWT.Data
                         SCPt = excelRow.SCPT,
                         ScpcHarged = excelRow.SCPCharged,
                         T = excelRow.Resource.T,
-                        Period = new Data.Period { IdpEriod = 1 }
+                        Period = new Period { IdpEriod = Data.ADPeriod.Get(excelRow.Date).ID }
                     }
                     );
 
