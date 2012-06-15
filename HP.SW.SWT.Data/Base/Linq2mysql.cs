@@ -178,6 +178,22 @@ namespace HP.SW.SWT.Data
             }
         }
 
+        public Table<SCP> SCP
+        {
+            get
+            {
+                return this.GetTable<SCP>();
+            }
+        }
+
+        public Table<SCPProject> SCPProject
+        {
+            get
+            {
+                return this.GetTable<SCPProject>();
+            }
+        }
+
         public Table<Task> Task
         {
             get
@@ -2721,6 +2737,8 @@ namespace HP.SW.SWT.Data
 
         private EntitySet<ResourceAssignment> _resourceAssignment;
 
+        private EntitySet<SCP> _scp;
+
         #region Extensibility Method Declarations
         partial void OnCreated();
 
@@ -2754,6 +2772,7 @@ namespace HP.SW.SWT.Data
         {
             _excelRow = new EntitySet<ExcelRow>(new Action<ExcelRow>(this.ExcelRow_Attach), new Action<ExcelRow>(this.ExcelRow_Detach));
             _resourceAssignment = new EntitySet<ResourceAssignment>(new Action<ResourceAssignment>(this.ResourceAssignment_Attach), new Action<ResourceAssignment>(this.ResourceAssignment_Detach));
+            _scp = new EntitySet<SCP>(new Action<SCP>(this.SCP_Attach), new Action<SCP>(this.SCP_Detach));
             this.OnCreated();
         }
 
@@ -2912,6 +2931,20 @@ namespace HP.SW.SWT.Data
                 this._resourceAssignment = value;
             }
         }
+
+        [Association(Storage = "_scp", OtherKey = "IdpEriod", ThisKey = "IdpEriod", Name = "fk_SCP_Period1")]
+        [DebuggerNonUserCode()]
+        public EntitySet<SCP> SCP
+        {
+            get
+            {
+                return this._scp;
+            }
+            set
+            {
+                this._scp = value;
+            }
+        }
         #endregion
 
         public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
@@ -2960,6 +2993,18 @@ namespace HP.SW.SWT.Data
             this.SendPropertyChanging();
             entity.Period = null;
         }
+
+        private void SCP_Attach(SCP entity)
+        {
+            this.SendPropertyChanging();
+            entity.Period = this;
+        }
+
+        private void SCP_Detach(SCP entity)
+        {
+            this.SendPropertyChanging();
+            entity.Period = null;
+        }
         #endregion
     }
 
@@ -2980,6 +3025,8 @@ namespace HP.SW.SWT.Data
         private EntitySet<ExcelRow> _excelRow1;
 
         private EntitySet<ResourceAssignment> _resourceAssignment;
+
+        private EntitySet<SCP> _scp;
 
         private EntitySet<Ticket> _ticket;
 
@@ -3007,6 +3054,7 @@ namespace HP.SW.SWT.Data
             _excelRow = new EntitySet<ExcelRow>(new Action<ExcelRow>(this.ExcelRow_Attach), new Action<ExcelRow>(this.ExcelRow_Detach));
             _excelRow1 = new EntitySet<ExcelRow>(new Action<ExcelRow>(this.ExcelRow1_Attach), new Action<ExcelRow>(this.ExcelRow1_Detach));
             _resourceAssignment = new EntitySet<ResourceAssignment>(new Action<ResourceAssignment>(this.ResourceAssignment_Attach), new Action<ResourceAssignment>(this.ResourceAssignment_Detach));
+            _scp = new EntitySet<SCP>(new Action<SCP>(this.SCP_Attach), new Action<SCP>(this.SCP_Detach));
             _ticket = new EntitySet<Ticket>(new Action<Ticket>(this.Ticket_Attach), new Action<Ticket>(this.Ticket_Detach));
             this.OnCreated();
         }
@@ -3123,6 +3171,20 @@ namespace HP.SW.SWT.Data
             }
         }
 
+        [Association(Storage = "_scp", OtherKey = "T", ThisKey = "T", Name = "fk_SCP_Resource1")]
+        [DebuggerNonUserCode()]
+        public EntitySet<SCP> SCP
+        {
+            get
+            {
+                return this._scp;
+            }
+            set
+            {
+                this._scp = value;
+            }
+        }
+
         [Association(Storage = "_ticket", OtherKey = "AssignedTo", ThisKey = "T", Name = "fk_Ticket_AssignedTo")]
         [DebuggerNonUserCode()]
         public EntitySet<Ticket> Ticket
@@ -3227,6 +3289,18 @@ namespace HP.SW.SWT.Data
         }
 
         private void ResourceAssignment_Detach(ResourceAssignment entity)
+        {
+            this.SendPropertyChanging();
+            entity.Resource = null;
+        }
+
+        private void SCP_Attach(SCP entity)
+        {
+            this.SendPropertyChanging();
+            entity.Resource = this;
+        }
+
+        private void SCP_Detach(SCP entity)
         {
             this.SendPropertyChanging();
             entity.Resource = null;
@@ -3715,6 +3789,542 @@ namespace HP.SW.SWT.Data
         }
     }
 
+    [Table(Name = "swt.scp")]
+    public partial class SCP : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+    {
+
+        private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
+
+        private System.DateTime _date;
+
+        private decimal _hours;
+
+        private int _idpEriod;
+
+        private int _idsCp;
+
+        private string _idsCppRoject;
+
+        private string _number;
+
+        private string _t;
+
+        private EntityRef<Period> _period = new EntityRef<Period>();
+
+        private EntityRef<Resource> _resource = new EntityRef<Resource>();
+
+        private EntityRef<SCPProject> _scppRoject = new EntityRef<SCPProject>();
+
+        private EntityRef<Ticket> _ticket = new EntityRef<Ticket>();
+
+        #region Extensibility Method Declarations
+        partial void OnCreated();
+
+        partial void OnDateChanged();
+
+        partial void OnDateChanging(System.DateTime value);
+
+        partial void OnHoursChanged();
+
+        partial void OnHoursChanging(decimal value);
+
+        partial void OnIdpEriodChanged();
+
+        partial void OnIdpEriodChanging(int value);
+
+        partial void OnIDScpChanged();
+
+        partial void OnIDScpChanging(int value);
+
+        partial void OnIDScppRojectChanged();
+
+        partial void OnIDScppRojectChanging(string value);
+
+        partial void OnNumberChanged();
+
+        partial void OnNumberChanging(string value);
+
+        partial void OnTChanged();
+
+        partial void OnTChanging(string value);
+        #endregion
+
+
+        public SCP()
+        {
+            this.OnCreated();
+        }
+
+        [Column(Storage = "_date", Name = "Date", DbType = "datetime", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public System.DateTime Date
+        {
+            get
+            {
+                return this._date;
+            }
+            set
+            {
+                if ((_date != value))
+                {
+                    this.OnDateChanging(value);
+                    this.SendPropertyChanging();
+                    this._date = value;
+                    this.SendPropertyChanged("Date");
+                    this.OnDateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_hours", Name = "Hours", DbType = "decimal(4,1)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public decimal Hours
+        {
+            get
+            {
+                return this._hours;
+            }
+            set
+            {
+                if ((_hours != value))
+                {
+                    this.OnHoursChanging(value);
+                    this.SendPropertyChanging();
+                    this._hours = value;
+                    this.SendPropertyChanged("Hours");
+                    this.OnHoursChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_idpEriod", Name = "IDPeriod", DbType = "int", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public int IdpEriod
+        {
+            get
+            {
+                return this._idpEriod;
+            }
+            set
+            {
+                if ((_idpEriod != value))
+                {
+                    this.OnIdpEriodChanging(value);
+                    this.SendPropertyChanging();
+                    this._idpEriod = value;
+                    this.SendPropertyChanged("IdpEriod");
+                    this.OnIdpEriodChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_idsCp", Name = "idSCP", DbType = "int", IsPrimaryKey = true, IsDbGenerated = true, AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public int IDScp
+        {
+            get
+            {
+                return this._idsCp;
+            }
+            set
+            {
+                if ((_idsCp != value))
+                {
+                    this.OnIDScpChanging(value);
+                    this.SendPropertyChanging();
+                    this._idsCp = value;
+                    this.SendPropertyChanged("IDScp");
+                    this.OnIDScpChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_idsCppRoject", Name = "idSCPProject", DbType = "varchar(20)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string IDScppRoject
+        {
+            get
+            {
+                return this._idsCppRoject;
+            }
+            set
+            {
+                if (((_idsCppRoject == value)
+                            == false))
+                {
+                    this.OnIDScppRojectChanging(value);
+                    this.SendPropertyChanging();
+                    this._idsCppRoject = value;
+                    this.SendPropertyChanged("IDScppRoject");
+                    this.OnIDScppRojectChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_number", Name = "Number", DbType = "varchar(13)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string Number
+        {
+            get
+            {
+                return this._number;
+            }
+            set
+            {
+                if (((_number == value)
+                            == false))
+                {
+                    if (_ticket.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnNumberChanging(value);
+                    this.SendPropertyChanging();
+                    this._number = value;
+                    this.SendPropertyChanged("Number");
+                    this.OnNumberChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_t", Name = "T", DbType = "varchar(6)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string T
+        {
+            get
+            {
+                return this._t;
+            }
+            set
+            {
+                if (((_t == value)
+                            == false))
+                {
+                    if (_resource.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnTChanging(value);
+                    this.SendPropertyChanging();
+                    this._t = value;
+                    this.SendPropertyChanged("T");
+                    this.OnTChanged();
+                }
+            }
+        }
+
+        #region Parents
+        [Association(Storage = "_period", OtherKey = "IdpEriod", ThisKey = "IdpEriod", Name = "fk_SCP_Period1", IsForeignKey = true)]
+        [DebuggerNonUserCode()]
+        public Period Period
+        {
+            get
+            {
+                return this._period.Entity;
+            }
+            set
+            {
+                if (((this._period.Entity == value)
+                            == false))
+                {
+                    if ((this._period.Entity != null))
+                    {
+                        Period previousPeriod = this._period.Entity;
+                        this._period.Entity = null;
+                        previousPeriod.SCP.Remove(this);
+                    }
+                    this._period.Entity = value;
+                    if ((value != null))
+                    {
+                        value.SCP.Add(this);
+                        _idpEriod = value.IdpEriod;
+                    }
+                    else
+                    {
+                        _idpEriod = default(int);
+                    }
+                }
+            }
+        }
+
+        [Association(Storage = "_resource", OtherKey = "T", ThisKey = "T", Name = "fk_SCP_Resource1", IsForeignKey = true)]
+        [DebuggerNonUserCode()]
+        public Resource Resource
+        {
+            get
+            {
+                return this._resource.Entity;
+            }
+            set
+            {
+                if (((this._resource.Entity == value)
+                            == false))
+                {
+                    if ((this._resource.Entity != null))
+                    {
+                        Resource previousResource = this._resource.Entity;
+                        this._resource.Entity = null;
+                        previousResource.SCP.Remove(this);
+                    }
+                    this._resource.Entity = value;
+                    if ((value != null))
+                    {
+                        value.SCP.Add(this);
+                        _t = value.T;
+                    }
+                    else
+                    {
+                        _t = default(string);
+                    }
+                }
+            }
+        }
+
+        [Association(Storage = "_scppRoject", OtherKey = "IDScppRoject", ThisKey = "IDScppRoject", Name = "fk_SCP_SCPProject1", IsForeignKey = true)]
+        [DebuggerNonUserCode()]
+        public SCPProject SCPProject
+        {
+            get
+            {
+                return this._scppRoject.Entity;
+            }
+            set
+            {
+                if (((this._scppRoject.Entity == value)
+                            == false))
+                {
+                    if ((this._scppRoject.Entity != null))
+                    {
+                        SCPProject previousSCPProject = this._scppRoject.Entity;
+                        this._scppRoject.Entity = null;
+                        previousSCPProject.SCP.Remove(this);
+                    }
+                    this._scppRoject.Entity = value;
+                    if ((value != null))
+                    {
+                        value.SCP.Add(this);
+                        _idsCppRoject = value.IDScppRoject;
+                    }
+                    else
+                    {
+                        _idsCppRoject = default(string);
+                    }
+                }
+            }
+        }
+
+        [Association(Storage = "_ticket", OtherKey = "Number", ThisKey = "Number", Name = "fk_SCP_Ticket1", IsForeignKey = true)]
+        [DebuggerNonUserCode()]
+        public Ticket Ticket
+        {
+            get
+            {
+                return this._ticket.Entity;
+            }
+            set
+            {
+                if (((this._ticket.Entity == value)
+                            == false))
+                {
+                    if ((this._ticket.Entity != null))
+                    {
+                        Ticket previousTicket = this._ticket.Entity;
+                        this._ticket.Entity = null;
+                        previousTicket.SCP.Remove(this);
+                    }
+                    this._ticket.Entity = value;
+                    if ((value != null))
+                    {
+                        value.SCP.Add(this);
+                        _number = value.Number;
+                    }
+                    else
+                    {
+                        _number = default(string);
+                    }
+                }
+            }
+        }
+        #endregion
+
+        public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            System.ComponentModel.PropertyChangingEventHandler h = this.PropertyChanging;
+            if ((h != null))
+            {
+                h(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(string propertyName)
+        {
+            System.ComponentModel.PropertyChangedEventHandler h = this.PropertyChanged;
+            if ((h != null))
+            {
+                h(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [Table(Name = "swt.scpproject")]
+    public partial class SCPProject : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+    {
+
+        private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
+
+        private string _description;
+
+        private string _idsCppRoject;
+
+        private System.Nullable<int> _type;
+
+        private EntitySet<SCP> _scp;
+
+        #region Extensibility Method Declarations
+        partial void OnCreated();
+
+        partial void OnDescriptionChanged();
+
+        partial void OnDescriptionChanging(string value);
+
+        partial void OnIDScppRojectChanged();
+
+        partial void OnIDScppRojectChanging(string value);
+
+        partial void OnTypeChanged();
+
+        partial void OnTypeChanging(System.Nullable<int> value);
+        #endregion
+
+
+        public SCPProject()
+        {
+            _scp = new EntitySet<SCP>(new Action<SCP>(this.SCP_Attach), new Action<SCP>(this.SCP_Detach));
+            this.OnCreated();
+        }
+
+        [Column(Storage = "_description", Name = "Description", DbType = "varchar(4000)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string Description
+        {
+            get
+            {
+                return this._description;
+            }
+            set
+            {
+                if (((_description == value)
+                            == false))
+                {
+                    this.OnDescriptionChanging(value);
+                    this.SendPropertyChanging();
+                    this._description = value;
+                    this.SendPropertyChanged("Description");
+                    this.OnDescriptionChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_idsCppRoject", Name = "idSCPProject", DbType = "varchar(20)", IsPrimaryKey = true, AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string IDScppRoject
+        {
+            get
+            {
+                return this._idsCppRoject;
+            }
+            set
+            {
+                if (((_idsCppRoject == value)
+                            == false))
+                {
+                    this.OnIDScppRojectChanging(value);
+                    this.SendPropertyChanging();
+                    this._idsCppRoject = value;
+                    this.SendPropertyChanged("IDScppRoject");
+                    this.OnIDScppRojectChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_type", Name = "Type", DbType = "int", AutoSync = AutoSync.Never)]
+        [DebuggerNonUserCode()]
+        public System.Nullable<int> Type
+        {
+            get
+            {
+                return this._type;
+            }
+            set
+            {
+                if ((_type != value))
+                {
+                    this.OnTypeChanging(value);
+                    this.SendPropertyChanging();
+                    this._type = value;
+                    this.SendPropertyChanged("Type");
+                    this.OnTypeChanged();
+                }
+            }
+        }
+
+        #region Children
+        [Association(Storage = "_scp", OtherKey = "IDScppRoject", ThisKey = "IDScppRoject", Name = "fk_SCP_SCPProject1")]
+        [DebuggerNonUserCode()]
+        public EntitySet<SCP> SCP
+        {
+            get
+            {
+                return this._scp;
+            }
+            set
+            {
+                this._scp = value;
+            }
+        }
+        #endregion
+
+        public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            System.ComponentModel.PropertyChangingEventHandler h = this.PropertyChanging;
+            if ((h != null))
+            {
+                h(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(string propertyName)
+        {
+            System.ComponentModel.PropertyChangedEventHandler h = this.PropertyChanged;
+            if ((h != null))
+            {
+                h(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #region Attachment handlers
+        private void SCP_Attach(SCP entity)
+        {
+            this.SendPropertyChanging();
+            entity.SCPProject = this;
+        }
+
+        private void SCP_Detach(SCP entity)
+        {
+            this.SendPropertyChanging();
+            entity.SCPProject = null;
+        }
+        #endregion
+    }
+
     [Table(Name = "swt.task")]
     public partial class Task : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
     {
@@ -4036,6 +4646,8 @@ namespace HP.SW.SWT.Data
 
         private EntitySet<ExcelRow> _excelRow;
 
+        private EntitySet<SCP> _scp;
+
         private EntitySet<Task> _task;
 
         private EntitySet<TicketComment> _ticketComment;
@@ -4136,6 +4748,7 @@ namespace HP.SW.SWT.Data
         public Ticket()
         {
             _excelRow = new EntitySet<ExcelRow>(new Action<ExcelRow>(this.ExcelRow_Attach), new Action<ExcelRow>(this.ExcelRow_Detach));
+            _scp = new EntitySet<SCP>(new Action<SCP>(this.SCP_Attach), new Action<SCP>(this.SCP_Detach));
             _task = new EntitySet<Task>(new Action<Task>(this.Task_Attach), new Action<Task>(this.Task_Detach));
             _ticketComment = new EntitySet<TicketComment>(new Action<TicketComment>(this.TicketComment_Attach), new Action<TicketComment>(this.TicketComment_Detach));
             this.OnCreated();
@@ -4606,6 +5219,20 @@ namespace HP.SW.SWT.Data
             }
         }
 
+        [Association(Storage = "_scp", OtherKey = "Number", ThisKey = "Number", Name = "fk_SCP_Ticket1")]
+        [DebuggerNonUserCode()]
+        public EntitySet<SCP> SCP
+        {
+            get
+            {
+                return this._scp;
+            }
+            set
+            {
+                this._scp = value;
+            }
+        }
+
         [Association(Storage = "_task", OtherKey = "TicketNumber", ThisKey = "Number", Name = "fk_Task_Ticket")]
         [DebuggerNonUserCode()]
         public EntitySet<Task> Task
@@ -4736,6 +5363,18 @@ namespace HP.SW.SWT.Data
         {
             this.SendPropertyChanging();
             entity.TicketTicket = null;
+        }
+
+        private void SCP_Attach(SCP entity)
+        {
+            this.SendPropertyChanging();
+            entity.Ticket = this;
+        }
+
+        private void SCP_Detach(SCP entity)
+        {
+            this.SendPropertyChanging();
+            entity.Ticket = null;
         }
 
         private void Task_Attach(Task entity)
