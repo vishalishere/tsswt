@@ -324,6 +324,8 @@ namespace HP.SW.SWT.Data
         public static void Import(ENT.Period period, ENT.Resource resource, Stream stream)
         {
             DateTime date;
+            string ticketNumber = string.Empty;
+            List<string> missingTickets = new List<string>();
             using (SwT swt = Context)
             {
                 swt.ExcelRow.DeleteAllOnSubmit(from er in swt.ExcelRow where er.IdpEriod == period.ID && er.T == resource.T select er);
@@ -333,19 +335,47 @@ namespace HP.SW.SWT.Data
                     {
                         if (!row.IsNull(1) && row[1].ToString().ToUpperInvariant().IndexOf("FECHA") < 0)
                         {
-                            date = new DateTime(1900, 1, 1).AddDays(Int64.Parse(row[1].ToString()) - 2);
-                            swt.ExcelRow.InsertOnSubmit(new ExcelRow
+                            ticketNumber = row[6].ToString();
+                            if (!string.IsNullOrEmpty(ticketNumber) && ticketNumber != "NO_FACT")
                             {
-                                Date = date,
-                                StartHour = date.AddSeconds(double.Parse(row[2].ToString()) * 60 * 60 * 24),
-                                EndHour = row.IsNull(3) ? (DateTime?)null : date.AddSeconds(double.Parse(row[3].ToString()) * 60 * 60 * 24),
-                            });
+                                if (swt.Ticket.Where(t => t.Number == ticketNumber).Count() == 0)
+                                {
+                                    if (!missingTickets.Contains(ticketNumber))
+                                    {
+                                        missingTickets.Add(ticketNumber);
+                                    }
+                                }
+                                else
+                                {
+                                    date = new DateTime(1900, 1, 1).AddDays(Int64.Parse(row[1].ToString()) - 2);
+                                    swt.ExcelRow.InsertOnSubmit(new ExcelRow
+                                    {
+                                        Date = date,
+                                        StartHour = date.AddSeconds(double.Parse(row[2].ToString()) * 60 * 60 * 24),
+                                        EndHour = row.IsNull(3) ? (DateTime?)null : date.AddSeconds(double.Parse(row[3].ToString()) * 60 * 60 * 24),
+                                        Ticket = row[5].ToString(),
+                                        ScptIcket = ticketNumber,
+                                        Description = row[7].ToString(),
+                                        ScpcHarged = (sbyte)(row.IsNull(9) ? 0 : (row[9].ToString().ToUpperInvariant() == "SI" ? 1 : 0)),
+                                        SCPt = row[10].ToString(),
+                                        ScphOurs = row.IsNull(11) ? (decimal?)null : decimal.Parse(row[11].ToString()),
+                                        IdpEriod = period.ID,
+                                        T = resource.T
+                                    });
+                                }
+                            }
                         }
                     }
 
                     excelReader.Close();
                 }
                 swt.SubmitChanges();
+            }
+
+            if (missingTickets.Count() > 0)
+            {
+                throw new Exception("Los siguientes registros no se han podido cargar, porque el ticket no existe: "
+                    + missingTickets.Aggregate((string agg, string mt) => agg += ", " + mt));
             }
         }
     }

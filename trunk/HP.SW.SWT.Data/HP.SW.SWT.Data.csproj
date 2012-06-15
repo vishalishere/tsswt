@@ -54,6 +54,7 @@
     <Compile Include="ADHoliday.cs" />
     <Compile Include="ADResource.cs" />
     <Compile Include="ADResourceAssignment.cs" />
+    <Compile Include="ADSCP.cs" />
     <Compile Include="ADTask.cs" />
     <Compile Include="ADTicket.cs" />
     <Compile Include="ADPeriod.cs" />
