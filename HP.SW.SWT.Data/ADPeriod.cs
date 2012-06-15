@@ -24,13 +24,11 @@ namespace HP.SW.SWT.Data
                             };
         }
 
-        public static ENT.Period GetCurrentPeriod()
+        public static ENT.Period Get(DateTime dateTime)
         {
-            DateTime now = DateTime.Now.Date;
-
-            return (from p in GetPeriods(now.Year)
-                    where p.StartDate.CompareTo(now) <= 0
-                         && (!p.EndDate.HasValue || p.EndDate.Value.CompareTo(now) >= 0)
+            return (from p in GetPeriods(dateTime.Year)
+                    where p.StartDate.CompareTo(dateTime) <= 0
+                         && (!p.EndDate.HasValue || p.EndDate.Value.CompareTo(dateTime) >= 0)
                     select new ENT.Period
                     {
                         ID = p.ID,
@@ -40,7 +38,11 @@ namespace HP.SW.SWT.Data
                         StartDate = p.StartDate,
                         EndDate = p.EndDate
                     }).FirstOrDefault();
+        }
 
+        public static ENT.Period GetCurrentPeriod()
+        {
+            return Get(DateTime.Now.Date);
         }
 
         public static IEnumerable<ENT.Period> GetAll()
