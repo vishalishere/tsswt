@@ -145,7 +145,6 @@ namespace HP.SW.SWT.MVC.Controllers
         {
             try
             {
-                //excelRow.Resource = new Resource { T = GetUser().Logon };
                 excelRow.Resource = GetUserAsResource();
                 return Json(new
                 {
@@ -163,7 +162,7 @@ namespace HP.SW.SWT.MVC.Controllers
             }
         }
 
-        [HttpPost]
+        //[HttpPost]
         [Authorize(Roles = "Project Manager, Referente, Desarrollador")]
         public JsonResult UpdateExcelRow(ExcelRow excelRow, int rowIndex)//ExcelModel excelModel)
         {
@@ -172,17 +171,17 @@ namespace HP.SW.SWT.MVC.Controllers
                 excelRow.Resource = GetUserAsResource();
                 return Json(new
                 {
-                    Result = "Ok",
-                    Data = new
+                    result = "Ok",
+                    data = new
                     {
-                        RowIndex = rowIndex,
-                        Id = Data.ADExcelRow.Update(excelRow)
+                        rowIndex = rowIndex,
+                        id = Data.ADExcelRow.Update(excelRow)
                     }
                 });
             }
             catch (Exception ex)
             {
-                return Json(new { Result = "Error", Message = ex.Message });
+                return Json(new { result = "Error", message = ex.Message });
             }
         }
 

@@ -65,44 +65,23 @@
     
         <tr onclick="editRow(this);" style="vertical-align:top">
             <td>
-                <label><%: String.Format("{0:dd/MM/yyyy}", item.Date) %></label><input type="hidden" value="<%: item.Id %>" />
+                <%--<label><%: String.Format("{0:dd/MM/yyyy}", item.Date) %></label><input type="hidden" value="<%: item.Id %>" />--%>
+                <label><%: String.Format("{0:dd/MM}", item.Date) %></label><input type="hidden" value="<%: item.Id %>" />
             </td>
-            <td>
-                <%: String.Format("{0:HH:mm}", item.StartHour) %>
-            </td>
-            <td>
-                <%: String.Format("{0:HH:mm}", item.EndHour)%>
-            </td>
-            <td>
-                <%: String.Format("{0:F}", item.Hours) %>
-            </td>
-            <td>
-                <%: item.Ticket %>
-            </td>
-            <td>
-                <%: item.Description %>
-            </td>
-            <td>
-                <%: item.Cluster %>
-            </td>
-            <td>
-                <%: item.SCPCharged %>
-            </td>
-            <td>
-                <%: String.Format("{0:F}", item.SCPHours) %>
-            </td>
-            <td>
-                <%: item.SCPTicket %>
-            </td>
-            <td>
-                <%: item.SCPT %>
-            </td>
+            <td><%: String.Format("{0:HH:mm}", item.StartHour) %></td>
+            <td><%: String.Format("{0:HH:mm}", item.EndHour)%></td>
+            <td><%: String.Format("{0:F}", item.Hours) %></td>
+            <td><%: item.Ticket %></td>
+            <td><%: item.Description %></td>
+            <td><%: item.Cluster %></td>
+            <td><%: (item.SCPCharged == 0 ? "No" : "Si") %></td>
+            <td><%: String.Format("{0:F}", item.SCPHours) %></td>
+            <td><%: item.SCPTicket %></td>
+            <td><%: item.SCPT %></td>
+            <td style="display:none"></td>
             <td style="display:none">
-                
-            </td>
-            <td style="display:none">
-		        <img src='<%= Url.Contents("Images/ok.png") %>' onclick='okRow(this);' style='cursor:pointer' alt='ok' />&nbsp;&nbsp;
-		        <img src='<%= Url.Contents("Images/cancel.png") %>' onclick='cancelRow(this);' style='cursor:pointer' alt='cancel' />
+                <img src='<%= Url.Contents("Images/ok.png") %>' onclick='okRow(this);' style='cursor:pointer' alt='ok' />&nbsp;&nbsp;
+                <img src='<%= Url.Contents("Images/cancel.png") %>' onclick='cancelRow(this);' style='cursor:pointer' alt='cancel' />
             </td>
         </tr>
     

@@ -97,7 +97,7 @@ function editRow(row) {
 }
 
 function uneditRow(row) {
-    var rowHTML = row.cells[11].innerHTML;
+    //var rowHTML = row.cells[11].innerHTML;
 
     row.cells[1].innerHTML = $(row.cells[1]).find("input").val();
     row.cells[2].innerHTML = $(row.cells[2]).find("input").val();
@@ -109,7 +109,8 @@ function uneditRow(row) {
     row.cells[9].innerHTML = ($(row.cells[9]).find("input").val() == undefined ? '' : $(row.cells[9]).find("input").val());  //$(row.cells[9]).find("input").val();
     row.cells[10].innerHTML = ($(row.cells[10]).find("input").val() == undefined ? '' : $(row.cells[10]).find("input").val());  //$(row.cells[10]).find("input").val();
     row.cells[11].innerHTML = '';
-    row.cells[12].style.display = rowHTML == row.innerHTML ? 'none' : '';
+    //row.cells[12].style.display = rowHTML == row.innerHTML ? 'none' : '';
+    row.cells[12].style.display = 'none';
 
     row.onclick = function () { editRow(row); };
 
@@ -124,7 +125,7 @@ function getExcelRow(row) {
     $('#StartHour').val($(row.cells[1]).find("input").length == 0 ? row.cells[1].innerHTML : $(row.cells[1]).find("input").val());
     $('#EndHour').val($(row.cells[2]).find("input").length == 0 ? row.cells[2].innerHTML : $(row.cells[2]).find("input").val());
     $('#Ticket').val($(row.cells[4]).find("input").length == 0 ? row.cells[4].innerHTML : $(row.cells[4]).find("input").val());
-    $('#Description').val($(row.cells[5]).find("input").length == 0 ? row.cells[5].innerHTML : $(row.cells[5]).find("input").val());
+    $('#Description').val($(row.cells[5]).find("textarea").length == 0 ? row.cells[5].innerHTML : $(row.cells[5]).find("textarea").val());
     $('#SCPCharged').val($(row.cells[6]).find("input").length == 0 ? row.cells[6].innerHTML : $(row.cells[6]).find("input").val());
     $('#SCPHours').val($(row.cells[7]).find("input").length == 0 ? row.cells[7].innerHTML : $(row.cells[7]).find("input").val());
     $('#SCPTicket').val($(row.cells[8]).find("input").length == 0 ? row.cells[8].innerHTML : $(row.cells[8]).find("input").val());
@@ -136,7 +137,6 @@ function getExcelRow(row) {
 function onOkRow(res) {
     if (res.result == "Ok") {
         $(tbExcel.rows[res.data.rowIndex].cells[0]).find("input").val(res.data.id);
-
         stopWaiting();
     } else {
         stopWaiting();
@@ -152,9 +152,9 @@ function okRow(src) {
     }
 
     $.post(root('/Resource/UpdateExcelRow'),
-            getExcelRow(row),
+        getExcelRow(row),
         onOkRow,
-        'json');   
+        'json');
 }
 
 function onAddRow(res) {
@@ -169,7 +169,6 @@ function onAddRow(res) {
 
 function addRow(row) {
     startWaiting();
-
     $.post(root('/Resource/AddExcelRow'),
         getExcelRow(row),
         onAddRow,
@@ -177,15 +176,12 @@ function addRow(row) {
 }
 
 function cancelRow(src) {
-    //alert('cancelRow');    
     var row = src;
     if (row.nodeName == 'IMG') {
         row = $(row).closest('tr')[0];
     }
-    //var rowHTML = row.cells[11].innerHTML;
     var rowHTML = $(row.cells[11]).find('input').val();
 
-    //row.innerHTML = rowHTML;
     $(row).find("td").each(function (index, el) {
         row.cells[index].innerHTML = el.innerHTML;
     });
@@ -219,8 +215,6 @@ function isValidHour(h) {
 
 function calcHours(input) {
     var row = $(input).closest('tr')[0];   
-    //var initHour = $(row.cells[1]).find("input")[0].value;
-    //var endHour = $(row.cells[2]).find("input")[0].value;
     var initHour;
     var endHour;
     if ($(row.cells[1]).find("input").length > 0) {

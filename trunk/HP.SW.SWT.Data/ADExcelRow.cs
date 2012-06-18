@@ -120,14 +120,11 @@ namespace HP.SW.SWT.Data
 
         public static int Update(ENT.ExcelRow excelRow)
         {
-            int result = 1;
-            try
+            using (SwT swt = Context)
             {
-                Data.ExcelRow eR = (HP.SW.SWT.Data.ExcelRow)from er in Context.ExcelRow
-                                                            where er.IdeXcelRow == excelRow.Id
-                                                                 && er.Date == excelRow.Date
-                                                                 && er.Ticket == excelRow.Ticket
-                                                            select er;
+                Data.ExcelRow eR = (from er in swt.ExcelRow
+                                    where er.IdeXcelRow == excelRow.Id
+                                    select er).FirstOrDefault();
 
                 //eR.IdeXcelRow = excelRow.Id;
                 //eR.Date = excelRow.Date;
@@ -140,14 +137,10 @@ namespace HP.SW.SWT.Data
                 eR.SCPt = excelRow.SCPT;
                 eR.ScpcHarged = excelRow.SCPCharged;
 
-                Context.SubmitChanges();
+                swt.SubmitChanges();   
+         
+                return eR.IdeXcelRow;
             }
-            catch (Exception Ex)
-            {
-                result = 0;
-            }
-
-            return result;
         }
 
         public static int Delete(ENT.ExcelRow excelRow)
