@@ -145,6 +145,7 @@ namespace HP.SW.SWT.MVC.Controllers
         {
             try
             {
+                //excelRow.Resource = new Resource { T = GetUser().Logon };
                 excelRow.Resource = GetUserAsResource();
                 return Json(new
                 {
