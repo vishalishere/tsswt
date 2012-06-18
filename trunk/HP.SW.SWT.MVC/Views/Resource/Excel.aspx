@@ -16,8 +16,9 @@
     <h2>Carga de Horas</h2>
 
     <p style="text-align: center">
-        <img src='<%= Url.Contents("Images/ok.png") %>' id='imgOkTemplate' style='display:none' alt='ok' />
-		<img src='<%= Url.Contents("Images/cancel.png") %>' id='imgCancelTemplate' style='display:none' alt='cancel' />        
+        <img src='<%= Url.Contents("Images/ok.png") %>' id='imgOkTemplate' style='display:none' alt='grabar' />
+		<img src='<%= Url.Contents("Images/cancel.png") %>' id='imgCancelTemplate' style='display:none' alt='cancelar' />        
+        <img src='<%= Url.Contents("Images/delete.png") %>' id='imgDeleteTemplate' style='display:none' alt='borrar' />
         <button type="button" onclick="newTask();">Nueva Tarea</button>
         <button type="button" onclick="closeTask();">Cerrar Tarea</button>
     </p>
@@ -82,6 +83,11 @@
             <td style="display:none">
                 <img src='<%= Url.Contents("Images/ok.png") %>' onclick='okRow(this);' style='cursor:pointer' alt='ok' />&nbsp;&nbsp;
                 <img src='<%= Url.Contents("Images/cancel.png") %>' onclick='cancelRow(this);' style='cursor:pointer' alt='cancel' />
+            </td>
+            <td style="display:none">
+		        <img src='<%= Url.Contents("Images/ok.png") %>' onclick='okRow(this);' style='cursor:pointer' alt='grabar' />&nbsp;&nbsp;
+		        <img src='<%= Url.Contents("Images/cancel.png") %>' onclick='cancelRow(this);' style='cursor:pointer' alt='cancelar' />&nbsp;&nbsp;
+		        <img src='<%= Url.Contents("Images/delete.png") %>' onclick='deleteRow(this);' style='cursor:pointer' alt='borrar' />
             </td>
         </tr>
     
