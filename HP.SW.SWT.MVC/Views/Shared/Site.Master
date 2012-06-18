@@ -11,38 +11,10 @@
     <script language='javascript' type='text/javascript' src='<%= Url.Script("jquery/jquery.ui.position.js") %>'></script>
     <script language='javascript' type='text/javascript' src='<%= Url.Script("jquery/jquery.ui.dialog.js") %>'></script>
     <script language='javascript' type='text/javascript' src='<%= Url.Script("server.ashx") %>'></script>
-    <script language='javascript' type='text/javascript'>
-        function resize() {
-            $("#mainBody").css("height", ($(window).height() - parseInt($("#mainHeader").css("height"))) + "px");
-        }
-
-        $(window).resize(function () {
-            resize();
-        });
-
-        $(resize);
-        $("#mainHeader").ready(resize);
-        $("#mainHeaderLogo").ready(resize);
-
-        function toggleMenu(img) {
-            var jMenu = $("#mainHeaderMenu");
-            if (jMenu.css("display") == "none") {
-
-                var jImg = $(img);
-                var jImgPos = jImg.position();
-                var jImgHeight = jImg.outerHeight();
-
-                jMenu.css({
-                    top: (jImgPos.top + jImgHeight + 3) + "px",
-                    left: jImgPos.left + "px"
-                }).show();
-            } else {
-                jMenu.hide();
-            }
-        }
-    </script>
+    <script language='javascript' type='text/javascript' src='<%= Url.Script("Shared/Site.Master.js") %>'></script>
     <asp:ContentPlaceHolder ID="ScriptContent" runat="server" />
     <link href='../../Contents/Site.css' rel='stylesheet' type='text/css' />
+    <link href='../../Contents/Redmond.css' rel='stylesheet' type='text/css' />
     <asp:ContentPlaceHolder ID="StyleContent" runat="server" />
 </head>
 
@@ -81,6 +53,9 @@
     </div>
     <div id="mainBody" style="width:100%; overflow-y: scroll">
         <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    </div>
+    <div id="divWaiting" style="display:none">
+        <p>Procesando contra el servidor. Por favor espere...</p>
     </div>
 </body>
 </html>

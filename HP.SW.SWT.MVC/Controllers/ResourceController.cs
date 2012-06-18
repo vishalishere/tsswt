@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
-using System.Web.Script.Services;
 
 using HP.SW.SWT.Entities;
-using System.Web;
+using HP.SW.SWT.MVC.Models;
 
 namespace HP.SW.SWT.MVC.Controllers
 {
@@ -120,6 +120,94 @@ namespace HP.SW.SWT.MVC.Controllers
         }
 
         [Authorize(Roles = "Project Manager")]
+        public ActionResult ExcelView(string t, DateTime? date)
+        {
+            Resource resource = Data.ADResource.Get(t);
+            ViewData["Resource"] = resource;
+            IEnumerable<ExcelRow> excelRows;
+            if (date.HasValue)
+            {
+                ViewData["Date"] = date;
+                excelRows = Data.ADExcelRow.Get(Data.ADResource.Get(t), date.Value);
+            }
+            else
+            {
+                Period period = Data.ADPeriod.GetCurrentPeriod();
+                ViewData["Period"] = period;
+                excelRows = Data.ADExcelRow.Get(resource, period);
+            }
+            return View(excelRows);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Project Manager, Referente, Desarrollador")]
+        public JsonResult AddExcelRow(ExcelRow excelRow, int rowIndex/*ExcelModel excelModel*/)
+        {
+            try
+            {
+                excelRow.Resource = GetUserAsResource();
+                return Json(new
+                {
+                    result = "Ok",
+                    data = new
+                    {
+                        rowIndex = rowIndex,
+                        id = Data.ADExcelRow.Insert(excelRow)
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { result = "Error", message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Project Manager, Referente, Desarrollador")]
+        public JsonResult UpdateExcelRow(ExcelRow excelRow, int rowIndex)//ExcelModel excelModel)
+        {
+            try
+            {
+                excelRow.Resource = GetUserAsResource();
+                return Json(new
+                {
+                    Result = "Ok",
+                    Data = new
+                    {
+                        RowIndex = rowIndex,
+                        Id = Data.ADExcelRow.Update(excelRow)
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "Error", Message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Project Manager, Referente, Desarrollador")]
+        public JsonResult DeleteExcelRow(ExcelRow excelRow, int rowIndex)//ExcelModel excelModel)
+        {
+            try
+            {
+                return Json(new
+                {
+                    Result = "Ok",
+                    Data = new
+                    {
+                        RowIndex = rowIndex,
+                        Id = Data.ADExcelRow.Delete(excelRow)
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "Error", Message = ex.Message });
+            }
+        }
+
+        [Authorize(Roles = "Project Manager")]
         public ActionResult Import()
         {
             ViewData["Periods"] = DropDownListHelper.GetPeriods();
@@ -166,95 +254,6 @@ namespace HP.SW.SWT.MVC.Controllers
 
             return Import();
         }
-
-        [Authorize(Roles = "Project Manager")]
-        public ActionResult ExcelView(string t, DateTime? date)
-        {
-            Resource resource = Data.ADResource.Get(t);
-            ViewData["Resource"] = resource;
-            IEnumerable<ExcelRow> excelRows;
-            if (date.HasValue)
-            {
-                ViewData["Date"] = date;
-                excelRows = Data.ADExcelRow.Get(Data.ADResource.Get(t), date.Value);
-            }
-            else
-            {
-                Period period = Data.ADPeriod.GetCurrentPeriod();
-                ViewData["Period"] = period;
-                excelRows = Data.ADExcelRow.Get(resource, period);
-            }
-            return View(excelRows);
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Referente, Desarrollador")]
-        public JsonResult UpdateExcelRow(ExcelRow excelRow, int rowIndex)
-        {
-            try
-            {
-                return Json(new
-                {
-                    Result = "Ok",
-                    Data = new
-                    {
-                        RowIndex = rowIndex,
-                        Id = Data.ADExcelRow.Update(excelRow)
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { Result = "Error", Message = ex.Message });
-            }
-        }
-
-        [HttpPost]
-        [GenerateScriptType(typeof(Resource))]
-        [Authorize(Roles = "Referente, Desarrollador")]
-        //public JsonResult AddExcelRow(ExcelRow excelRow, int rowIndex)
-        public JsonResult AddExcelRow(ExcelRow excelRow, int? rowIndex)
-        {
-            try
-            {
-                excelRow.Resource = new Resource { T = GetUser().Logon };
-                return Json(new
-                {
-                    Result = "Ok",
-                    Data = new
-                    {
-                        RowIndex = rowIndex,
-                        Id = Data.ADExcelRow.Insert(excelRow)
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { Result = "Error", Message = ex.Message });
-            }
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Referente, Desarrollador")]
-        public JsonResult DeleteExcelRow(ExcelRow excelRow, int rowIndex)
-        {
-            try
-            {
-                return Json(new
-                {
-                    Result = "Ok",
-                    Data = new
-                    {
-                        RowIndex = rowIndex,
-                        Id = Data.ADExcelRow.Delete(excelRow)
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { Result = "Error", Message = ex.Message });
-            }
-        } 
 
         #endregion
     }
