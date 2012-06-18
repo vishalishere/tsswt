@@ -94,38 +94,28 @@ namespace HP.SW.SWT.Data
 
         public static int Insert(ENT.ExcelRow excelRow)
         {
-            int result = 1;
-
-            try
+            using (SwT swt = Context)
             {
-                using (SwT swt = Context)
+                Data.ExcelRow dbExcelRow = new Data.ExcelRow
                 {
-                    swt.ExcelRow.InsertOnSubmit(new Data.ExcelRow
-                    {
-                        //IdeXcelRow = maxId + 1, //excelRow.Id,
-                        Date = excelRow.Date,
-                        StartHour = excelRow.StartHour,
-                        EndHour = excelRow.EndHour,
-                        Ticket = excelRow.Ticket,
-                        Description = excelRow.Description,
-                        ScphOurs = excelRow.SCPHours,
-                        ScptIcket = excelRow.Ticket,
-                        SCPt = excelRow.SCPT,
-                        ScpcHarged = excelRow.SCPCharged,
-                        T = excelRow.Resource.T,
-                        Period = new Period { IdpEriod = Data.ADPeriod.Get(excelRow.Date).ID }
-                    }
-                    );
+                    Date = excelRow.Date,
+                    StartHour = excelRow.StartHour,
+                    EndHour = excelRow.EndHour,
+                    Ticket = excelRow.Ticket,
+                    Description = excelRow.Description,
+                    ScphOurs = excelRow.SCPHours,
+                    ScptIcket = excelRow.Ticket,
+                    SCPt = excelRow.SCPT,
+                    ScpcHarged = excelRow.SCPCharged,
+                    T = excelRow.Resource.T,
+                    IdpEriod = Data.ADPeriod.Get(excelRow.Date).ID
+                };
+                swt.ExcelRow.InsertOnSubmit(dbExcelRow);
 
-                    swt.SubmitChanges();
-                }
-            }
-            catch (Exception Ex)
-            {
-                result = 0;
-            }
+                swt.SubmitChanges();
 
-            return result;
+                return dbExcelRow.IdeXcelRow;
+            }
         }
 
         public static int Update(ENT.ExcelRow excelRow)

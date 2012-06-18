@@ -12,7 +12,6 @@
     <script language='javascript' type='text/javascript' src='<%= Url.Script("Home/Index.js") %>'></script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="StyleContent" runat="server">
-    <link href='<%= Url.Contents("Redmond.css") %>' rel='stylesheet' type='text/css' />
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">

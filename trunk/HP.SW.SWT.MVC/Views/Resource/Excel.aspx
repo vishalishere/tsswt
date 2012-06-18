@@ -68,10 +68,10 @@
                 <label><%: String.Format("{0:dd/MM/yyyy}", item.Date) %></label><input type="hidden" value="<%: item.Id %>" />
             </td>
             <td>
-                <%: String.Format("{0:hh:mm}", item.StartHour) %>
+                <%: String.Format("{0:HH:mm}", item.StartHour) %>
             </td>
             <td>
-                <%: String.Format("{0:hh:mm}", item.EndHour)%>
+                <%: String.Format("{0:HH:mm}", item.EndHour)%>
             </td>
             <td>
                 <%: String.Format("{0:F}", item.Hours) %>
@@ -112,46 +112,18 @@
     <div style="display: none">
      <% using (Html.BeginForm("", "", FormMethod.Post, new { @id="form1"}))
         {%>        
-        <fieldset>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.FirstOrDefault().Id)%>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.FirstOrDefault().Date)%>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.FirstOrDefault().StartHour)%>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.FirstOrDefault().EndHour)%>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.FirstOrDefault().Ticket)%>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.FirstOrDefault().Description)%>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.FirstOrDefault().Cluster)%>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.FirstOrDefault().SCPCharged)%>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.FirstOrDefault().SCPHours)%>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.FirstOrDefault().SCPTicket)%>
-            </div>
-            <div class="editor-field">
-                <%: Html.TextBoxFor(model => model.FirstOrDefault().SCPT)%>
-            </div>
-            
-            <p>
-                <input type="submit" value="Save" />
-            </p>
-        </fieldset>
-
+            <input id="rowIndex" name="rowIndex" type="text" />
+            <%: Html.TextBoxFor(model => model.FirstOrDefault().Id)%>
+            <%: Html.TextBoxFor(model => model.FirstOrDefault().Date)%>
+            <%: Html.TextBoxFor(model => model.FirstOrDefault().StartHour)%>
+            <%: Html.TextBoxFor(model => model.FirstOrDefault().EndHour)%>
+            <%: Html.TextBoxFor(model => model.FirstOrDefault().Ticket)%>
+            <%: Html.TextBoxFor(model => model.FirstOrDefault().Description)%>
+            <%: Html.TextBoxFor(model => model.FirstOrDefault().Cluster)%>
+            <%: Html.TextBoxFor(model => model.FirstOrDefault().SCPCharged)%>
+            <%: Html.TextBoxFor(model => model.FirstOrDefault().SCPHours)%>
+            <%: Html.TextBoxFor(model => model.FirstOrDefault().SCPTicket)%>
+            <%: Html.TextBoxFor(model => model.FirstOrDefault().SCPT)%>
     <% } %>
     </div>
 </asp:Content>

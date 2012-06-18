@@ -155,6 +155,7 @@
     <Content Include="Scripts\Period\MonthlyHours.js" />
     <Content Include="Scripts\Resource\excel.js" />
     <Content Include="Scripts\dateutil.js" />
+    <Content Include="Scripts\Shared\Site.Master.js" />
     <Content Include="Scripts\Ticket\tasks.js" />
     <Content Include="Scripts\Ticket\Index.js" />
     <Content Include="Views\Cluster\Create.aspx" />

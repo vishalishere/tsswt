@@ -56,8 +56,3 @@
         });
     </script>
 </asp:Content>
-
-<asp:Content ID="Content4" ContentPlaceHolderID="StyleContent" runat="server">
-    <link href='<%= Url.Contents("Redmond.css") %>' rel='stylesheet' type='text/css' />
-</asp:Content>
-

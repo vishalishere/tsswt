@@ -11,5 +11,10 @@ namespace HP.SW.SWT.MVC
         {
             return Data.ADUser.GetByLogon(Membership.GetUser().UserName);
         }
+
+        public Resource GetUserAsResource()
+        {
+            return Data.ADResource.Get(Membership.GetUser().UserName);
+        }
     }
 }
