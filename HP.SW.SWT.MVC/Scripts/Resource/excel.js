@@ -1,6 +1,7 @@
 ﻿var tbExcel;
 var imgOkTemplate;
 var imgCancelTemplate;
+var imgDeleteTemplate;
 var isRowUnderEdition;
 function newTask() {
 
@@ -22,8 +23,10 @@ function newTask() {
     row.cells[1].innerHTML = getHourString(now);
     row.cells[7].innerHTML = 'No'
     row.cells[11].style.display = 'none';    
-    row.cells[12].innerHTML = "<img src='" + imgOkTemplate + "' onclick='okRow(this);' style='cursor:pointer' alt='ok' />&nbsp;"
-		        + "<img src='" + imgCancelTemplate + "' onclick='cancelRow(this);' style='cursor:pointer' alt='cancel' />";
+    row.cells[12].innerHTML = "<img src='" + imgOkTemplate + "' onclick='okRow(this);' style='cursor:pointer' alt='grabar' />&nbsp;&nbsp;"
+		        + "<img src='" + imgCancelTemplate + "' onclick='cancelRow(this);' style='cursor:pointer' alt='cancelar' />&nbsp;&nbsp;"
+		        + "<img src='" + imgDeleteTemplate + "' onclick='deleteRow(this);' style='cursor:pointer' alt='borrar' />";
+
     row.cells[12].style.display = 'none';
     
     addRow(row);
@@ -189,6 +192,28 @@ function cancelRow(src) {
     row.onclick = function () { editRow(row); };
 }
 
+function onDeleteRow(res) {
+    if (res.result == "Ok") {
+        tbExcel.deleteRow(res.data.rowIndex);
+        stopWaiting();
+    } else {
+        stopWaiting();
+        alert(res.result.message);
+    }
+}
+
+function deleteRow(src) {
+    var row = src;
+    if (row.nodeName == 'IMG') {
+        row = $(row).closest('tr')[0];
+    }
+
+    $.post(root('/Resource/DeleteExcelRow'),
+            getExcelRow(row),
+        onDeleteRow,
+        'json');   
+}
+
 function isValidHour(h) {
     var hs = h.split(':');
 
@@ -273,4 +298,5 @@ $(function () {
     tbExcel = document.getElementById('tbExcel');
     imgOkTemplate = document.getElementById('imgOkTemplate').src;
     imgCancelTemplate = document.getElementById('imgCancelTemplate').src;
+    imgDeleteTemplate = document.getElementById('imgDeleteTemplate').src;
 });

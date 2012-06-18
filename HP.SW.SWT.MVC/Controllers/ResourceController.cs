@@ -141,7 +141,7 @@ namespace HP.SW.SWT.MVC.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Project Manager, Referente, Desarrollador")]
-        public JsonResult AddExcelRow(ExcelRow excelRow, int rowIndex/*ExcelModel excelModel*/)
+        public JsonResult AddExcelRow(ExcelRow excelRow, int rowIndex)
         {
             try
             {
@@ -164,7 +164,7 @@ namespace HP.SW.SWT.MVC.Controllers
 
         //[HttpPost]
         [Authorize(Roles = "Project Manager, Referente, Desarrollador")]
-        public JsonResult UpdateExcelRow(ExcelRow excelRow, int rowIndex)//ExcelModel excelModel)
+        public JsonResult UpdateExcelRow(ExcelRow excelRow, int rowIndex)
         {
             try
             {
@@ -187,17 +187,17 @@ namespace HP.SW.SWT.MVC.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Project Manager, Referente, Desarrollador")]
-        public JsonResult DeleteExcelRow(ExcelRow excelRow, int rowIndex)//ExcelModel excelModel)
+        public JsonResult DeleteExcelRow(ExcelRow excelRow, int rowIndex)
         {
             try
             {
+                Data.ADExcelRow.Delete(excelRow);
                 return Json(new
                 {
-                    Result = "Ok",
-                    Data = new
+                    result = "Ok",
+                    data = new
                     {
-                        RowIndex = rowIndex,
-                        Id = Data.ADExcelRow.Delete(excelRow)
+                        rowIndex = rowIndex
                     }
                 });
             }

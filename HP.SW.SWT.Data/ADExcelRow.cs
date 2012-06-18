@@ -143,35 +143,16 @@ namespace HP.SW.SWT.Data
             }
         }
 
-        public static int Delete(ENT.ExcelRow excelRow)
+        public static void Delete(ENT.ExcelRow excelRow)
         {
-            int result = 1;
-
-            try
+            using (SwT swt = Context)
             {
-                Context.ExcelRow.DeleteOnSubmit(new Data.ExcelRow
-                {
-                    IdeXcelRow = excelRow.Id,
-                    Date = excelRow.Date,
-                    StartHour = excelRow.StartHour,
-                    EndHour = excelRow.EndHour,
-                    Ticket = excelRow.Ticket,
-                    Description = excelRow.Description,
-                    ScphOurs = excelRow.SCPHours,
-                    ScptIcket = excelRow.Ticket,
-                    SCPt = excelRow.SCPT,
-                    ScpcHarged = excelRow.SCPCharged
-                }
-                );
+                swt.ExcelRow.DeleteOnSubmit((from er in swt.ExcelRow
+                                             where er.IdeXcelRow == excelRow.Id
+                                             select er).First());
 
-                Context.SubmitChanges();
+                swt.SubmitChanges();
             }
-            catch
-            {
-                result = 0;
-            }
-
-            return result;
         }
 
         #endregion
