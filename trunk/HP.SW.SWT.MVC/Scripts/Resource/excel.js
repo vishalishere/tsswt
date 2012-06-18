@@ -143,7 +143,7 @@ function onOkRow(res) {
         stopWaiting();
     } else {
         stopWaiting();
-        alert(res.result.message);
+        alert(res.message);
     }
 }
 
@@ -166,7 +166,7 @@ function onAddRow(res) {
         stopWaiting();
     } else {
         stopWaiting();
-        alert(res.result.message);
+        alert(res.message);
     }
 }
 
@@ -198,7 +198,7 @@ function onDeleteRow(res) {
         stopWaiting();
     } else {
         stopWaiting();
-        alert(res.result.message);
+        alert(res.message);
     }
 }
 
