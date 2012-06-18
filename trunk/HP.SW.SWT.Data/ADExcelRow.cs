@@ -104,7 +104,7 @@ namespace HP.SW.SWT.Data
                     Ticket = excelRow.Ticket,
                     Description = excelRow.Description,
                     ScphOurs = excelRow.SCPHours,
-                    ScptIcket = excelRow.Ticket,
+                    ScptIcket = excelRow.SCPTicket,
                     SCPt = excelRow.SCPT,
                     ScpcHarged = excelRow.SCPCharged,
                     T = excelRow.Resource.T,
@@ -126,14 +126,12 @@ namespace HP.SW.SWT.Data
                                     where er.IdeXcelRow == excelRow.Id
                                     select er).FirstOrDefault();
 
-                //eR.IdeXcelRow = excelRow.Id;
-                //eR.Date = excelRow.Date;
                 eR.StartHour = excelRow.StartHour;
                 eR.EndHour = excelRow.EndHour;
                 eR.Ticket = excelRow.Ticket;
                 eR.Description = excelRow.Description;
                 eR.ScphOurs = excelRow.SCPHours;
-                eR.ScptIcket = excelRow.Ticket;
+                eR.ScptIcket = excelRow.SCPTicket;
                 eR.SCPt = excelRow.SCPT;
                 eR.ScpcHarged = excelRow.SCPCharged;
 
