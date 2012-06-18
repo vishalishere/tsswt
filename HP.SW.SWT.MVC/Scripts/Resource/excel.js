@@ -85,7 +85,7 @@ function editRow(row) {
     row.cells[1].innerHTML = '<input type="text" style="width:40px; text-align: right" value="' + row.cells[1].innerHTML + '" onblur="return calcHours(this);"></input>';
     row.cells[2].innerHTML = '<input type="text" style="width:40px; text-align: right" value="' + row.cells[2].innerHTML + '" onblur="return calcHours(this);"></input>';
     row.cells[4].innerHTML = '<input type="text" style="width:100px" value="' + row.cells[4].innerHTML + '"></input>';
-    row.cells[5].innerHTML = '<textarea rows="2" style="width:200px" value="' + row.cells[5].innerHTML + '"></textarea>';
+    row.cells[5].innerHTML = '<textarea rows="2" style="width:200px">' + row.cells[5].innerHTML + '</textarea>';
     row.cells[6].innerHTML = '<input type="text" style="width:50px" value="' + row.cells[6].innerHTML + '"></input>';
     row.cells[7].innerHTML = '<input type="radio" name="HourCharged" value="1"' + (row.cells[7].innerHTML == 'Si' ? 'checked' : '') + '>Si&nbsp;'
         + '<input type="radio" name="HourCharged" value="0"' + (row.cells[7].innerHTML == 'No' ? 'checked' : '') + '>No';
@@ -105,7 +105,7 @@ function uneditRow(row) {
     row.cells[1].innerHTML = $(row.cells[1]).find("input").val();
     row.cells[2].innerHTML = $(row.cells[2]).find("input").val();
     row.cells[4].innerHTML = ($(row.cells[4]).find("input").val() == undefined ? '' : $(row.cells[4]).find("input").val());  //$(row.cells[4]).find("input").val();
-    row.cells[5].innerHTML = ($(row.cells[5]).find("input").val() == undefined ? '' : $(row.cells[5]).find("input").val());  //$(row.cells[5]).find("input").val();
+    row.cells[5].innerHTML = ($(row.cells[5]).find("textarea").val() == undefined ? '' : $(row.cells[5]).find("textarea").val());  //$(row.cells[5]).find("input").val();
     row.cells[6].innerHTML = ($(row.cells[6]).find("input").val() == undefined ? '' : $(row.cells[6]).find("input").val());  //$(row.cells[6]).find("input").val();
     row.cells[7].innerHTML = ($(row.cells[7]).find('input:checked').val() == "1" ? 'Si' : 'No');
     row.cells[8].innerHTML = ($(row.cells[8]).find("input").val() == undefined ? '' : $(row.cells[8]).find("input").val());  //$(row.cells[8]).find("input").val();
@@ -129,10 +129,10 @@ function getExcelRow(row) {
     $('#EndHour').val($(row.cells[2]).find("input").length == 0 ? row.cells[2].innerHTML : $(row.cells[2]).find("input").val());
     $('#Ticket').val($(row.cells[4]).find("input").length == 0 ? row.cells[4].innerHTML : $(row.cells[4]).find("input").val());
     $('#Description').val($(row.cells[5]).find("textarea").length == 0 ? row.cells[5].innerHTML : $(row.cells[5]).find("textarea").val());
-    $('#SCPCharged').val($(row.cells[6]).find("input").length == 0 ? row.cells[6].innerHTML : $(row.cells[6]).find("input").val());
-    $('#SCPHours').val($(row.cells[7]).find("input").length == 0 ? row.cells[7].innerHTML : $(row.cells[7]).find("input").val());
-    $('#SCPTicket').val($(row.cells[8]).find("input").length == 0 ? row.cells[8].innerHTML : $(row.cells[8]).find("input").val());
-    $('#SCPT').val($(row.cells[9]).find("input").length == 0 ? row.cells[9].innerHTML : $(row.cells[9]).find("input").val());
+    $('#SCPCharged').val($(row.cells[7]).find("input:checked").length == 0 ? row.cells[7].innerHTML : $(row.cells[7]).find("input:checked").val());
+    $('#SCPHours').val($(row.cells[8]).find("input").length == 0 ? row.cells[8].innerHTML : $(row.cells[8]).find("input").val());
+    $('#SCPTicket').val($(row.cells[9]).find("input").length == 0 ? row.cells[9].innerHTML : $(row.cells[9]).find("input").val());
+    $('#SCPT').val($(row.cells[10]).find("input").length == 0 ? row.cells[10].innerHTML : $(row.cells[10]).find("input").val());
 
     return $('#form1').serialize();
 }
@@ -140,7 +140,8 @@ function getExcelRow(row) {
 function onOkRow(res) {
     if (res.result == "Ok") {
         $(tbExcel.rows[res.data.rowIndex].cells[0]).find("input").val(res.data.id);
-        stopWaiting();
+        uneditRow(tbExcel.rows[res.data.rowIndex]);
+        stopWaiting();        
     } else {
         stopWaiting();
         alert(res.message);
