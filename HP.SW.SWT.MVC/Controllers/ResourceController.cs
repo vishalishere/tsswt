@@ -158,11 +158,12 @@ namespace HP.SW.SWT.MVC.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { result = "Error", message = ex.Message });
+                //return Json(new { result = "Error", message = ex.Message });
+                return HandlePOSTError(ex);
             }
         }
 
-        //[HttpPost]
+        [HttpPost]
         [Authorize(Roles = "Project Manager, Referente, Desarrollador")]
         public JsonResult UpdateExcelRow(ExcelRow excelRow, int rowIndex)
         {
@@ -181,7 +182,8 @@ namespace HP.SW.SWT.MVC.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { result = "Error", message = ex.Message });
+                //return Json(new { result = "Error", message = ex.Message });
+                return HandlePOSTError(ex);
             }
         }
 
@@ -203,7 +205,8 @@ namespace HP.SW.SWT.MVC.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { Result = "Error", Message = ex.Message });
+                //return Json(new { Result = "Error", Message = ex.Message });
+                return HandlePOSTError(ex);
             }
         }
 

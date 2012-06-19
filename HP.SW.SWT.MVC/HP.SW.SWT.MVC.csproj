@@ -74,6 +74,7 @@
     <Compile Include="Controllers\HolidayController.cs" />
     <Compile Include="App_Code\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogErrorController.cs" />
     <Compile Include="Controllers\PeriodController.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
@@ -81,6 +82,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\LogErrorModels.cs" />
     <Compile Include="Models\PeriodModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\holiday.ashx.cs">
@@ -168,6 +170,7 @@
     <Content Include="Views\Holiday\Details.aspx" />
     <Content Include="Views\Holiday\Edit.aspx" />
     <Content Include="Views\Holiday\Index.aspx" />
+    <Content Include="Views\LogError\Index.aspx" />
     <Content Include="Views\Period\Create.aspx" />
     <Content Include="Views\Period\DashboardReport.ascx" />
     <Content Include="Views\Period\Delete.aspx" />
