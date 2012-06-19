@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cluster.cs" />
+    <Compile Include="LogError.cs" />
+    <Compile Include="LogErrorFilterOptions.cs" />
     <Compile Include="ResourceRealDay.cs" />
     <Compile Include="ResourceAssignmentDay.cs" />
     <Compile Include="ExcelRow.cs" />
