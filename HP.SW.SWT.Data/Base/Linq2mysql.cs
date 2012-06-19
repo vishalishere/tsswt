@@ -74,6 +74,14 @@ namespace HP.SW.SWT.Data
             }
         }
 
+        public Table<LogError> LogError
+        {
+            get
+            {
+                return this.GetTable<LogError>();
+            }
+        }
+
         public Table<MyAspNetApplications> MyAspNetApplications
         {
             get
@@ -1026,6 +1034,182 @@ namespace HP.SW.SWT.Data
                     this._description = value;
                     this.SendPropertyChanged("Description");
                     this.OnDescriptionChanged();
+                }
+            }
+        }
+
+        public event System.ComponentModel.PropertyChangingEventHandler PropertyChanging;
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            System.ComponentModel.PropertyChangingEventHandler h = this.PropertyChanging;
+            if ((h != null))
+            {
+                h(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(string propertyName)
+        {
+            System.ComponentModel.PropertyChangedEventHandler h = this.PropertyChanged;
+            if ((h != null))
+            {
+                h(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [Table(Name = "swt.logerror")]
+    public partial class LogError : System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+    {
+
+        private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
+
+        private System.DateTime _date;
+
+        private int _idlOgError;
+
+        private int _iduSer;
+
+        private string _message;
+
+        private string _stackTrace;
+
+        #region Extensibility Method Declarations
+        partial void OnCreated();
+
+        partial void OnDateChanged();
+
+        partial void OnDateChanging(System.DateTime value);
+
+        partial void OnIdlOgErrorChanged();
+
+        partial void OnIdlOgErrorChanging(int value);
+
+        partial void OnIduSerChanged();
+
+        partial void OnIduSerChanging(int value);
+
+        partial void OnMessageChanged();
+
+        partial void OnMessageChanging(string value);
+
+        partial void OnStackTraceChanged();
+
+        partial void OnStackTraceChanging(string value);
+        #endregion
+
+
+        public LogError()
+        {
+            this.OnCreated();
+        }
+
+        [Column(Storage = "_date", Name = "Date", DbType = "date", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public System.DateTime Date
+        {
+            get
+            {
+                return this._date;
+            }
+            set
+            {
+                if ((_date != value))
+                {
+                    this.OnDateChanging(value);
+                    this.SendPropertyChanging();
+                    this._date = value;
+                    this.SendPropertyChanged("Date");
+                    this.OnDateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_idlOgError", Name = "IDLogError", DbType = "int", IsPrimaryKey = true, IsDbGenerated = true, AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public int IdlOgError
+        {
+            get
+            {
+                return this._idlOgError;
+            }
+            set
+            {
+                if ((_idlOgError != value))
+                {
+                    this.OnIdlOgErrorChanging(value);
+                    this.SendPropertyChanging();
+                    this._idlOgError = value;
+                    this.SendPropertyChanged("IdlOgError");
+                    this.OnIdlOgErrorChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_iduSer", Name = "IDUser", DbType = "int", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public int IduSer
+        {
+            get
+            {
+                return this._iduSer;
+            }
+            set
+            {
+                if ((_iduSer != value))
+                {
+                    this.OnIduSerChanging(value);
+                    this.SendPropertyChanging();
+                    this._iduSer = value;
+                    this.SendPropertyChanged("IduSer");
+                    this.OnIduSerChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_message", Name = "Message", DbType = "varchar(4000)", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [DebuggerNonUserCode()]
+        public string Message
+        {
+            get
+            {
+                return this._message;
+            }
+            set
+            {
+                if (((_message == value)
+                            == false))
+                {
+                    this.OnMessageChanging(value);
+                    this.SendPropertyChanging();
+                    this._message = value;
+                    this.SendPropertyChanged("Message");
+                    this.OnMessageChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_stackTrace", Name = "StackTrace", DbType = "varchar(4000)", AutoSync = AutoSync.Never)]
+        [DebuggerNonUserCode()]
+        public string StackTrace
+        {
+            get
+            {
+                return this._stackTrace;
+            }
+            set
+            {
+                if (((_stackTrace == value)
+                            == false))
+                {
+                    this.OnStackTraceChanging(value);
+                    this.SendPropertyChanging();
+                    this._stackTrace = value;
+                    this.SendPropertyChanged("StackTrace");
+                    this.OnStackTraceChanged();
                 }
             }
         }
