@@ -21,14 +21,7 @@ namespace HP.SW.SWT.Data
 
         public static ENT.Resource Get(string T)
         {
-            return (from r in Context.Resource
-                    where r.T == T
-                    select new ENT.Resource
-                    {
-                        T = r.T,
-                        Cluster = r.Cluster.ShortDescription,
-                        Name = r.Name
-                    }).FirstOrDefault();
+            return GetAll().Where(r => r.T.ToUpper() == T.ToUpper()).FirstOrDefault();
         }
     }
 }

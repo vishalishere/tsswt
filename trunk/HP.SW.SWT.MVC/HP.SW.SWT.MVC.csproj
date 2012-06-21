@@ -154,6 +154,7 @@
     <Content Include="Scripts\jquery\jquery.ui.slider.js" />
     <Content Include="Scripts\jquery\jquery.ui.widget.js" />
     <Content Include="Scripts\Home\Index.js" />
+    <Content Include="Scripts\LogError\Index.js" />
     <Content Include="Scripts\Period\MonthlyHours.js" />
     <Content Include="Scripts\Resource\excel.js" />
     <Content Include="Scripts\dateutil.js" />
@@ -170,6 +171,7 @@
     <Content Include="Views\Holiday\Details.aspx" />
     <Content Include="Views\Holiday\Edit.aspx" />
     <Content Include="Views\Holiday\Index.aspx" />
+    <Content Include="Views\LogError\Details.ascx" />
     <Content Include="Views\LogError\Index.aspx" />
     <Content Include="Views\Period\Create.aspx" />
     <Content Include="Views\Period\DashboardReport.ascx" />

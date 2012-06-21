@@ -45,6 +45,11 @@
 <table border="0" cellpadding="0" cellspacing="0" style="width: 102px;">
 <tr>
     <td>
+        <%: Html.ActionLink("Errores", "Index", "LogError") %>
+    </td>
+</tr>
+<tr>
+    <td>
         <%: Html.ActionLink("Cluster", "Index", "Cluster") %>
     </td>
 </tr>

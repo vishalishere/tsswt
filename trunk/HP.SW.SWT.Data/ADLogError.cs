@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using ENT = HP.SW.SWT.Entities;
+using System.Configuration;
 
 namespace HP.SW.SWT.Data
 {
@@ -11,55 +12,58 @@ namespace HP.SW.SWT.Data
         #region Gets
         public static IEnumerable<ENT.LogError> GetAll(ENT.LogErrorFilterOptions lEFOptions)
         {
-            var res = (from r in Context.LogError
-                    select new ENT.LogError
-                    {
-                        ID = r.IdlOgError,
-                        Date = r.Date,
-                        Message = r.Message,
-                        StackTrace = r.StackTrace,  
-                        User = new Entities.User { ID = r.IduSer }
-                    });
+            var logError = (from r in Context.LogError
+                       select new ENT.LogError
+                       {
+                           ID = r.IdlOgError,
+                           Date = r.Date,
+                           Message = r.Message,
+                           StackTrace = r.StackTrace,
+                           User = new Entities.User { ID = r.IduSer }
+                       });
 
             if (lEFOptions.Id.HasValue)
             {
-                res = res.Where(x => x.ID == lEFOptions.Id.Value);
+                logError= logError.Where(x => x.ID == lEFOptions.Id.Value);
             }
             if (lEFOptions.DateFrom.HasValue)
             {
-                res = res.Where(x => x.Date >= lEFOptions.DateFrom.Value);
+                logError= logError.Where(x => x.Date >= lEFOptions.DateFrom.Value);
             }
             if (lEFOptions.DateTo.HasValue)
             {
-                res = res.Where(x => x.Date <= lEFOptions.DateTo.Value);
+                logError= logError.Where(x => x.Date <= lEFOptions.DateTo.Value);
             }
 
-            res.ToList().ForEach(x => x.User = ADUser.Get(x.User.ID));
+            List<ENT.LogError> res = logError.ToList();
+            res.ForEach(x => x.User = Data.ADUser.Get(x.User.ID));
 
             return res;
         }
 
         public static ENT.LogError Get(int id)
         {
-            var res =  (from r in Context.LogError
-                    where r.IdlOgError == id
-                    select new ENT.LogError
-                    {
-                         ID = r.IdlOgError,
-                         Date = r.Date,
-                         Message = r.Message,  
-                         StackTrace = r.StackTrace,
-                         User = new Entities.User { ID = r.IduSer }
-                    }).FirstOrDefault();
+            ENT.LogError res = (from r in Context.LogError
+                                where r.IdlOgError == id
+                                select new ENT.LogError
+                                {
+                                    ID = r.IdlOgError,
+                                    Date = r.Date,
+                                    Message = r.Message,
+                                    StackTrace = r.StackTrace,
+                                    User = new Entities.User { ID = r.IduSer }
+                                }).FirstOrDefault();
 
             if (res != null)
-                res.User = ADUser.Get(res.User.ID);
+            {
+                res.User = Data.ADUser.Get(res.User.ID);
+            }
 
-            return res;                
+            return res;
         }
         #endregion
 
-        public static int Insert(ENT.LogError logError)
+        private static int Insert(ENT.LogError logError)
         {
             using (SwT ctx = Context)
             {
@@ -79,5 +83,46 @@ namespace HP.SW.SWT.Data
             }
         }
 
+        public static int Log(Exception ex, ENT.User user)
+        {
+            bool logError = string.IsNullOrEmpty(ConfigurationManager.AppSettings["LogError"]) ? true :
+                Boolean.Parse(ConfigurationManager.AppSettings["LogError"]);
+
+            if (logError)
+            {
+                return ADLogError.Insert(new ENT.LogError
+                {
+                    Date = DateTime.Now,
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    User = user
+                });
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        public static int LogInfo(string message, ENT.User user)
+        {
+            bool logInfo = string.IsNullOrEmpty(ConfigurationManager.AppSettings["LogInfo"]) ? true :
+                Boolean.Parse(ConfigurationManager.AppSettings["LogInfo"]);
+
+            if (logInfo)
+            {
+                return ADLogError.Insert(new ENT.LogError
+                {
+                    Date = DateTime.Now,
+                    Message = message,
+                    StackTrace = string.Empty,
+                    User = user
+                });
+            }
+            else
+            {
+                return -1;
+            }
+        }
     }
 }
