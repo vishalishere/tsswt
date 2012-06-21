@@ -146,6 +146,7 @@ namespace HP.SW.SWT.MVC.Controllers
             try
             {
                 excelRow.Resource = GetUserAsResource();
+                Data.ADLogError.LogInfo("AddExcelRow --> Fecha: " + excelRow.Date.ToString("g"), GetUser());
                 return Json(new
                 {
                     result = "Ok",
@@ -158,7 +159,6 @@ namespace HP.SW.SWT.MVC.Controllers
             }
             catch (Exception ex)
             {
-                //return Json(new { result = "Error", message = ex.Message });
                 return HandlePOSTError(ex);
             }
         }

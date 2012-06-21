@@ -8,33 +8,32 @@ namespace HP.SW.SWT.MVC
 {
     public class BaseController : Controller
     {
-        public User GetUser()
+        protected User GetUser()
         {
             return Data.ADUser.GetByLogon(Membership.GetUser().UserName);
         }
 
-        public User GetUserById(int userId)
+        protected Resource GetUserAsResource()
         {
-            return Data.ADUser.Get(userId);
+            User user = GetUser();
+            Resource resource = Data.ADResource.Get(Membership.GetUser().UserName);
+
+            if (resource == null)
+            {
+                Data.ADLogError.LogInfo(string.Format("El usuario {0} no existe como recurso.", Membership.GetUser().UserName), user);
+            }
+            else
+            {
+                Data.ADLogError.LogInfo(string.Format("El usuario {0} existe como recurso.", Membership.GetUser().UserName), user);
+            }
+
+            return resource;
         }
 
-        public Resource GetUserAsResource()
-        {
-            return Data.ADResource.Get(Membership.GetUser().UserName);
-        }
-
-        public JsonResult HandlePOSTError(Exception ex)
+        protected JsonResult HandlePOSTError(Exception ex)
         {
             //invocar método para loggear el error en la tabla
-            LogError logError = new LogError
-            {
-                Date = DateTime.Now,
-                Message = ex.Message,
-                StackTrace = ex.StackTrace,
-                User = GetUser()
-            };
-
-            int id = Data.ADLogError.Insert(logError);
+            int id = Data.ADLogError.Log(ex, GetUser());
             return Json(new { result = "Error", message = ex.Message + "(" + id.ToString() +")"});
         }
     }
