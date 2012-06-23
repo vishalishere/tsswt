@@ -125,8 +125,12 @@ namespace HP.SW.SWT.MVC.Models
 
             MembershipCreateStatus status;
             MembershipUser user = _provider.CreateUser(userName, password, string.Empty, null, null, true, null, out status);
-            user.Comment = fullName;
-            _provider.UpdateUser(user);
+
+            if (status == MembershipCreateStatus.Success)
+            {
+                user.Comment = fullName;
+                _provider.UpdateUser(user);
+            }
             
             return status;
         }
