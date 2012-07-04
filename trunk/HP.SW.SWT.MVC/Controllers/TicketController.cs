@@ -98,6 +98,8 @@ namespace HP.SW.SWT.MVC.Controllers
             ticket.Cluster = viewTicket.Cluster;
             ticket.System = viewTicket.System;
             ticket.RealDeliveryDate = viewTicket.RealDeliveryDate;
+            ticket.IsRework = viewTicket.IsRework;
+            ticket.IsCertifiable = viewTicket.IsCertifiable;
 
             Data.ADTicket.Update(ticket, GetUser());
 

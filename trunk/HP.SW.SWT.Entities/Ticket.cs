@@ -183,5 +183,11 @@ namespace HP.SW.SWT.Entities
 
         [DisplayName("Usuario de Eliminación")]
         public User UserDeleted { get; set; }
+
+        [DisplayName("Es Retrabajo")]
+        public sbyte IsRework { get; set; }
+
+        [DisplayName("Es Certificable")]
+        public sbyte IsCertifiable { get; set; }
     }
 }

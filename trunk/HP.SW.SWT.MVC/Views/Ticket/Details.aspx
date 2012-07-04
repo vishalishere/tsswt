@@ -107,6 +107,11 @@
         <th><%: Html.LabelFor(model => model.RealDeliveryDate)%></th>
         <td><%: String.Format("{0:dd/MM/yyyy}", Model.RealDeliveryDate) %></td>
     </tr>
+    <tr>
+        <th><%: Html.LabelFor(model => model.IsRework)%></th>
+        <td><%: String.Format("{0}", (Model.IsRework == 1 ? "Si" : "No")) %></td>
+    </tr>
+
     </table>
 
     <div style="width: 100%; text-align: right">

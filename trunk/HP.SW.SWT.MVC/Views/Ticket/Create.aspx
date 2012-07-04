@@ -99,6 +99,16 @@
         <th><%: Html.LabelFor(model => model.RealDeliveryDate)%></th>
         <td><%: Html.DateBoxFor(model => model.RealDeliveryDate)%></td>
     </tr>
+    <tr>
+        <th><%: Html.LabelFor(model => model.IsRework)%></th>
+        <td><%: Html.RadioButtonFor(model => model.IsRework, true)%>
+            <%: Html.RadioButtonFor(model => model.IsRework, false)%></td>
+    </tr>
+    <tr>
+        <th><%: Html.LabelFor(model => model.IsCertifiable)%></th>
+        <td><%: Html.RadioButtonFor(model => model.IsCertifiable, true)%>
+            <%: Html.RadioButtonFor(model => model.IsCertifiable, false)%></td>
+    </tr>
     </table>
     <table id="footer" style="width: 100%;" border="0" cellpadding="0" cellspacing="0">
     <tr>

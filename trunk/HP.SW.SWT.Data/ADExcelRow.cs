@@ -20,6 +20,7 @@ namespace HP.SW.SWT.Data
         {
             return (from er in Context.ExcelRow
                     where er.T == u.Logon && er.Period.IdpEriod == period.ID
+                    orderby er.StartHour descending
                     select new ENT.ExcelRow
                     {
                         Id = er.IdeXcelRow,
@@ -126,8 +127,10 @@ namespace HP.SW.SWT.Data
                                     where er.IdeXcelRow == excelRow.Id
                                     select er).FirstOrDefault();
 
-                eR.StartHour = excelRow.StartHour;
-                eR.EndHour = excelRow.EndHour;
+                //eR.StartHour = excelRow.StartHour;
+                eR.StartHour = new DateTime(excelRow.Date.Year, excelRow.Date.Month, excelRow.Date.Day, excelRow.StartHour.Hour, excelRow.StartHour.Minute, excelRow.StartHour.Second);
+                //eR.EndHour = excelRow.EndHour;
+                eR.EndHour = (excelRow.EndHour.HasValue ? (DateTime?)new DateTime(excelRow.Date.Year, excelRow.Date.Month, excelRow.Date.Day, excelRow.EndHour.Value.Hour, excelRow.EndHour.Value.Minute, excelRow.EndHour.Value.Second) : null);
                 eR.Ticket = excelRow.Ticket;
                 eR.Description = excelRow.Description;
                 eR.ScphOurs = excelRow.SCPHours;
