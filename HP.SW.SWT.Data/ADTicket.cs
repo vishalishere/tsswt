@@ -73,7 +73,10 @@ namespace HP.SW.SWT.Data
                                                   Comment = tc.Comment,
                                                   User = ADUser.Get(tc.IDUser),
                                                   Date = tc.Date,
-                                              })
+                                              }),
+                                 IsRework = t.IsRework,
+                                 IsCertifiable = t.IsCertifiable
+                                   
                               });
 
             return (from t in entTickets
@@ -139,7 +142,9 @@ namespace HP.SW.SWT.Data
                                                  Comment = tc.Comment,
                                                  User = ADUser.Get(tc.IDUser),
                                                  Date = tc.Date,
-                                             })
+                                             }),
+                                IsRework = t.IsRework,
+                                IsCertifiable = t.IsCertifiable
                              });
         }
 
@@ -200,7 +205,9 @@ namespace HP.SW.SWT.Data
                                                   Comment = tc.Comment,
                                                   User = ADUser.Get(tc.IDUser),
                                                   Date = tc.Date,
-                                              })
+                                              }),
+                                  IsRework = ticket.IsRework,
+                                  IsCertifiable = ticket.IsCertifiable
                               };
             }
             return res;
@@ -231,6 +238,8 @@ namespace HP.SW.SWT.Data
                     Status = (int)ticket.Status,
                     System = ticket.System,
                     Title = ticket.Title,
+                    IsRework = ticket.IsRework,
+                    IsCertifiable = ticket.IsCertifiable
                 };
 
                 if (!string.IsNullOrEmpty(ticket.NewComment))
@@ -275,6 +284,8 @@ namespace HP.SW.SWT.Data
                 dbTicket.Status = (int)ticket.Status;
                 dbTicket.System = ticket.System;
                 dbTicket.Title = ticket.Title;
+                dbTicket.IsRework = ticket.IsRework;
+                dbTicket.IsCertifiable = ticket.IsCertifiable;
 
                 if (!string.IsNullOrEmpty(ticket.NewComment))
                 {
