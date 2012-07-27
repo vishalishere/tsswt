@@ -189,6 +189,44 @@ namespace HP.SW.SWT.MVC.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Project Manager, Referente, Desarrollador")]
+        public JsonResult UpdateExcelRows(List<ExcelRow> excelRows)
+        {
+            try
+            {
+                Resource res = GetUserAsResource();
+                //excelRows.ForEach(delegate(ExcelRow excelRow)
+                //{
+                //    excelRow.Resource = res; //GetUserAsResource();
+                //});
+
+                //excelRows.ForEach(x => x.Resource = res);
+
+                excelRows.ForEach(x => {
+                    x.Resource = new Resource();
+                        x.Resource.Cluster = res.Cluster;
+                        x.Resource.Name = res.Name;
+                        x.Resource.T = res.T;
+                });
+
+                return Json(new
+                {
+                    result = "Ok",
+                    data = new
+                    {
+                        //rowIndex = rowIndex,
+                        id = Data.ADExcelRow.UpdateAll(excelRows)
+                    }
+                });                
+            }
+            catch (Exception ex)
+            {
+                //return Json(new { result = "Error", message = ex.Message });
+                return HandlePOSTError(ex);
+            }
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Project Manager, Referente, Desarrollador")]
         public JsonResult DeleteExcelRow(ExcelRow excelRow, int rowIndex)
         {
             try

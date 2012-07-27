@@ -18,14 +18,17 @@ function newTask() {
         row.insertCell(i);
     }
 
-    row.cells[0].innerHTML = '<label>' + getDayString(now) + '</label><input type="hidden" value="-1" />';
-    
+//    row.cells[0].innerHTML = '<label>' + getDayString(now) + '</label><input type="hidden" value="-1" />';
+    //row.cells[0].innerHTML = '<input type="text" jType="txtDatePicker" style="width:40px; text-align: right" value="' + getDayString(now) + '" onclick="return calcHours(this);"></input>';
+    row.cells[0].innerHTML = '<td>' + getDayString(now) + '</td>' + '<input type="hidden" value="-1" />';
+
     row.cells[1].innerHTML = getHourString(now);
     row.cells[7].innerHTML = 'No'
     row.cells[11].style.display = 'none';    
     row.cells[12].innerHTML = "<img src='" + imgOkTemplate + "' onclick='okRow(this);' style='cursor:pointer' alt='grabar' />&nbsp;&nbsp;"
-		        + "<img src='" + imgCancelTemplate + "' onclick='cancelRow(this);' style='cursor:pointer' alt='cancelar' />&nbsp;&nbsp;"
-		        + "<img src='" + imgDeleteTemplate + "' onclick='deleteRow(this);' style='cursor:pointer' alt='borrar' />";
+	//	        + "<img src='" + imgCancelTemplate + "' onclick='cancelRow(this);' style='cursor:pointer' alt='cancelar' />&nbsp;&nbsp;"
+	//	        + "<img src='" + imgDeleteTemplate + "' onclick='deleteRow(this);' style='cursor:pointer' alt='borrar' />";
+                + "<img src='" + imgDeleteTemplate + "' onclick='deleteRow(this);' style='cursor:pointer' alt='borrar' />";
 
     row.cells[12].style.display = 'none';
     
@@ -46,8 +49,6 @@ function closeTask(checkErrors) {
 
         if (closingRow.cells[2].innerHTML == '') {
             closingRow.cells[2].innerHTML = getHourString(now);
-
-            okRow(closingRow);
         } else {  //no está vacío: tiene control input
             if (checkErrors) {
                 alert('La tarea ya está cerrada.');
@@ -72,6 +73,12 @@ function closeTask(checkErrors) {
     return true;
 }
 
+
+function OkSave() {
+    okSave(tbExcel.rows);
+
+}
+
 var editingRow;
 function editRow(row) {
     if (editingRow != null) {
@@ -82,6 +89,8 @@ function editRow(row) {
     editingRow.onclick = null;
     var rowHTML = row.innerHTML;
 
+    //    row.cells[0].innerHTML = '<input type="text" style="width:40px; text-align: right" value="' + row.cells[0].innerHTML + '"></input><input type="button" >';  
+    row.cells[0].innerHTML = '<input id="RowDate" jType="txtDatePicker" name="RowDate" readonly="readonly" style="width: 70px;" type="text" value="' + getDayString(new Date()) + '" />';
     row.cells[1].innerHTML = '<input type="text" style="width:40px; text-align: right" value="' + row.cells[1].innerHTML + '" onblur="return calcHours(this);"></input>';
     row.cells[2].innerHTML = '<input type="text" style="width:40px; text-align: right" value="' + row.cells[2].innerHTML + '" onblur="return calcHours(this);"></input>';
     row.cells[4].innerHTML = '<input type="text" style="width:100px" value="' + row.cells[4].innerHTML + '"></input>';
@@ -101,30 +110,34 @@ function editRow(row) {
 
 function uneditRow(row) {
     //var rowHTML = row.cells[11].innerHTML;
+    if ($(row.cells[1]).find("input").length > 0) {
+        row.cells[0].innerHTML = $(row.cells[0]).find("input").val();
+        row.cells[1].innerHTML = $(row.cells[1]).find("input").val();
+        row.cells[2].innerHTML = $(row.cells[2]).find("input").val();
+        row.cells[4].innerHTML = ($(row.cells[4]).find("input").val() == undefined ? '' : $(row.cells[4]).find("input").val());  //$(row.cells[4]).find("input").val();
+        row.cells[5].innerHTML = ($(row.cells[5]).find("textarea").val() == undefined ? '' : $(row.cells[5]).find("textarea").val());  //$(row.cells[5]).find("input").val();
+        row.cells[6].innerHTML = ($(row.cells[6]).find("input").val() == undefined ? '' : $(row.cells[6]).find("input").val());  //$(row.cells[6]).find("input").val();
+        row.cells[7].innerHTML = ($(row.cells[7]).find('input:checked').val() == "1" ? 'Si' : 'No');
+        row.cells[8].innerHTML = ($(row.cells[8]).find("input").val() == undefined ? '' : $(row.cells[8]).find("input").val());  //$(row.cells[8]).find("input").val();
+        row.cells[9].innerHTML = ($(row.cells[9]).find("input").val() == undefined ? '' : $(row.cells[9]).find("input").val());  //$(row.cells[9]).find("input").val();
+        row.cells[10].innerHTML = ($(row.cells[10]).find("input").val() == undefined ? '' : $(row.cells[10]).find("input").val());  //$(row.cells[10]).find("input").val();
+        row.cells[11].innerHTML = '';
+        //row.cells[12].style.display = rowHTML == row.innerHTML ? 'none' : '';
+        row.cells[12].style.display = 'none';
 
-    row.cells[1].innerHTML = $(row.cells[1]).find("input").val();
-    row.cells[2].innerHTML = $(row.cells[2]).find("input").val();
-    row.cells[4].innerHTML = ($(row.cells[4]).find("input").val() == undefined ? '' : $(row.cells[4]).find("input").val());  //$(row.cells[4]).find("input").val();
-    row.cells[5].innerHTML = ($(row.cells[5]).find("textarea").val() == undefined ? '' : $(row.cells[5]).find("textarea").val());  //$(row.cells[5]).find("input").val();
-    row.cells[6].innerHTML = ($(row.cells[6]).find("input").val() == undefined ? '' : $(row.cells[6]).find("input").val());  //$(row.cells[6]).find("input").val();
-    row.cells[7].innerHTML = ($(row.cells[7]).find('input:checked').val() == "1" ? 'Si' : 'No');
-    row.cells[8].innerHTML = ($(row.cells[8]).find("input").val() == undefined ? '' : $(row.cells[8]).find("input").val());  //$(row.cells[8]).find("input").val();
-    row.cells[9].innerHTML = ($(row.cells[9]).find("input").val() == undefined ? '' : $(row.cells[9]).find("input").val());  //$(row.cells[9]).find("input").val();
-    row.cells[10].innerHTML = ($(row.cells[10]).find("input").val() == undefined ? '' : $(row.cells[10]).find("input").val());  //$(row.cells[10]).find("input").val();
-    row.cells[11].innerHTML = '';
-    //row.cells[12].style.display = rowHTML == row.innerHTML ? 'none' : '';
-    row.cells[12].style.display = 'none';
+        row.onclick = function () { editRow(row); };
 
-    row.onclick = function () { editRow(row); };
-
-    editingRow = null;
-    isRowUnderEdition = false;
+        editingRow = null;
+        isRowUnderEdition = false;
+    }
 }
 
 function getExcelRow(row) {
+    uneditRow(row);
     $('#rowIndex').val(row.rowIndex);
     $('#Id').val($(row.cells[0]).find("input").val());
-    $('#Date').val($(row.cells[0]).find("label").text() + '/' + new Date().getFullYear());
+    //$('#Date').val($(row.cells[0]).find("label").text() + '/' + new Date().getFullYear());
+    $('#Date').val($(row.cells[0]).text() + '/' + new Date().getFullYear());
     $('#StartHour').val($(row.cells[1]).find("input").length == 0 ? row.cells[1].innerHTML : $(row.cells[1]).find("input").val());
     $('#EndHour').val($(row.cells[2]).find("input").length == 0 ? row.cells[2].innerHTML : $(row.cells[2]).find("input").val());
     $('#Ticket').val($(row.cells[4]).find("input").length == 0 ? row.cells[4].innerHTML : $(row.cells[4]).find("input").val());
@@ -137,10 +150,10 @@ function getExcelRow(row) {
     return $('#form1').serialize();
 }
 
-function onOkRow(res) {
+function onSave(res) {
     if (res.result == "Ok") {
-        $(tbExcel.rows[res.data.rowIndex].cells[0]).find("input").val(res.data.id);
-        uneditRow(tbExcel.rows[res.data.rowIndex]);
+        //$(tbExcel.rows[res.data.rowIndex].cells[0]).find("input").val(res.data.id);
+        //uneditRow(tbExcel.rows[res.data.rowIndex]);
         stopWaiting();        
     } else {
         stopWaiting();
@@ -148,16 +161,19 @@ function onOkRow(res) {
     }
 }
 
-function okRow(src) {
+function okSave(rows) {
     startWaiting();
-    var row = src;
-    if (row.nodeName == 'IMG') {
-        row = $(row).closest('tr')[0];
+    var serialization = '';
+    for (var i = 1; i < rows.length; i++) {
+        if (rows[i].nodeName == 'IMG') {
+            rows[i] = $(rows[i]).closest('tr')[0];
+        }
+        serialization = serialization + '[' + (i - 1) + '].' + getExcelRow(rows[i]).replace(/&/g, '&[' + (i - 1) + '].') + '&';
     }
 
-    $.post(root('/Resource/UpdateExcelRow'),
-        getExcelRow(row),
-        onOkRow,
+    $.post(root('/Resource/UpdateExcelRows'),
+        serialization,
+        onSave,
         'json');
 }
 
@@ -297,7 +313,7 @@ function convertStringToBoolean(stringValue) {
 
 $(function () {
     tbExcel = document.getElementById('tbExcel');
-    imgOkTemplate = document.getElementById('imgOkTemplate').src;
-    imgCancelTemplate = document.getElementById('imgCancelTemplate').src;
+    //imgOkTemplate = document.getElementById('imgOkTemplate').src;
+    //imgCancelTemplate = document.getElementById('imgCancelTemplate').src;
     imgDeleteTemplate = document.getElementById('imgDeleteTemplate').src;
 });
