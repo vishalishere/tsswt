@@ -22,11 +22,11 @@ function getDaySlot(d) {
 function getHourString(d) {
     var ht = d.getHours();
     var mt = d.getMinutes();
-    return (ht < 10 ? '0' + ht : ht) + ':' + (mt < 10 ? '0' + mt : mt);
+    return (ht < 10 ? '0' + ht.toString() : ht.toString()) + ':' + (mt < 10 ? '0' + mt.toString() : mt.toString());
 }
 
 function getDayString(d) {
     var dt = d.getDate();
-    var mt = d.getMonth() + 1; //months are zero based
-    return (dt < 10 ? '0' + dt : dt) + '/' + (mt < 10 ? '0' + mt : mt);
+    var mt = d.getMonth() + 1; //months are zero based  (WTF??)
+    return (dt < 10 ? '0' + dt.toString() : dt.toString()) + '/' + (mt < 10 ? '0' + mt.toString() : mt.toString());
 }

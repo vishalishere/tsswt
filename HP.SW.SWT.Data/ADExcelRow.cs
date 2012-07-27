@@ -144,6 +144,34 @@ namespace HP.SW.SWT.Data
             }
         }
 
+        public static int UpdateAll(List<ENT.ExcelRow> excelRows)
+        {
+            using (SwT swt = Context)
+            {
+                excelRows.ForEach(excelRow =>
+                {
+                    Data.ExcelRow eR = (from er in swt.ExcelRow
+                                        where er.IdeXcelRow == excelRow.Id
+                                        select er).FirstOrDefault();
+
+                    //eR.StartHour = excelRow.StartHour;
+                    eR.StartHour = new DateTime(excelRow.Date.Year, excelRow.Date.Month, excelRow.Date.Day, excelRow.StartHour.Hour, excelRow.StartHour.Minute, excelRow.StartHour.Second);
+                    //eR.EndHour = excelRow.EndHour;
+                    eR.EndHour = (excelRow.EndHour.HasValue ? (DateTime?)new DateTime(excelRow.Date.Year, excelRow.Date.Month, excelRow.Date.Day, excelRow.EndHour.Value.Hour, excelRow.EndHour.Value.Minute, excelRow.EndHour.Value.Second) : null);
+                    eR.Ticket = excelRow.Ticket;
+                    eR.Description = excelRow.Description;
+                    eR.ScphOurs = excelRow.SCPHours;
+                    eR.ScptIcket = excelRow.SCPTicket;
+                    eR.SCPt = excelRow.SCPT;
+                    eR.ScpcHarged = excelRow.SCPCharged;
+
+                    swt.SubmitChanges();
+                });
+
+                return 1; //eR.IdeXcelRow;
+            }
+        }
+
         public static void Delete(ENT.ExcelRow excelRow)
         {
             using (SwT swt = Context)
