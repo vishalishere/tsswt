@@ -15,6 +15,7 @@
     <asp:ContentPlaceHolder ID="ScriptContent" runat="server" />
     <link href='../../Contents/Site.css' rel='stylesheet' type='text/css' />
     <link href='../../Contents/Redmond.css' rel='stylesheet' type='text/css' />
+	<LINK HREF="../../Contents/images/swt_explorer_icon.ico" REL="shortcut icon" >
     <asp:ContentPlaceHolder ID="StyleContent" runat="server" />
 </head>
 
