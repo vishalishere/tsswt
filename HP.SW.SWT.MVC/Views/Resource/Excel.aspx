@@ -79,13 +79,7 @@
     <% foreach (var item in Model) { %>
     
         <tr onclick="editRow(this);" style="vertical-align:top">
-            <td>
-                <%--<label><%: String.Format("{0:dd/MM/yyyy}", item.Date) %></label><input type="hidden" value="<%: item.Id %>" />--%>
-                <%--<label><%: String.Format("{0:dd/MM}", item.Date) %></label><input type="hidden" value="<%: item.Id %>" />--%>
-                <%: String.Format("{0:dd/MM}", item.Date) %><input type="hidden" value="<%: item.Id %>" />
-                <%--<input id="RowDate" jType="txtDatePicker" name="RowDate" readonly="readonly" style="width: 70px;" type="text" value="<%: String.Format("{0:dd/MM}", item.Date) %>" /><input type="hidden" value="<%: item.Id %>" />--%>
-                <%--<input id="RowDate" jType="txtDatePicker" name="RowDate" readonly="readonly" style="width: 70px;" type="text" value="' + getDayString(new Date()) + '" />--%>
-            </td>
+            <td><%: String.Format("{0:dd/MM}", item.Date) %></td>
             <td><%: String.Format("{0:HH:mm}", item.StartHour) %></td>
             <td><%: String.Format("{0:HH:mm}", item.EndHour)%></td>
             <td><%: String.Format("{0:F}", item.Hours) %></td>
@@ -96,14 +90,8 @@
             <td><%: String.Format("{0:F}", item.SCPHours) %></td>
             <td><%: item.SCPTicket %></td>
             <td><%: item.SCPT %></td>
-            <td style="display:none"></td>
-<%--            <td style="display:none">
-                <img src='<%= Url.Contents("Images/ok.png") %>' onclick='okRow(this);' style='cursor:pointer' alt='ok' />&nbsp;&nbsp;
-                <img src='<%= Url.Contents("Images/cancel.png") %>' onclick='cancelRow(this);' style='cursor:pointer' alt='cancel' />
-            </td>--%>
+            <td style="display:none"><input type="hidden" value="<%: item.Id %>" /></td>
             <td style="display:none">
-		        <%--<img src='<%= Url.Contents("Images/ok.png") %>' onclick='okRow(this);' style='cursor:pointer' alt='grabar' />&nbsp;&nbsp;--%>
-		        <%--<img src='<%= Url.Contents("Images/cancel.png") %>' onclick='cancelRow(this);' style='cursor:pointer' alt='cancelar' />&nbsp;&nbsp;--%>
 		        <img src='<%= Url.Contents("Images/delete.png") %>' onclick='deleteRow(this);' style='cursor:pointer' alt='borrar' />
             </td>
         </tr>
