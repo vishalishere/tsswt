@@ -89,8 +89,7 @@ function editRow(row) {
     editingRow.onclick = null;
     var rowHTML = row.innerHTML;
 
-    //    row.cells[0].innerHTML = '<input type="text" style="width:40px; text-align: right" value="' + row.cells[0].innerHTML + '"></input><input type="button" >';  
-    row.cells[0].innerHTML = '<input id="RowDate" jType="txtDatePicker" name="RowDate" readonly="readonly" style="width: 70px;" type="text" value="' + getDayString(new Date()) + '" />';
+    row.cells[0].innerHTML = '<input id="RowDate" name="RowDate" style="width: 70px;" type="text" value="' + row.cells[0].innerHTML + '" />';
     row.cells[1].innerHTML = '<input type="text" style="width:40px; text-align: right" value="' + row.cells[1].innerHTML + '" onblur="return calcHours(this);"></input>';
     row.cells[2].innerHTML = '<input type="text" style="width:40px; text-align: right" value="' + row.cells[2].innerHTML + '" onblur="return calcHours(this);"></input>';
     row.cells[4].innerHTML = '<input type="text" style="width:100px" value="' + row.cells[4].innerHTML + '"></input>';
@@ -101,16 +100,10 @@ function editRow(row) {
     row.cells[8].innerHTML = '<input type="text" style="width:40px; text-align: right" value="' + row.cells[8].innerHTML + '"></input>';
     row.cells[9].innerHTML = '<input type="text" style="width:100px" value="' + row.cells[9].innerHTML + '"></input>';
     row.cells[10].innerHTML = '<input type="text" style="width:100px" value="' + row.cells[10].innerHTML + '"></input>';
-
-    row.cells[11].innerHTML = '<input type="hidden"></input>';
-    $(row.cells[11]).find("input").val(rowHTML);
-
-    row.cells[12].style.display = '';
 }
 
 function uneditRow(row) {
-    //var rowHTML = row.cells[11].innerHTML;
-    if ($(row.cells[1]).find("input").length > 0) {
+    if ($(row.cells[0]).find("input").length > 0) {
         row.cells[0].innerHTML = $(row.cells[0]).find("input").val();
         row.cells[1].innerHTML = $(row.cells[1]).find("input").val();
         row.cells[2].innerHTML = $(row.cells[2]).find("input").val();
@@ -121,9 +114,6 @@ function uneditRow(row) {
         row.cells[8].innerHTML = ($(row.cells[8]).find("input").val() == undefined ? '' : $(row.cells[8]).find("input").val());  //$(row.cells[8]).find("input").val();
         row.cells[9].innerHTML = ($(row.cells[9]).find("input").val() == undefined ? '' : $(row.cells[9]).find("input").val());  //$(row.cells[9]).find("input").val();
         row.cells[10].innerHTML = ($(row.cells[10]).find("input").val() == undefined ? '' : $(row.cells[10]).find("input").val());  //$(row.cells[10]).find("input").val();
-        row.cells[11].innerHTML = '';
-        //row.cells[12].style.display = rowHTML == row.innerHTML ? 'none' : '';
-        row.cells[12].style.display = 'none';
 
         row.onclick = function () { editRow(row); };
 
@@ -135,8 +125,7 @@ function uneditRow(row) {
 function getExcelRow(row) {
     uneditRow(row);
     $('#rowIndex').val(row.rowIndex);
-    $('#Id').val($(row.cells[0]).find("input").val());
-    //$('#Date').val($(row.cells[0]).find("label").text() + '/' + new Date().getFullYear());
+    $('#Id').val($(row.cells[11]).find("input").val());
     $('#Date').val($(row.cells[0]).text() + '/' + new Date().getFullYear());
     $('#StartHour').val($(row.cells[1]).find("input").length == 0 ? row.cells[1].innerHTML : $(row.cells[1]).find("input").val());
     $('#EndHour').val($(row.cells[2]).find("input").length == 0 ? row.cells[2].innerHTML : $(row.cells[2]).find("input").val());
@@ -152,8 +141,6 @@ function getExcelRow(row) {
 
 function onSave(res) {
     if (res.result == "Ok") {
-        //$(tbExcel.rows[res.data.rowIndex].cells[0]).find("input").val(res.data.id);
-        //uneditRow(tbExcel.rows[res.data.rowIndex]);
         stopWaiting();        
     } else {
         stopWaiting();
