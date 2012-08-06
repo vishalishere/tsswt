@@ -84,6 +84,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\LogErrorModels.cs" />
     <Compile Include="Models\PeriodModels.cs" />
+    <Compile Include="Models\ResourceModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\holiday.ashx.cs">
       <DependentUpon>holiday.ashx</DependentUpon>
@@ -101,11 +102,14 @@
     <Content Include="Contents\Images\arrowDown2.png" />
     <Content Include="Contents\Images\calendar.png" />
     <Content Include="Contents\Images\cancel.png" />
+    <Content Include="Contents\Images\clock.png" />
+    <Content Include="Contents\Images\delete.png" />
     <Content Include="Contents\Images\home.png" />
     <Content Include="Contents\Images\LogoSWT.jpg" />
     <Content Include="Contents\Images\menu.png" />
     <Content Include="Contents\Images\MonthlyHoursDashboardReport.png" />
     <Content Include="Contents\Images\ok.png" />
+    <Content Include="Contents\Images\sea_turtle_background.jpg" />
     <Content Include="Contents\Images\sharepoint_arrow_down.png" />
     <Content Include="Contents\Images\sharepoint_attach.png" />
     <Content Include="Contents\Images\sharepoint_delete.png" />
@@ -120,6 +124,8 @@
     <Content Include="Contents\Images\sharepoint_task_edit.png" />
     <Content Include="Contents\Images\sharepoint_task_new.png" />
     <Content Include="Contents\Images\sharepoint_task_up.png" />
+    <Content Include="Contents\Images\swt_explorer_icon.ico" />
+    <Content Include="Contents\Images\swt_explorer_icon.jpg" />
     <Content Include="Contents\Images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Contents\Images\ui-bg_flat_55_fbec88_40x100.png" />
     <Content Include="Contents\Images\ui-bg_glass_75_d0e5f5_1x400.png" />
@@ -135,6 +141,7 @@
     <Content Include="Contents\Images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Contents\Images\ui-icons_d8e7f3_256x240.png" />
     <Content Include="Contents\Images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="Contents\jquery.ui.timepicker.css" />
     <Content Include="Contents\Redmond.css" />
     <Content Include="Contents\Ticket\Create.css" />
     <Content Include="Contents\Ticket\Delete.css" />
@@ -152,6 +159,7 @@
     <Content Include="Scripts\jquery\jquery.ui.mouse.js" />
     <Content Include="Scripts\jquery\jquery.ui.position.js" />
     <Content Include="Scripts\jquery\jquery.ui.slider.js" />
+    <Content Include="Scripts\jquery\jquery.ui.timepicker.js" />
     <Content Include="Scripts\jquery\jquery.ui.widget.js" />
     <Content Include="Scripts\Home\Index.js" />
     <Content Include="Scripts\LogError\Index.js" />

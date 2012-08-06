@@ -141,7 +141,7 @@ namespace HP.SW.SWT.MVC.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Project Manager, Referente, Desarrollador")]
-        public JsonResult AddExcelRow(ExcelRow excelRow, int rowIndex)
+        public JsonResult AddExcelRow(ExcelRowModel excelRow)
         {
             try
             {
@@ -152,7 +152,7 @@ namespace HP.SW.SWT.MVC.Controllers
                     result = "Ok",
                     data = new
                     {
-                        rowIndex = rowIndex,
+                        rowIndex = excelRow.RowIndex,
                         id = Data.ADExcelRow.Insert(excelRow)
                     }
                 });
@@ -165,47 +165,20 @@ namespace HP.SW.SWT.MVC.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Project Manager, Referente, Desarrollador")]
-        public JsonResult UpdateExcelRow(ExcelRow excelRow, int rowIndex)
-        {
-            try
-            {
-                excelRow.Resource = GetUserAsResource();
-                return Json(new
-                {
-                    result = "Ok",
-                    data = new
-                    {
-                        rowIndex = rowIndex,
-                        id = Data.ADExcelRow.Update(excelRow)
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                //return Json(new { result = "Error", message = ex.Message });
-                return HandlePOSTError(ex);
-            }
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Project Manager, Referente, Desarrollador")]
-        public JsonResult UpdateExcelRows(List<ExcelRow> excelRows)
+        public JsonResult UpdateExcelRows(List<ExcelRowModel> excelRows)
         {
             try
             {
                 Resource res = GetUserAsResource();
-                //excelRows.ForEach(delegate(ExcelRow excelRow)
-                //{
-                //    excelRow.Resource = res; //GetUserAsResource();
-                //});
 
-                //excelRows.ForEach(x => x.Resource = res);
-
-                excelRows.ForEach(x => {
+                excelRows.ForEach(x =>
+                {
                     x.Resource = new Resource();
-                        x.Resource.Cluster = res.Cluster;
-                        x.Resource.Name = res.Name;
-                        x.Resource.T = res.T;
+                    x.Resource.Cluster = res.Cluster;
+                    x.Resource.Name = res.Name;
+                    x.Resource.T = res.T;
+
+                    x.Id = Data.ADExcelRow.Update(x);
                 });
 
                 return Json(new
@@ -213,14 +186,13 @@ namespace HP.SW.SWT.MVC.Controllers
                     result = "Ok",
                     data = new
                     {
-                        //rowIndex = rowIndex,
-                        id = Data.ADExcelRow.UpdateAll(excelRows)
+                        ids = (from e in excelRows
+                               select new { rowIndex = e.RowIndex, id = e.Id })
                     }
-                });                
+                });
             }
             catch (Exception ex)
             {
-                //return Json(new { result = "Error", message = ex.Message });
                 return HandlePOSTError(ex);
             }
         }

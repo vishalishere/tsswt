@@ -25,11 +25,31 @@ namespace HP.SW.SWT.Entities
         public DateTime? EndHour { get; set; }
 
         [DisplayName("Horas")]
-        public decimal? Hours
+        public string Hours
         {
             get
             {
-                return EndHour.HasValue ? (decimal)(EndHour.Value - StartHour).TotalHours : (decimal?)null;
+                string res = string.Empty;
+                if (EndHour.HasValue)
+                { 
+                    double minutes = (EndHour.Value - StartHour).TotalMinutes;
+                    double hours = Math.Floor(minutes / 60);
+
+                    if (hours < 10)
+                    {
+                        res += "0";
+                    }
+                    res += hours + ":";
+
+                    minutes = minutes - hours * 60;
+
+                    if (minutes < 10)
+                    {
+                        res += "0";
+                    }
+                    res += minutes;
+                }
+                return res;
             }
         }
 
