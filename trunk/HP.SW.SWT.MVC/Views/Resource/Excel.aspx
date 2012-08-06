@@ -9,32 +9,22 @@
     <script language='javascript' type='text/javascript' src='<%= Url.Script("dateutil.js") %>'></script>
     <script language='javascript' type='text/javascript' src='<%= Url.Script("Resource/Excel.js") %>'></script>
     <script language='javascript' type='text/javascript' src='<%= Url.Script("jquery/jquery.ui.datepicker.js") %>'></script>
-    <script language='javascript' type="text/javascript">
-        $(function () {
-            $("[jType=txtDatePicker]").datepicker({
-                buttonImage: '<%= Url.Contents("Images/calendar.png")%>',
-                buttonImageOnly: true,
-                dateFormat: 'dd/mm/yy',
-                showOn: 'input'
-            });
-        });
-    </script>
-
-
+    <script language='javascript' type='text/javascript' src='<%= Url.Script("jquery/jquery.ui.timepicker.js") %>'></script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="StyleContent" runat="server">
+    <link href='<%= Url.Contents("jquery.ui.timepicker.css") %>' rel='stylesheet' type='text/css' />
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2>Carga de Horas</h2>
 
     <p style="text-align: center">
-        <img src='<%= Url.Contents("Images/ok.png") %>' id='imgOkTemplate' style='display:none' alt='grabar' />
-		<%--<img src='<%= Url.Contents("Images/cancel.png") %>' id='imgCancelTemplate' style='display:none' alt='cancelar' />        --%>
         <img src='<%= Url.Contents("Images/delete.png") %>' id='imgDeleteTemplate' style='display:none' alt='borrar' />
+        <img src='<%= Url.Contents("Images/calendar.png")%>' id='imgDateTemplate' style='display:none' alt='fecha' />
+        <img src='<%= Url.Contents("Images/clock.png")%>' id='imgTimeTemplate' style='display:none' alt='hora' />
         <button type="button" onclick="newTask();">Nueva Tarea</button>
         <button type="button" onclick="closeTask();">Cerrar Tarea</button>
-        <button type="button" onclick="OkSave();">Grabar</button>
+        <button type="button" onclick="btnSaveClientClick();">Grabar</button>
     </p>
 
     <table width="100%" id="tbExcel" style="text-align:center">
@@ -90,10 +80,8 @@
             <td><%: String.Format("{0:F}", item.SCPHours) %></td>
             <td><%: item.SCPTicket %></td>
             <td><%: item.SCPT %></td>
-            <td style="display:none"><input type="hidden" value="<%: item.Id %>" /></td>
-            <td style="display:none">
-		        <img src='<%= Url.Contents("Images/delete.png") %>' onclick='deleteRow(this);' style='cursor:pointer' alt='borrar' />
-            </td>
+            <td style="display:none"><%: item.Id %></td>
+            <td><img src='<%= Url.Contents("Images/delete.png") %>' onclick='deleteRow(this);' style='cursor:pointer' alt='borrar' /></td>
         </tr>
     
     <% } %>
@@ -104,7 +92,6 @@
         {%>        
             <input id="rowIndex" name="rowIndex" type="text" />
             <%: Html.TextBoxFor(model => model.FirstOrDefault().Id)%>
-            <%--<%: Html.TextBoxFor(model => model.FirstOrDefault().Date)%>--%>
             <%: Html.DateBoxFor(model => model.FirstOrDefault().Date)%>
             <%: Html.TextBoxFor(model => model.FirstOrDefault().StartHour)%>
             <%: Html.TextBoxFor(model => model.FirstOrDefault().EndHour)%>
