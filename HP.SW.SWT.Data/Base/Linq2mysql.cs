@@ -475,8 +475,6 @@ namespace HP.SW.SWT.Data
 
         private string _scpT;
 
-        private string _scptIcket;
-
         private System.DateTime _startHour;
 
         private string _t;
@@ -486,10 +484,6 @@ namespace HP.SW.SWT.Data
         private EntityRef<Period> _period = new EntityRef<Period>();
 
         private EntityRef<Resource> _resource = new EntityRef<Resource>();
-
-        private EntityRef<Ticket> _ticketTicket = new EntityRef<Ticket>();
-
-        private EntityRef<Resource> _resource1 = new EntityRef<Resource>();
 
         #region Extensibility Method Declarations
         partial void OnCreated();
@@ -525,10 +519,6 @@ namespace HP.SW.SWT.Data
         partial void OnSCPtChanged();
 
         partial void OnSCPtChanging(string value);
-
-        partial void OnScptIcketChanged();
-
-        partial void OnScptIcketChanging(string value);
 
         partial void OnStartHourChanged();
 
@@ -719,28 +709,6 @@ namespace HP.SW.SWT.Data
             }
         }
 
-        [Column(Storage = "_scptIcket", Name = "SCPTicket", DbType = "varchar(13)", AutoSync = AutoSync.Never)]
-        [DebuggerNonUserCode()]
-        public string ScptIcket
-        {
-            get
-            {
-                return this._scptIcket;
-            }
-            set
-            {
-                if (((_scptIcket == value)
-                            == false))
-                {
-                    this.OnScptIcketChanging(value);
-                    this.SendPropertyChanging();
-                    this._scptIcket = value;
-                    this.SendPropertyChanged("ScptIcket");
-                    this.OnScptIcketChanged();
-                }
-            }
-        }
-
         [Column(Storage = "_startHour", Name = "StartHour", DbType = "datetime", AutoSync = AutoSync.Never, CanBeNull = false)]
         [DebuggerNonUserCode()]
         public System.DateTime StartHour
@@ -775,10 +743,6 @@ namespace HP.SW.SWT.Data
                 if (((_t == value)
                             == false))
                 {
-                    if (_resource1.HasLoadedOrAssignedValue)
-                    {
-                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-                    }
                     this.OnTChanging(value);
                     this.SendPropertyChanging();
                     this._t = value;
@@ -872,72 +836,6 @@ namespace HP.SW.SWT.Data
                     else
                     {
                         _scpT = null;
-                    }
-                }
-            }
-        }
-
-        [Association(Storage = "_ticketTicket", OtherKey = "Number", ThisKey = "ScptIcket", Name = "fk_ExcelRow_SCPTicket", IsForeignKey = true)]
-        [DebuggerNonUserCode()]
-        public Ticket TicketTicket
-        {
-            get
-            {
-                return this._ticketTicket.Entity;
-            }
-            set
-            {
-                if (((this._ticketTicket.Entity == value)
-                            == false))
-                {
-                    if ((this._ticketTicket.Entity != null))
-                    {
-                        Ticket previousTicket = this._ticketTicket.Entity;
-                        this._ticketTicket.Entity = null;
-                        previousTicket.ExcelRow.Remove(this);
-                    }
-                    this._ticketTicket.Entity = value;
-                    if ((value != null))
-                    {
-                        value.ExcelRow.Add(this);
-                        _scptIcket = value.Number;
-                    }
-                    else
-                    {
-                        _scptIcket = null;
-                    }
-                }
-            }
-        }
-
-        [Association(Storage = "_resource1", OtherKey = "T", ThisKey = "T", Name = "fk_ExcelRow_T", IsForeignKey = true)]
-        [DebuggerNonUserCode()]
-        public Resource Resource1
-        {
-            get
-            {
-                return this._resource1.Entity;
-            }
-            set
-            {
-                if (((this._resource1.Entity == value)
-                            == false))
-                {
-                    if ((this._resource1.Entity != null))
-                    {
-                        Resource previousResource = this._resource1.Entity;
-                        this._resource1.Entity = null;
-                        previousResource.ExcelRow1.Remove(this);
-                    }
-                    this._resource1.Entity = value;
-                    if ((value != null))
-                    {
-                        value.ExcelRow1.Add(this);
-                        _t = value.T;
-                    }
-                    else
-                    {
-                        _t = default(string);
                     }
                 }
             }
@@ -1107,7 +1005,7 @@ namespace HP.SW.SWT.Data
             this.OnCreated();
         }
 
-        [Column(Storage = "_date", Name = "Date", DbType = "date", AutoSync = AutoSync.Never, CanBeNull = false)]
+        [Column(Storage = "_date", Name = "Date", DbType = "datetime", AutoSync = AutoSync.Never, CanBeNull = false)]
         [DebuggerNonUserCode()]
         public System.DateTime Date
         {
@@ -3206,13 +3104,9 @@ namespace HP.SW.SWT.Data
 
         private EntitySet<ExcelRow> _excelRow;
 
-        private EntitySet<ExcelRow> _excelRow1;
-
         private EntitySet<ResourceAssignment> _resourceAssignment;
 
         private EntitySet<SCP> _scp;
-
-        private EntitySet<Ticket> _ticket;
 
         private EntityRef<Cluster> _cluster = new EntityRef<Cluster>();
 
@@ -3236,10 +3130,8 @@ namespace HP.SW.SWT.Data
         public Resource()
         {
             _excelRow = new EntitySet<ExcelRow>(new Action<ExcelRow>(this.ExcelRow_Attach), new Action<ExcelRow>(this.ExcelRow_Detach));
-            _excelRow1 = new EntitySet<ExcelRow>(new Action<ExcelRow>(this.ExcelRow1_Attach), new Action<ExcelRow>(this.ExcelRow1_Detach));
             _resourceAssignment = new EntitySet<ResourceAssignment>(new Action<ResourceAssignment>(this.ResourceAssignment_Attach), new Action<ResourceAssignment>(this.ResourceAssignment_Detach));
             _scp = new EntitySet<SCP>(new Action<SCP>(this.SCP_Attach), new Action<SCP>(this.SCP_Detach));
-            _ticket = new EntitySet<Ticket>(new Action<Ticket>(this.Ticket_Attach), new Action<Ticket>(this.Ticket_Detach));
             this.OnCreated();
         }
 
@@ -3327,20 +3219,6 @@ namespace HP.SW.SWT.Data
             }
         }
 
-        [Association(Storage = "_excelRow1", OtherKey = "T", ThisKey = "T", Name = "fk_ExcelRow_T")]
-        [DebuggerNonUserCode()]
-        public EntitySet<ExcelRow> ExcelRow1
-        {
-            get
-            {
-                return this._excelRow1;
-            }
-            set
-            {
-                this._excelRow1 = value;
-            }
-        }
-
         [Association(Storage = "_resourceAssignment", OtherKey = "T", ThisKey = "T", Name = "fk_ResourceAssignment_Resource")]
         [DebuggerNonUserCode()]
         public EntitySet<ResourceAssignment> ResourceAssignment
@@ -3366,20 +3244,6 @@ namespace HP.SW.SWT.Data
             set
             {
                 this._scp = value;
-            }
-        }
-
-        [Association(Storage = "_ticket", OtherKey = "AssignedTo", ThisKey = "T", Name = "fk_Ticket_AssignedTo")]
-        [DebuggerNonUserCode()]
-        public EntitySet<Ticket> Ticket
-        {
-            get
-            {
-                return this._ticket;
-            }
-            set
-            {
-                this._ticket = value;
             }
         }
         #endregion
@@ -3454,18 +3318,6 @@ namespace HP.SW.SWT.Data
             entity.Resource = null;
         }
 
-        private void ExcelRow1_Attach(ExcelRow entity)
-        {
-            this.SendPropertyChanging();
-            entity.Resource1 = this;
-        }
-
-        private void ExcelRow1_Detach(ExcelRow entity)
-        {
-            this.SendPropertyChanging();
-            entity.Resource1 = null;
-        }
-
         private void ResourceAssignment_Attach(ResourceAssignment entity)
         {
             this.SendPropertyChanging();
@@ -3485,18 +3337,6 @@ namespace HP.SW.SWT.Data
         }
 
         private void SCP_Detach(SCP entity)
-        {
-            this.SendPropertyChanging();
-            entity.Resource = null;
-        }
-
-        private void Ticket_Attach(Ticket entity)
-        {
-            this.SendPropertyChanging();
-            entity.Resource = this;
-        }
-
-        private void Ticket_Detach(Ticket entity)
         {
             this.SendPropertyChanging();
             entity.Resource = null;
@@ -4786,8 +4626,6 @@ namespace HP.SW.SWT.Data
 
         private static System.ComponentModel.PropertyChangingEventArgs emptyChangingEventArgs = new System.ComponentModel.PropertyChangingEventArgs("");
 
-        private string _assignedTo;
-
         private int _category;
 
         private decimal _consumedHours;
@@ -4828,24 +4666,16 @@ namespace HP.SW.SWT.Data
 
         private string _title;
 
-        private EntitySet<ExcelRow> _excelRow;
-
         private EntitySet<SCP> _scp;
 
         private EntitySet<Task> _task;
 
         private EntitySet<TicketComment> _ticketComment;
 
-        private EntityRef<Resource> _resource = new EntityRef<Resource>();
-
         private EntityRef<Cluster> _cluster = new EntityRef<Cluster>();
 
         #region Extensibility Method Declarations
         partial void OnCreated();
-
-        partial void OnAssignedToChanged();
-
-        partial void OnAssignedToChanging(string value);
 
         partial void OnCategoryChanged();
 
@@ -4931,37 +4761,10 @@ namespace HP.SW.SWT.Data
 
         public Ticket()
         {
-            _excelRow = new EntitySet<ExcelRow>(new Action<ExcelRow>(this.ExcelRow_Attach), new Action<ExcelRow>(this.ExcelRow_Detach));
             _scp = new EntitySet<SCP>(new Action<SCP>(this.SCP_Attach), new Action<SCP>(this.SCP_Detach));
             _task = new EntitySet<Task>(new Action<Task>(this.Task_Attach), new Action<Task>(this.Task_Detach));
             _ticketComment = new EntitySet<TicketComment>(new Action<TicketComment>(this.TicketComment_Attach), new Action<TicketComment>(this.TicketComment_Detach));
             this.OnCreated();
-        }
-
-        [Column(Storage = "_assignedTo", Name = "AssignedTo", DbType = "varchar(6)", AutoSync = AutoSync.Never)]
-        [DebuggerNonUserCode()]
-        public string AssignedTo
-        {
-            get
-            {
-                return this._assignedTo;
-            }
-            set
-            {
-                if (((_assignedTo == value)
-                            == false))
-                {
-                    if (_resource.HasLoadedOrAssignedValue)
-                    {
-                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-                    }
-                    this.OnAssignedToChanging(value);
-                    this.SendPropertyChanging();
-                    this._assignedTo = value;
-                    this.SendPropertyChanged("AssignedTo");
-                    this.OnAssignedToChanged();
-                }
-            }
         }
 
         [Column(Storage = "_category", Name = "Category", DbType = "int", AutoSync = AutoSync.Never, CanBeNull = false)]
@@ -5389,20 +5192,6 @@ namespace HP.SW.SWT.Data
         }
 
         #region Children
-        [Association(Storage = "_excelRow", OtherKey = "ScptIcket", ThisKey = "Number", Name = "fk_ExcelRow_SCPTicket")]
-        [DebuggerNonUserCode()]
-        public EntitySet<ExcelRow> ExcelRow
-        {
-            get
-            {
-                return this._excelRow;
-            }
-            set
-            {
-                this._excelRow = value;
-            }
-        }
-
         [Association(Storage = "_scp", OtherKey = "Number", ThisKey = "Number", Name = "fk_SCP_Ticket1")]
         [DebuggerNonUserCode()]
         public EntitySet<SCP> SCP
@@ -5447,39 +5236,6 @@ namespace HP.SW.SWT.Data
         #endregion
 
         #region Parents
-        [Association(Storage = "_resource", OtherKey = "T", ThisKey = "AssignedTo", Name = "fk_Ticket_AssignedTo", IsForeignKey = true)]
-        [DebuggerNonUserCode()]
-        public Resource Resource
-        {
-            get
-            {
-                return this._resource.Entity;
-            }
-            set
-            {
-                if (((this._resource.Entity == value)
-                            == false))
-                {
-                    if ((this._resource.Entity != null))
-                    {
-                        Resource previousResource = this._resource.Entity;
-                        this._resource.Entity = null;
-                        previousResource.Ticket.Remove(this);
-                    }
-                    this._resource.Entity = value;
-                    if ((value != null))
-                    {
-                        value.Ticket.Add(this);
-                        _assignedTo = value.T;
-                    }
-                    else
-                    {
-                        _assignedTo = null;
-                    }
-                }
-            }
-        }
-
         [Association(Storage = "_cluster", OtherKey = "IdcLuster", ThisKey = "IdcLuster", Name = "fk_Ticket_Cluster", IsForeignKey = true)]
         [DebuggerNonUserCode()]
         public Cluster Cluster
@@ -5537,18 +5293,6 @@ namespace HP.SW.SWT.Data
         }
 
         #region Attachment handlers
-        private void ExcelRow_Attach(ExcelRow entity)
-        {
-            this.SendPropertyChanging();
-            entity.TicketTicket = this;
-        }
-
-        private void ExcelRow_Detach(ExcelRow entity)
-        {
-            this.SendPropertyChanging();
-            entity.TicketTicket = null;
-        }
-
         private void SCP_Attach(SCP entity)
         {
             this.SendPropertyChanging();
