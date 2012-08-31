@@ -60,8 +60,10 @@
         <td><%: Html.TextBoxFor(model => model.Title) %></td>
     </tr>
     <tr>
-        <th><%: Html.LabelFor(model => model.Resource)%></th>
+        <%--<th><%: Html.LabelFor(model => model.Resource)%></th>--%>
+        <th>Recursos</th>
         <td><%: Html.DropDownListFor(model => model.Resource.T, (IEnumerable<SelectListItem>)ViewData["Resources"], "--seleccione--")%></td>
+        </table>
     </tr>
     <tr>
         <th><%: Html.LabelFor(model => model.Status)%>&nbsp;<span style="color: Red">*</span></th>

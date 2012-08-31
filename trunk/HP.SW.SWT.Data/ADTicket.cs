@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-
 using ENT = HP.SW.SWT.Entities;
 
 namespace HP.SW.SWT.Data
@@ -30,12 +29,6 @@ namespace HP.SW.SWT.Data
                                   Number = t.Number,
                                   Title = t.Title,
                                   Description = t.Description,
-                                  Resource = t.Resource == null ? null : new ENT.Resource
-                                  {
-                                      T = t.Resource.T,
-                                      Name = t.Resource.Name,
-                                      Cluster = t.Resource.Cluster.ShortDescription,
-                                  },
                                   Status = (ENT.TicketStatus)t.Status,
                                   Priority = (ENT.TicketPriority)t.Priority,
                                   Category = (ENT.TicketCategory)t.Category,
@@ -99,12 +92,6 @@ namespace HP.SW.SWT.Data
                                  Number = t.Number,
                                  Title = t.Title,
                                  Description = t.Description,
-                                 Resource = t.Resource == null ? null : new ENT.Resource
-                                 {
-                                     T = t.Resource.T,
-                                     Name = t.Resource.Name,
-                                     Cluster = t.Resource.Cluster.ShortDescription,
-                                 },
                                  Status = (ENT.TicketStatus)t.Status,
                                  Priority = (ENT.TicketPriority)t.Priority,
                                  Category = (ENT.TicketCategory)t.Category,
@@ -162,12 +149,6 @@ namespace HP.SW.SWT.Data
                                   Number = ticket.Number,
                                   Title = ticket.Title,
                                   Description = ticket.Description,
-                                  Resource = ticket.Resource == null ? null : new ENT.Resource
-                                  {
-                                      T = ticket.Resource.T,
-                                      Name = ticket.Resource.Name,
-                                      Cluster = ticket.Resource.Cluster.ShortDescription,
-                                  },
                                   Status = (ENT.TicketStatus)ticket.Status,
                                   Priority = (ENT.TicketPriority)ticket.Priority,
                                   Category = (ENT.TicketCategory)ticket.Category,
@@ -212,7 +193,14 @@ namespace HP.SW.SWT.Data
             }
             return res;
         }
-        
+
+        public static IEnumerable<ENT.Resource> GetResources(string ticketNumber)
+        {
+            return (from tr in Context.TicketResource
+                    where tr.Number == ticketNumber
+                    select tr).ToList().ConvertAll<ENT.Resource>(x => ADResource.Get(x.T));   
+        }
+
         #endregion
 
         public static void Insert(ENT.Ticket ticket, ENT.User currentUser)
@@ -220,8 +208,7 @@ namespace HP.SW.SWT.Data
             using (SwT context = Context)
             {
                 Ticket dbTicket = new Ticket
-                {
-                    AssignedTo = ticket.Resource.T,
+                {                    
                     Category = (int)ticket.Category,
                     ConsumedHours = 0,
                     DateCreate = DateTime.Now,
@@ -257,6 +244,21 @@ namespace HP.SW.SWT.Data
             }
         }
 
+        public static void InsertResource(ENT.Ticket ticket, ENT.Resource resource, ENT.User currentUser)
+        {
+            using (SwT context = Context)
+            {
+                TicketResource dbTicketResource = new TicketResource
+                {
+                     Number = ticket.Number,
+                     T = resource.T
+                };
+
+                context.TicketResource.InsertOnSubmit(dbTicketResource);
+                context.SubmitChanges();
+            }
+        }
+
         public static void Update(ENT.Ticket ticket, ENT.User currentUser)
         {
             using (SwT context = Context)
@@ -279,7 +281,7 @@ namespace HP.SW.SWT.Data
                 dbTicket.IDUserLastModified = currentUser.ID;
                 dbTicket.Priority = (int)ticket.Priority;
                 dbTicket.RealDeliveryDate = ticket.RealDeliveryDate;
-                dbTicket.AssignedTo = ticket.Resource.T;
+                //dbTicket.AssignedTo = ticket.Resource.T;
                 dbTicket.StartDate = ticket.StartDate;
                 dbTicket.Status = (int)ticket.Status;
                 dbTicket.System = ticket.System;
@@ -319,6 +321,30 @@ namespace HP.SW.SWT.Data
                     ticket.IDUserDelete = user.ID;
                     ticket.DateDelete = DateTime.Now;
                 }
+
+                swt.SubmitChanges();
+            }
+        }
+    
+        public static void DeleteResource(ENT.Ticket ticket, ENT.Resource resource, ENT.User currentUser)
+        {
+            using (SwT swt = Context)
+            {
+                TicketResource dbTicketResource = (from tr in swt.TicketResource
+                                 where tr.Number == ticket.Number
+                                 && tr.T == resource.T
+                                 select tr).FirstOrDefault();
+
+                if (dbTicketResource == null)
+                {
+                    throw new Exception("El ticket-recurso ya fue eliminado.");
+                }
+
+                //if (ticketResource != null)
+                //{
+                //    ticket.IDUserDelete = user.ID;
+                //    ticket.DateDelete = DateTime.Now;
+                //}
 
                 swt.SubmitChanges();
             }

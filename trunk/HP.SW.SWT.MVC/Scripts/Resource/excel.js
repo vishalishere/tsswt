@@ -143,7 +143,7 @@ function getExcelRow(row) {
     $('#Description').val(row.cells[5].innerHTML);
     $('#SCPCharged').val(row.cells[7].innerHTML == "Si" ? 1 : 0);
     $('#SCPHours').val(row.cells[8].innerHTML);
-    $('#SCPTicket').val(row.cells[9].innerHTML);
+//    $('#SCPTicket').val(row.cells[9].innerHTML);
     $('#SCPT').val(row.cells[10].innerHTML);
 
     return $('#form1').serialize();

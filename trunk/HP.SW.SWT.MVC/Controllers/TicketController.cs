@@ -88,7 +88,7 @@ namespace HP.SW.SWT.MVC.Controllers
             Ticket ticket = Data.ADTicket.Get(id);
 
             ticket.Title = viewTicket.Title;
-            ticket.Resource = viewTicket.Resource;
+            //ticket.Resource = viewTicket.Resource;
             ticket.Status = viewTicket.Status;
             ticket.Priority = viewTicket.Priority;
             ticket.Description = viewTicket.Description;
@@ -203,5 +203,10 @@ namespace HP.SW.SWT.MVC.Controllers
             return RedirectToAction("Tasks", new { id = task.TicketNumber });
         }
         #endregion
+
+        public ActionResult UCResourceSelector()
+        {
+            return View();
+        }
     }
 }
