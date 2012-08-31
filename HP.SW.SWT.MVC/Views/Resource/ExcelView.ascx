@@ -29,9 +29,9 @@
     <th>
         <%= Html.LabelFor(model => model.First().SCPHours) %>
     </th>
-    <th>
+<%--    <th>
         <%= Html.LabelFor(model => model.First().SCPTicket) %>
-    </th>
+    </th>--%>
     <th>
         <%= Html.LabelFor(model => model.First().SCPT)%>
     </th>
@@ -66,9 +66,9 @@
     <td align="right">
         <%: String.Format("{0:F1}", item.SCPHours) %>
     </td>
-    <td>
+<%--    <td>
         <%: item.SCPTicket %>
-    </td>
+    </td>--%>
     <td>
         <%: item.SCPT %>
     </td>

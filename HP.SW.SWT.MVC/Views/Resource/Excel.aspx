@@ -56,9 +56,9 @@
             <th>
                 Horas Cargadas
             </th>
-            <th>
+<%--            <th>
                 Cargadas al Ticket
-            </th>
+            </th>--%>
             <th>
                 Cargadas al usuario
             </th>
@@ -78,7 +78,7 @@
             <td><%: item.Cluster %></td>
             <td><%: (item.SCPCharged == 0 ? "No" : "Si") %></td>
             <td><%: String.Format("{0:F}", item.SCPHours) %></td>
-            <td><%: item.SCPTicket %></td>
+            <%--<td><%: item.SCPTicket %></td>--%>
             <td><%: item.SCPT %></td>
             <td style="display:none"><%: item.Id %></td>
             <td><img src='<%= Url.Contents("Images/delete.png") %>' onclick='deleteRow(this);' style='cursor:pointer' alt='borrar' /></td>
@@ -100,7 +100,7 @@
             <%: Html.TextBoxFor(model => model.FirstOrDefault().Cluster)%>
             <%: Html.TextBoxFor(model => model.FirstOrDefault().SCPCharged)%>
             <%: Html.TextBoxFor(model => model.FirstOrDefault().SCPHours)%>
-            <%: Html.TextBoxFor(model => model.FirstOrDefault().SCPTicket)%>
+            <%--<%: Html.TextBoxFor(model => model.FirstOrDefault().SCPTicket)%>--%>
             <%: Html.TextBoxFor(model => model.FirstOrDefault().SCPT)%>
     <% } %>
     </div>

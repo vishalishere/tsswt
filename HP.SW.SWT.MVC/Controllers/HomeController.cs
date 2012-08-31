@@ -62,7 +62,7 @@ namespace HP.SW.SWT.MVC.Controllers
                         {
                             Number = t.Number,
                             Cluster = t.Cluster.ShortDescription,
-                            Resource = t.Resource,
+                            //Resource = t.Resource,
                             StartDate = t.StartDate ?? t.StartDateForecast,
                             DeliveryDate = t.DeliveryDate,
                             DeliveryDateForecast = t.DeliveryDateForecast,

@@ -65,7 +65,7 @@
             </tr>
             </table>
         </th>
-        <th onmouseover="showColumnMenuImage(this); return false;" onmouseout="hideColumnMenuImage(this); return false;">
+<%--        <th onmouseover="showColumnMenuImage(this); return false;" onmouseout="hideColumnMenuImage(this); return false;">
             <table style="width:100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
                 <td>
@@ -76,7 +76,7 @@
                 </td>
             </tr>
             </table>
-        </th>
+        </th>--%>
         <th onmouseover="showColumnMenuImage(this); return false;" onmouseout="hideColumnMenuImage(this); return false;">
             <table style="width:100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
@@ -193,9 +193,9 @@
         <td>
             <%: item.Title %>
         </td>
-        <td>
+<%--        <td>
             <%: item.Resource == null ? string.Empty: item.Resource.Name %>
-        </td>
+        </td>--%>
         <td>
             <%: item.Status.ToReadableString()%>
         </td>

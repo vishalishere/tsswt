@@ -30,14 +30,13 @@ namespace HP.SW.SWT.Data
                         Ticket = er.Ticket,
                         Description = er.Description,
                         SCPHours = er.ScphOurs,
-                        SCPTicket = er.ScptIcket,
                         SCPT = er.SCPt,
                         SCPCharged = er.ScpcHarged, //(er.ScpcHarged == 1)
                         Resource = new Entities.Resource
                         {
-                            Cluster = er.Resource1.Cluster.IdcLuster.ToString(),
-                            Name = er.Resource1.Name,
-                            T = er.Resource1.T
+                            Cluster = er.Resource.Cluster.IdcLuster.ToString(),
+                            Name = er.Resource.Name,
+                            T = er.Resource.T
                         }
                     });
         }
@@ -55,14 +54,13 @@ namespace HP.SW.SWT.Data
                         Ticket = er.Ticket,
                         Description = er.Description,
                         SCPHours = er.ScphOurs,
-                        SCPTicket = er.ScptIcket,
                         SCPT = er.SCPt,
                         SCPCharged = er.ScpcHarged, //(er.ScpcHarged == 1)
                         Resource = new Entities.Resource
                         {
-                            Cluster = er.Resource1.Cluster.IdcLuster.ToString(),
-                            Name = er.Resource1.Name,
-                            T = er.Resource1.T
+                            Cluster = er.Resource.Cluster.IdcLuster.ToString(),
+                            Name = er.Resource.Name,
+                            T = er.Resource.T
                         }
                     });
         }
@@ -80,14 +78,13 @@ namespace HP.SW.SWT.Data
                         Ticket = er.Ticket,
                         Description = er.Description,
                         SCPHours = er.ScphOurs,
-                        SCPTicket = er.ScptIcket,
                         SCPT = er.SCPt,
                         SCPCharged = er.ScpcHarged, //(er.ScpcHarged == 1)
                         Resource = new Entities.Resource
                         {
-                            Cluster = er.Resource1.Cluster.IdcLuster.ToString(),
-                            Name = er.Resource1.Name,
-                            T = er.Resource1.T
+                            Cluster = er.Resource.Cluster.IdcLuster.ToString(),
+                            Name = er.Resource.Name,
+                            T = er.Resource.T
                         }
                     });
         }
@@ -105,7 +102,6 @@ namespace HP.SW.SWT.Data
                     Ticket = excelRow.Ticket,
                     Description = excelRow.Description,
                     ScphOurs = excelRow.SCPHours,
-                    ScptIcket = excelRow.SCPTicket,
                     SCPt = excelRow.SCPT,
                     ScpcHarged = excelRow.SCPCharged,
                     T = excelRow.Resource.T,
@@ -132,7 +128,6 @@ namespace HP.SW.SWT.Data
                 eR.Ticket = excelRow.Ticket;
                 eR.Description = excelRow.Description;
                 eR.ScphOurs = excelRow.SCPHours;
-                eR.ScptIcket = excelRow.SCPTicket;
                 eR.SCPt = excelRow.SCPT;
                 eR.ScpcHarged = excelRow.SCPCharged;
 
@@ -159,7 +154,6 @@ namespace HP.SW.SWT.Data
                     eR.Ticket = excelRow.Ticket;
                     eR.Description = excelRow.Description;
                     eR.ScphOurs = excelRow.SCPHours;
-                    eR.ScptIcket = excelRow.SCPTicket;
                     eR.SCPt = excelRow.SCPT;
                     eR.ScpcHarged = excelRow.SCPCharged;
 
@@ -201,7 +195,6 @@ namespace HP.SW.SWT.Data
                         Ticket = er.Ticket,
                         Description = er.Description,
                         SCPHours = er.ScphOurs,
-                        SCPTicket = er.ScptIcket,
                         SCPT = er.SCPt,
                         SCPCharged = er.ScpcHarged, //(er.ScpcHarged == 1)
                         Resource = ADResource.Get(er.T)
@@ -266,7 +259,7 @@ namespace HP.SW.SWT.Data
                                     select t))
             {
                 res += (from er in Context.ExcelRow
-                        where er.IdpEriod == period.ID && er.ScptIcket == ticket.Number && er.ScphOurs.HasValue
+                        where er.IdpEriod == period.ID && er.ScphOurs.HasValue //&& er.ScptIcket == ticket.Number 
                         select er.ScphOurs).SumOrZero();
             }
             return res;
@@ -280,7 +273,7 @@ namespace HP.SW.SWT.Data
                                     select t))
             {
                 res += (from er in Context.ExcelRow
-                        where er.IdpEriod == period.ID && er.ScptIcket == ticket.Number && er.ScphOurs.HasValue
+                        where er.IdpEriod == period.ID && er.ScphOurs.HasValue //&& er.ScptIcket == ticket.Number 
                         select er.ScphOurs).SumOrZero();
             }
             return res;
@@ -345,7 +338,7 @@ namespace HP.SW.SWT.Data
                                         StartHour = date.AddSeconds(double.Parse(row[2].ToString()) * 60 * 60 * 24),
                                         EndHour = row.IsNull(3) ? (DateTime?)null : date.AddSeconds(double.Parse(row[3].ToString()) * 60 * 60 * 24),
                                         Ticket = row[5].ToString(),
-                                        ScptIcket = ticketNumber,
+                                        //ScptIcket = ticketNumber,
                                         Description = row[7].ToString(),
                                         ScpcHarged = (sbyte)(row.IsNull(9) ? 0 : (row[9].ToString().ToUpperInvariant() == "SI" ? 1 : 0)),
                                         SCPt = row[10].ToString(),

@@ -76,9 +76,6 @@ namespace HP.SW.SWT.Entities
         [DisplayName("Horas cargadas")]
         public decimal? SCPHours { get; set; }
 
-        [DisplayName("Cargadas al Ticket")]
-        public string SCPTicket { get; set; }
-
         [DisplayName("Cargadas al usuario")]
         public string SCPT { get; set; }        
     }
